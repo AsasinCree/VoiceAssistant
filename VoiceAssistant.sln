@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoiceAssistant", "VoiceAssistant\VoiceAssistant.csproj", "{888E1A60-A432-4666-B525-272F2ECB99E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.UI", "ROTK.VoiceAssistant.UI\ROTK.VoiceAssistant.UI.csproj", "{64CFFE74-F74F-49BA-9BA3-3710188A43FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.STT", "ROTK.VoiceAssistant.STT\ROTK.VoiceAssistant.STT.csproj", "{FFCE8478-70E5-45DC-9729-68157D573D58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.LUISIntent", "ROTK.VoiceAssistant.LUIS\ROTK.VoiceAssistant.LUISIntent.csproj", "{14E903D9-1B87-4BCC-8991-F572C05099C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{888E1A60-A432-4666-B525-272F2ECB99E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{888E1A60-A432-4666-B525-272F2ECB99E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{888E1A60-A432-4666-B525-272F2ECB99E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{888E1A60-A432-4666-B525-272F2ECB99E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64CFFE74-F74F-49BA-9BA3-3710188A43FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CFFE74-F74F-49BA-9BA3-3710188A43FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64CFFE74-F74F-49BA-9BA3-3710188A43FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64CFFE74-F74F-49BA-9BA3-3710188A43FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCE8478-70E5-45DC-9729-68157D573D58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCE8478-70E5-45DC-9729-68157D573D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFCE8478-70E5-45DC-9729-68157D573D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCE8478-70E5-45DC-9729-68157D573D58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14E903D9-1B87-4BCC-8991-F572C05099C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14E903D9-1B87-4BCC-8991-F572C05099C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14E903D9-1B87-4BCC-8991-F572C05099C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14E903D9-1B87-4BCC-8991-F572C05099C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
