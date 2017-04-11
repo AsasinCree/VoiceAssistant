@@ -90,8 +90,11 @@
     <Compile Include="Services\VoiceCommandService.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
     <Compile Include="ViewModel\MessagingViewModel.cs" />
-    <Compile Include="View\MessagingView.xaml.cs">
-      <DependentUpon>MessagingView.xaml</DependentUpon>
+    <Compile Include="View\MessageView.xaml.cs">
+      <DependentUpon>MessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PrimaryWorkArea.xaml.cs">
+      <DependentUpon>PrimaryWorkArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\QueryView.xaml.cs">
       <DependentUpon>QueryView.xaml</DependentUpon>
@@ -116,7 +119,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\MessagingView.xaml">
+    <Page Include="Resources\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PrimaryWorkArea.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,7 +172,16 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\voice_recorder_24px.ico" />
+    <Resource Include="Resources\voice1_32px.ico" />
+    <Resource Include="Resources\voice1_48px.ico" />
+    <Resource Include="Resources\voice1_64px.ico" />
+    <Resource Include="Resources\voice2_48px.ico" />
+    <Resource Include="Resources\voice2_64px.ico" />
+    <Resource Include="Resources\voice2_72px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\chevron_left_16px.ico" />
+    <Resource Include="Resources\chevron_left_24px.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\voice_mic_48px.ico" />

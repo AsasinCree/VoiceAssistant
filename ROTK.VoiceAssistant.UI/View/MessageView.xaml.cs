@@ -18,11 +18,11 @@ using System.Windows.Shapes;
 namespace ROTK.VoiceAssistant.UI.View
 {
     /// <summary>
-    /// MessagingView.xaml 的交互逻辑
+    /// Interaction logic for MessagingView1.xaml
     /// </summary>
-    public partial class MessagingView : Page
+    public partial class MessageView : UserControl
     {
-        public MessagingView()
+        public MessageView()
         {
             this.DataContext = new MessagingViewModel(Bootstrapper.EventAggregatorInstant);
             InitializeComponent();
