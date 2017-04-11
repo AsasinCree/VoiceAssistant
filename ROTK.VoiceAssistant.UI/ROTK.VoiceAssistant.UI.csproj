@@ -90,11 +90,8 @@
     <Compile Include="Services\VoiceCommandService.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
     <Compile Include="ViewModel\MessagingViewModel.cs" />
-    <Compile Include="View\MessageView.xaml.cs">
-      <DependentUpon>MessageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\PrimaryWorkArea.xaml.cs">
-      <DependentUpon>PrimaryWorkArea.xaml</DependentUpon>
+    <Compile Include="View\MessagingView.xaml.cs">
+      <DependentUpon>MessagingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\QueryView.xaml.cs">
       <DependentUpon>QueryView.xaml</DependentUpon>
@@ -123,11 +120,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MessageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\PrimaryWorkArea.xaml">
+    <Page Include="View\MessagingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

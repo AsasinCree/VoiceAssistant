@@ -20,9 +20,9 @@ namespace ROTK.VoiceAssistant.UI.View
     /// <summary>
     /// Interaction logic for MessagingView1.xaml
     /// </summary>
-    public partial class MessageView : UserControl
+    public partial class MessagingView : UserControl
     {
-        public MessageView()
+        public MessagingView()
         {
             this.DataContext = new MessagingViewModel(Bootstrapper.EventAggregatorInstant);
             InitializeComponent();

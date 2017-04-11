@@ -24,8 +24,6 @@ namespace ROTK.VoiceAssistant.UI
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        MessageView messagingView ;
-
         public MainWindow()
         {
             this.DataContext = new MainWindowsViewModel(Bootstrapper.EventAggregatorInstant);
@@ -35,7 +33,7 @@ namespace ROTK.VoiceAssistant.UI
 
         public String SelectedView
         {
-            get { return this.MainTabControl.SelectedValue.ToString(); }
+            get { return this.SpecificWorkArea.Children.GetType().ToString(); }
         }
 
         private void Voice_Click(object sender, RoutedEventArgs e)
@@ -59,10 +57,20 @@ namespace ROTK.VoiceAssistant.UI
         {
             this.Back.Visibility = Visibility.Visible;
             this.TileArea.Visibility = Visibility.Collapsed;
-            messagingView = new MessageView();
+            MessagingView messagingView = new MessagingView();
             DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.5)));
-            this.messagingView.BeginAnimation(MessageView.OpacityProperty, widthAnimation);
+            messagingView.BeginAnimation(MessagingView.OpacityProperty, widthAnimation);
             this.SpecificWorkArea.Children.Add(messagingView);
+        }
+
+        private void QueryTileClick(object sender, RoutedEventArgs e)
+        {
+            this.Back.Visibility = Visibility.Visible;
+            this.TileArea.Visibility = Visibility.Collapsed;
+            QueryView queryView = new QueryView();
+            DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.5)));
+            queryView.BeginAnimation(MessagingView.OpacityProperty, widthAnimation);
+            this.SpecificWorkArea.Children.Add(queryView);
         }
     }
 }
