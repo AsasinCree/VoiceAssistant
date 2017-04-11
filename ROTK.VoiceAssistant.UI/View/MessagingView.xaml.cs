@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Prism.Events;
+using ROTK.VoiceAssistant.UI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,7 @@ namespace ROTK.VoiceAssistant.UI.View
     {
         public MessagingView()
         {
+            this.DataContext = new MessagingViewModel(Bootstrapper.EventAggregatorInstant);
             InitializeComponent();
         }
     }

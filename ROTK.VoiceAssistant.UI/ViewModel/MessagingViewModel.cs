@@ -1,5 +1,8 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
+using ROTK.VoiceAssistant.Events;
+using ROTK.VoiceAssistant.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +15,47 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 {
     public class MessagingViewModel: BindableBase
     {
-        public string Title { get; set; }
+        private IEventAggregator ea;
+        public MessagingViewModel(IEventAggregator ea)
+        {
+            this.ea = ea;
+
+            this.ea.GetEvent<MessageSentEvent>().Subscribe(MessageReceived);
+        }
+        private string title;
+        public string Title
+        {
+            get { return title; }
+            set
+            {
+                this.title = value;
+                RaisePropertyChanged("Title");
+            }
+        }
 
         public string To { get; set; }
+
+        private string content;
+        public string Content
+        {
+            get { return content; }
+            set
+            {
+
+                this.content = value;
+                RaisePropertyChanged("Content");
+            }
+        }
 
 
         public ICommand SendMessage
         {
             get { return new DelegateCommand(() => this.Title = "Test"); }
+        }
+
+        public void MessageReceived(Message mesage)
+        {
+         
         }
     }
 }

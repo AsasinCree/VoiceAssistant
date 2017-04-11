@@ -82,6 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Services\VoiceCommandService.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
     <Compile Include="ViewModel\MessagingViewModel.cs" />
@@ -164,6 +165,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\voice_mic_24px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ROTK.VoiceAssistant.Events\ROTK.VoiceAssistant.Events.csproj">
+      <Project>{27e8d2c2-badf-469d-9f06-5349c4e925c7}</Project>
+      <Name>ROTK.VoiceAssistant.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ROTK.VoiceAssistant.IntentHandler\ROTK.VoiceAssistant.IntentHandler.csproj">
+      <Project>{57175c87-bede-41cf-8145-d02048e657b4}</Project>
+      <Name>ROTK.VoiceAssistant.IntentHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ROTK.VoiceAssistant.Model\ROTK.VoiceAssistant.Model.csproj">
+      <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>
+      <Name>ROTK.VoiceAssistant.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

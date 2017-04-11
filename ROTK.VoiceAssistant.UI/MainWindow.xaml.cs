@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using ROTK.VoiceAssistant.UI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,9 @@ namespace ROTK.VoiceAssistant.UI
     {
         public MainWindow()
         {
+            this.DataContext = new MainWindowsViewModel(Bootstrapper.EventAggregatorInstant);
             InitializeComponent();
+
         }
 
         public String SelectedView

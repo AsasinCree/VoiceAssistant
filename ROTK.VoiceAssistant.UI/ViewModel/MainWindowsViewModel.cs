@@ -1,6 +1,9 @@
 ﻿using Microsoft.CognitiveServices.SpeechRecognition;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
+using ROTK.VoiceAssistant.Events;
+using ROTK.VoiceAssistant.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,6 +16,8 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 {
     public class MainWindowsViewModel : BindableBase
     {
+        IEventAggregator ea;
+
        public string Title { get; set; }
 
         #region Configuration Properties
@@ -85,8 +90,10 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         
         private readonly MicrophoneRecognitionClient micClient;
 
-        public MainWindowsViewModel()
+        public MainWindowsViewModel(IEventAggregator ea)
         {
+            this.ea = ea;
+            this.ea.GetEvent<MessageSentEvent>().Subscribe(MessageReceived);
             //this.micClient =
             //   SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
             //   this.DefaultLocale,
@@ -96,14 +103,26 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             //this.micClient.AuthenticationUri = this.AuthenticationUri;
         }
 
-        public ICommand StartVoiceService
+
+        private void MessageReceived(Message message)
+
+        {
+
+        }
+
+        public ICommand StartVoiceCommand
         {
             get
             {
                 return new DelegateCommand(
-                  () => this.Title = "Test"
+                  new Action(StartVoice)
                     );
             }
+        }
+
+        private void StartVoice()
+        {
+
         }
 
     }

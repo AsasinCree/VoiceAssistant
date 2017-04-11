@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{57175C87-BEDE-41CF-8145-D02048E657B4}</ProjectGuid>
+    <ProjectGuid>{27E8D2C2-BADF-469D-9F06-5349C4E925C7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ROTK.VoiceAssistant.IntentHandler</RootNamespace>
-    <AssemblyName>ROTK.VoiceAssistant.IntentHandler</AssemblyName>
+    <RootNamespace>ROTK.VoiceAssistant.Events</RootNamespace>
+    <AssemblyName>ROTK.VoiceAssistant.Events</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,26 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageIntentHandler.cs" />
+    <Compile Include="MessageSentEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UIOperationIntentHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.Events\ROTK.VoiceAssistant.Events.csproj">
-      <Project>{27e8d2c2-badf-469d-9f06-5349c4e925c7}</Project>
-      <Name>ROTK.VoiceAssistant.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.LUISClientLibrary\ROTK.VoiceAssistant.LUISClientLibrary.csproj">
-      <Project>{43DAA109-EF1B-4C29-B231-9CFC88142446}</Project>
-      <Name>ROTK.VoiceAssistant.LUISClientLibrary</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ROTK.VoiceAssistant.Model\ROTK.VoiceAssistant.Model.csproj">
       <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>
       <Name>ROTK.VoiceAssistant.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
