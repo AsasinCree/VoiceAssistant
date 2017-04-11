@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="ROTK.VoiceAssistant.UI.View.MessageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ROTK.VoiceAssistant.UI.View"
+              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             mc:Ignorable="d" 
+             d:DesignHeight="300">
+    <UserControl.Resources>
+        <Thickness x:Key="ColumnMargin">10 5 10 5</Thickness>
+        <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="{StaticResource ColumnMargin}">
+            <Grid Margin="{StaticResource ControlMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="To"/>
+                <TextBox Grid.Column="1" x:Name="TxtTo"/>
+            </Grid>
+            <Grid Margin="{StaticResource ControlMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Subject"/>
+                <TextBox Grid.Column="1" x:Name="TxtSubject"/>
+            </Grid>
+            <Grid Margin="{StaticResource ControlMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Content"/>
+                <TextBox Grid.Column="1" Height="200" x:Name="TxtContent"/>
+            </Grid>
+            <Button Margin="{StaticResource ControlMargin}" Width="50" Content="Submit"  />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="{StaticResource ColumnMargin}">
+           
+        </StackPanel>
+
+       
+    </Grid>
+</UserControl>
