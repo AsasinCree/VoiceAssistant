@@ -22,6 +22,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
             this.ea.GetEvent<MessageSentEvent>().Subscribe(MessageReceived);
         }
+
         private string title;
         public string Title
         {
@@ -41,9 +42,19 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             get { return content; }
             set
             {
-
                 this.content = value;
                 RaisePropertyChanged("Content");
+            }
+        }
+
+        private bool isFocused;
+        public bool IsFocused
+        {
+            get { return isFocused; }
+            set
+            {
+                this.isFocused = value;
+                RaisePropertyChanged("IsFocused");
             }
         }
 
