@@ -158,6 +158,13 @@
   <ItemGroup>
     <Resource Include="Resources\voice_recorder_24px.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\voice_mic_48px.ico" />
+    <Resource Include="Resources\voice_mic_64px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\voice_mic_24px.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

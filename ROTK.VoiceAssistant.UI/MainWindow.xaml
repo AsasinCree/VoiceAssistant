@@ -35,24 +35,6 @@
             </Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
-    <Controls:MetroWindow.RightWindowCommands>
-        <Controls:WindowCommands>
-            <Button>
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="20"
-                   Height="20"
-                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource voice2}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Margin="4 0 0 0"
-                   VerticalAlignment="Center"
-                   Text="deploy cupcakes" />
-                </StackPanel>
-            </Button>
-        </Controls:WindowCommands>
-    </Controls:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -66,6 +48,11 @@
             <MenuItem Header="Function"/>
             <MenuItem Header="Setting"/>
             <MenuItem Header="Help"/>
+            <MenuItem Name="Voice" Click="Voice_Click" Margin="299,0,0,0" Width="30">
+                <MenuItem.Background>
+                    <ImageBrush ImageSource="Resources/voice_mic_24px.ico" Stretch="None" TileMode="FlipXY"/>
+                </MenuItem.Background>
+            </MenuItem>
         </Menu>
 
         <Controls:MetroAnimatedSingleRowTabControl x:Name="MainTabControl" Grid.Row="1">
@@ -81,7 +68,6 @@
             <Separator />
             <TabItem Background="Orchid" Header="BOLO" Height="100" Width="200"></TabItem>
             <Separator />
-
         </Controls:MetroAnimatedSingleRowTabControl>
         <StatusBar Grid.Row="2" Background="White">
             <Separator Style="{StaticResource MetroStatusBarSeparator}" />
