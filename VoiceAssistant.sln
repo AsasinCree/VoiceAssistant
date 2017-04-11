@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.UI", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.LUISClientLibrary", "ROTK.VoiceAssistant.LUISClientLibrary\ROTK.VoiceAssistant.LUISClientLibrary.csproj", "{43DAA109-EF1B-4C29-B231-9CFC88142446}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.IntentHandler", "ROTK.VoiceAssistant.IntentHandler\ROTK.VoiceAssistant.IntentHandler.csproj", "{57175C87-BEDE-41CF-8145-D02048E657B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{43DAA109-EF1B-4C29-B231-9CFC88142446}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43DAA109-EF1B-4C29-B231-9CFC88142446}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43DAA109-EF1B-4C29-B231-9CFC88142446}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57175C87-BEDE-41CF-8145-D02048E657B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57175C87-BEDE-41CF-8145-D02048E657B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57175C87-BEDE-41CF-8145-D02048E657B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57175C87-BEDE-41CF-8145-D02048E657B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
