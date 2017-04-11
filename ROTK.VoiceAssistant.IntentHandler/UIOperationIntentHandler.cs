@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using Prism.Events;
 using ROTK.VoiceAssistant.Events;
+using ROTK.VoiceAssistant.Model;
 
 namespace ROTK.VoiceAssistant.IntentHandler
 {
@@ -12,22 +13,31 @@ namespace ROTK.VoiceAssistant.IntentHandler
 
         // 0.65 is the confidence score required by this intent in order to be activated
         // Only picks out a single entity value
-        [IntentHandler(0.65, Name = "OpenScreenActivity")]
+        [IntentHandler(0.65, Name = Constant.OpenScreenActivityIntent)]
         public static void OpenScreenActivity(LuisResult result, object context)
         {
-            List<Entity> entitis = result.GetAllEntities();
-            
-            if (entitis != null && entitis.Count > 0)
+            if (result.TopScoringIntent.Name.Equals(Constant.OpenScreenActivityIntent, StringComparison.CurrentCultureIgnoreCase))
             {
-                Entity entity = entitis[0];
-                Aggregator.GetEvent<UIOperationEvent>().Publish(entity.Value);
+                List<Entity> entitis = result.GetAllEntities();
+
+                if (entitis != null && entitis.Count > 0)
+                {
+                    foreach (Entity entity in entitis)
+                    {
+                        if (entity.Name.Equals(Constant.OperationTypeEntity, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            Aggregator.GetEvent<UIOperationEvent>().Publish(entity.Value);
+                            break;
+                        }
+                    }
+                }
             }
         }
 
-        [IntentHandler(0.7, Name = "None")]
+        [IntentHandler(0.7, Name = Constant.NoneIntent)]
         public static void None(LuisResult result, object context)
         {
-
+            // Nothing to do.
         }
     }
 }
