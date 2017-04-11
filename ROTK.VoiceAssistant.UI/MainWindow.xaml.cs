@@ -25,5 +25,13 @@ namespace ROTK.VoiceAssistant.UI
         {
             InitializeComponent();
         }
+
+        private void Voice_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem item = sender as MenuItem;
+            ImageBrush image = new ImageBrush(new BitmapImage(new Uri("../../Resources/voice_recorder_24px.ico", UriKind.Relative)));
+            image.Stretch = Stretch.None;
+            item.Background = image;
+        }
     }
 }
