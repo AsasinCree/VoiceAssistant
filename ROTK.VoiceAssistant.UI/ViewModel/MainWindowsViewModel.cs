@@ -93,7 +93,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         public MainWindowsViewModel(IEventAggregator ea)
         {
             this.ea = ea;
-            this.ea.GetEvent<MessageSentEvent>().Subscribe(MessageReceived);
+            this.ea.GetEvent<UIOperationEvent>().Subscribe(MessageReceived);
             //this.micClient =
             //   SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
             //   this.DefaultLocale,
@@ -104,7 +104,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         }
 
 
-        private void MessageReceived(Message message)
+        private void MessageReceived(string message)
 
         {
 
