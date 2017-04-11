@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ROTK.VoiceAssistant.UI"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="960"
                         BorderThickness="0" 
@@ -19,16 +20,30 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
-            <Button Content="settings" />
             <Button>
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20"
                    Height="20"
                    Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cupcake}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_magnify_back}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20"
+                   Height="20"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource voice2}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <TextBlock Margin="4 0 0 0"
@@ -41,9 +56,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0"
                 Margin="2"
@@ -54,38 +68,33 @@
             <MenuItem Header="Help"/>
         </Menu>
 
-        <Grid Grid.Row="1">
-            <Controls:Tile Background="CadetBlue" Margin="10,10,731,0" VerticalAlignment="Top" Height="102" Width="Auto" Title="Message"/>
-            <Controls:Tile Background="AntiqueWhite" Margin="250,10,491,0" VerticalAlignment="Top" Height="102" Width="Auto" Title="Query"/>
-            <Controls:Tile Background="ForestGreen" Margin="492,10,249,0" VerticalAlignment="Top" Height="102" Width="Auto" Title="Chat"/>
-            <Controls:Tile Background="BlueViolet" Margin="731,10,10,0" VerticalAlignment="Top" Height="102" Width="Auto" Title="FI"/>
-        </Grid>
-        <!--<StatusBar Grid.Row="2" Background="White">-->
-        <!--<Separator Style="{StaticResource MetroStatusBarSeparator}" />-->
-        <Grid Grid.Row="2" >
-            <Grid Grid.Column="0" Margin="0,0,494,0">
-                <Label HorizontalContentAlignment="Right" Content="I'm listening!" VerticalContentAlignment="Center"></Label>
-            </Grid>
-            <Grid Margin="463,0,459,0">
-                <Rectangle>
-                    <Rectangle.Fill>
-                        <VisualBrush Visual="{StaticResource appbar_sound_3}" />
-                    </Rectangle.Fill>
-                </Rectangle>
-                <!--<Image Source="voice.ico" Height="24" Width="78"/>-->
-            </Grid>
-            <Grid Margin="494,0,0,0">
-                <Label HorizontalContentAlignment="Left" Content="Message Screen is displayed!" VerticalContentAlignment="Center"></Label>
-            </Grid>
-            <!--<StatusBarItem Grid.Column="0" VerticalContentAlignment="Center"  Foreground="Gray">
-                    <Label HorizontalContentAlignment="Right" Content="Enabled" ></Label>
-                </StatusBarItem>
-               
-            <StatusBarItem Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Source="voice.ico" Height="24" Width="78"/>
+        <Controls:MetroAnimatedSingleRowTabControl x:Name="MainTabControl" Grid.Row="1">
+            <TabItem Background="CadetBlue" Header="Message"  Height="100" Width="200">
+                <Frame Source="/View/MessagingView.xaml" />
+            </TabItem>
+            <Separator />
+            <TabItem Background="AntiqueWhite" Header="Query" Height="100" Width="200">
+                <Frame Source="/View/QueryView.xaml" />
+            </TabItem>
+            <Separator />
+            <TabItem Background="ForestGreen" Header="Chat" Height="100" Width="200"></TabItem>
+            <Separator />
+            <TabItem Background="Orchid" Header="BOLO" Height="100" Width="200"></TabItem>
+            <Separator />
+
+        </Controls:MetroAnimatedSingleRowTabControl>
+        <StatusBar Grid.Row="2" Background="White">
+            <Separator Style="{StaticResource MetroStatusBarSeparator}" />
+
+            <StatusBarItem Grid.Column="0" VerticalContentAlignment="Center"  Foreground="Gray">
+                <Label HorizontalContentAlignment="Right" Content="Enabled" ></Label>
             </StatusBarItem>
-            <StatusBarItem Grid.Column="2" Foreground="Gray" Content="Message Screen is displayed" />-->
-        </Grid>
-        <!--</StatusBar>-->
+
+            <StatusBarItem Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!--<Image Source="voice.ico" Height="24" Width="78"/>-->
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2" Foreground="Gray" Content="Message Screen is displayed" /> -->
+
+        </StatusBar>
     </Grid>
 </Controls:MetroWindow>
