@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessageIntentHandler.cs" />
+    <Compile Include="OperationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIOperationIntentHandler.cs" />
   </ItemGroup>
