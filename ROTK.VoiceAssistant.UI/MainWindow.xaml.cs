@@ -25,5 +25,10 @@ namespace ROTK.VoiceAssistant.UI
         {
             InitializeComponent();
         }
+
+        public String SelectedView
+        {
+            get { return this.MainTabControl.SelectedValue.ToString(); }
+        }
     }
 }

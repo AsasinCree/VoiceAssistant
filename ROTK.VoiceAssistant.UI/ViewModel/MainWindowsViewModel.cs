@@ -1,4 +1,5 @@
 ﻿using Microsoft.CognitiveServices.SpeechRecognition;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ROTK.VoiceAssistant.UI.ViewModel
 {
@@ -85,13 +87,24 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         public MainWindowsViewModel()
         {
-            this.micClient =
-               SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
-               this.DefaultLocale,
-               this.SubscriptionKey,
-               this.LuisAppId,
-               this.LuisSubscriptionID);
-            this.micClient.AuthenticationUri = this.AuthenticationUri;
+            //this.micClient =
+            //   SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
+            //   this.DefaultLocale,
+            //   this.SubscriptionKey,
+            //   this.LuisAppId,
+            //   this.LuisSubscriptionID);
+            //this.micClient.AuthenticationUri = this.AuthenticationUri;
         }
+
+        public ICommand StartVoiceService
+        {
+            get
+            {
+                return new DelegateCommand(
+                  () => this.Title = "Test"
+                    );
+            }
+        }
+
     }
 }
