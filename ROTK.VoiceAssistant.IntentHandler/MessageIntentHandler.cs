@@ -7,14 +7,14 @@ namespace ROTK.VoiceAssistant.IntentHandler
 {
     public class MessageIntentHandler
     {
-        private static EventAggregator ea;
+        public static EventAggregator Aggregator;
+
         // 0.65 is the confidence score required by this intent in order to be activated
         // Only picks out a single entity value
         [IntentHandler(0.65, Name = "SendMessageActivity")]
         public static void SendMessageActivity(LuisResult result, object context)
         {
-
-            ea.GetEvent<MessageSentEvent>().Publish(new Message());
+            Aggregator.GetEvent<MessageSentEvent>().Publish(new Message());
         }
 
         [IntentHandler(0.65, Name = "CreateIncidentActivity")]

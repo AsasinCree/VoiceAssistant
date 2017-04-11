@@ -1,4 +1,5 @@
 ﻿using Prism.Events;
+using ROTK.VoiceAssistant.IntentHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,11 @@ namespace ROTK.VoiceAssistant.UI
 {
     public class Bootstrapper
     {
-       public static readonly EventAggregator EventAggregatorInstant=new EventAggregator();
+        public static readonly EventAggregator EventAggregatorInstant = new EventAggregator();
+
+        static Bootstrapper()
+        {
+            UIOperationIntentHandler.Aggregator = EventAggregatorInstant;
+        }
     }
 }

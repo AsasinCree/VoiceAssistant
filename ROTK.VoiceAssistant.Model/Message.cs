@@ -8,12 +8,15 @@ namespace ROTK.VoiceAssistant.Model
 {
     public class Message
     {
-        public string Title
+        public string To
         {
-            get;set;
+            get; set;
         }
 
-        public string To { get; set; }
+        public string Title
+        {
+            get; set;
+        }
 
         public string Content
         {
