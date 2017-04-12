@@ -96,6 +96,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.aggregator = aggregator;
             this.regionManager = regionManager;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
+            this.backCommand = new DelegateCommand<string>(this.NavigationTo);
         }
 
         private void NavigationTo(string to)
@@ -219,11 +220,6 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             }
         }
         
-        private void NavigationTo(string to)
-        {
-            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
-        }
-
         public ICommand BackCommand
         {
             get { return this.backCommand; }
