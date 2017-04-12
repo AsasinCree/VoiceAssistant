@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CognitiveServices.SpeechRecognition;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,9 @@ namespace ROTK.VoiceAssistant.Services
     public interface IVoiceService
     {
        void StartMicAndRecognition();
+
+        MicrophoneRecognitionClient VoiceClient { get;}
+
+        bool EnableIntent { get; set; }
     }
 }

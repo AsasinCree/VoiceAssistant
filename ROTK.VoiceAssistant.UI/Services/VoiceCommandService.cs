@@ -15,6 +15,19 @@ namespace ROTK.VoiceAssistant.UI.Services
     {
         private MicrophoneRecognitionClient micClient;
 
+        public MicrophoneRecognitionClient VoiceClient
+        {
+            get
+            {
+                return micClient;
+            }
+        }
+
+        public bool EnableIntent
+        {
+            get;set;
+        }
+
         public VoiceService(string DefaultLocale, string SpeechKey, string UIOperationLuisAppId, string LuisSubscriptionID)
             {
             this.micClient =
@@ -25,15 +38,19 @@ namespace ROTK.VoiceAssistant.UI.Services
               LuisSubscriptionID);
 
             this.micClient.OnIntent += this.OnIntentHandler;
+            EnableIntent = true;
         }
 
         private void OnIntentHandler(object sender, SpeechIntentEventArgs e)
         {
-            using (IntentRouter router = IntentRouter.Setup<T>())
+            if (EnableIntent)
             {
-                LuisResult result = new LuisResult(JToken.Parse(e.Payload));
+                using (IntentRouter router = IntentRouter.Setup<T>())
+                {
+                    LuisResult result = new LuisResult(JToken.Parse(e.Payload));
 
-                router.Route(result, this);
+                    router.Route(result, this);
+                }
             }
         }
 
