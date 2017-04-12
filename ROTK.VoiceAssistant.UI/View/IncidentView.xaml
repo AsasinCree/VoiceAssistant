@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="ROTK.VoiceAssistant.UI.View.IncidentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ROTK.VoiceAssistant.UI.View"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:beh="clr-namespace:ROTK.VoiceAssistant.UI.Behavior"
+             mc:Ignorable="d" 
+             d:DesignHeight="300">
+    <UserControl.Resources>
+        <Thickness x:Key="ColumnMargin">10 5 10 5</Thickness>
+        <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+    </UserControl.Resources>
+    <Grid Width="1020" Height="300">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Margin="{StaticResource ColumnMargin}">
+            <Grid Margin="{StaticResource ControlMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Location"/>
+                <TextBox Grid.Column="1" x:Name="txtLocation" Text="{Binding Path=Location}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=IsFocused}" />
+            </Grid>
+            <Grid Margin="{StaticResource ControlMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="City"/>
+                <ComboBox x:Name="cmbCity" Grid.Column="1" >
+                    <ComboBoxItem Content="ACC"/>
+                </ComboBox>
+                <Label Grid.Column="3" Content="Building"/>
+                <TextBox Grid.Column="4" x:Name="txtBuilding" Text="{Binding Path=Building}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=IsFocused}" />
+            </Grid>
+            <Grid Margin="{StaticResource ControlMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Incident Type"/>
+                <ComboBox x:Name="cmbIncidentType" Grid.Column="1" >
+                    <ComboBoxItem Content="ACC"/>
+                </ComboBox>
+            </Grid>
+            <Grid Margin="{StaticResource ControlMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="License Plate"/>
+                <TextBox Grid.Column="1" x:Name="txtLicensePlate" Text="{Binding Path=LicensePlate}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=IsFocused}"/>
+            </Grid>
+            <Grid Margin="{StaticResource ControlMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="State"/>
+                <ComboBox x:Name="cmbState" Grid.Column="1" >
+                    <ComboBoxItem Content="ACC"/>
+                </ComboBox>
+            </Grid>
+            <Grid Margin="{StaticResource ControlMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Plate Type"/>
+                <ComboBox x:Name="cmbPlateType" Grid.Column="1" >
+                    <ComboBoxItem Content="ACC"/>
+                </ComboBox>
+            </Grid>
+            <Grid Margin="{StaticResource ControlMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Plate Year"/>
+                <TextBox Grid.Column="1" x:Name="txtPlateYear" Text="{Binding Path=PlateYear}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=IsFocused}"/>
+            </Grid>
+            <Button Margin="{StaticResource ControlMargin}" Width="70" Height="30" Content="Create" Command="{Binding Path=CreateIncident}" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="{StaticResource ColumnMargin}">
+        </StackPanel>
+    </Grid>
+</UserControl>

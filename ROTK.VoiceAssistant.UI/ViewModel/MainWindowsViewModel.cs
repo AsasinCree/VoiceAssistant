@@ -25,7 +25,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         IEventAggregator aggregator;
 
         #region Configuration Properties
-        private string subscriptionKey;
+
         /// <summary>
         /// Gets or sets subscription key
         /// </summary>

@@ -2,6 +2,7 @@
 using ROTK.VoiceAssistant.Events;
 using ROTK.VoiceAssistant.LUISClientLibrary;
 using ROTK.VoiceAssistant.Model;
+using System.Collections.Generic;
 
 namespace ROTK.VoiceAssistant.IntentHandler
 {
@@ -14,13 +15,18 @@ namespace ROTK.VoiceAssistant.IntentHandler
         [IntentHandler(0.65, Name = Constant.SendMessageActivityIntent)]
         public static void SendMessageActivity(LuisResult result, object context)
         {
-            //Aggregator.GetEvent<MessageSentEvent>().Publish(new Message());
+            Aggregator.GetEvent<MessageSentEvent>().Publish();
         }
 
         [IntentHandler(0.65, Name = Constant.FillMessageFieldActivityIntent)]
         public static void FillMessageFieldActivity(LuisResult result, object context)
         {
-            //Aggregator.GetEvent<MessageSentEvent>().Publish(new Message());
+            List<Entity> entitis = result.GetAllEntities();
+            if (entitis != null && entitis.Count > 0)
+            {
+                Entity entity = entitis[0];
+                Aggregator.GetEvent<FillMessageFieldEvent>().Publish(entity.Value);
+            }       
         }
 
         [IntentHandler(0.7, Name = Constant.NoneIntent)]

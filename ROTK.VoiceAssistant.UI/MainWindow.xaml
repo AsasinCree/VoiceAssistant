@@ -9,10 +9,10 @@
         xmlns:ViewModel="clr-namespace:ROTK.VoiceAssistant.UI.ViewModel" 
         xmlns:prism="http://www.codeplex.com/prism"
         mc:Ignorable="d"
-        Title="Voice Assistant" Height="600" Width="960"
+        Title="Voice Assistant" Height="500" Width="1020"
                         BorderThickness="0" 
                       GlowBrush="Black"
-                      ResizeMode="CanResizeWithGrip"
+                      ResizeMode="CanMinimize"
                       WindowTransitionsEnabled="False"
                       WindowStartupLocation="CenterScreen">
     <Controls:MetroWindow.Resources>
@@ -46,8 +46,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="83*" />
-                <RowDefinition Height="259*" />
+                <RowDefinition Height="80*" />
+                <RowDefinition Height="260*" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" 
                        VerticalAlignment="Center"
