@@ -29,6 +29,7 @@ namespace ROTK.VoiceAssistant.Model
         #endregion
 
         #region ScreenName
+
         public const string MessageScreenName = "message";
 
         public const string IncidentScreenName = "incident";
@@ -36,9 +37,11 @@ namespace ROTK.VoiceAssistant.Model
         public const string QueryScreenName = "query";
 
         public const string BoloScreenName = "bolo";
+
         #endregion
 
         #region Url
+
         public const string MessageScreenUrl = "\\MessagingView";
 
         public const string IncidentScreenUrl = "\\IncidentView";
