@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 using ROTK.VoiceAssistant.Events;
 using ROTK.VoiceAssistant.IntentHandler;
 using ROTK.VoiceAssistant.LUISClientLibrary;
@@ -84,19 +85,47 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         #endregion
 
         private MicrophoneRecognitionClient micClient;
+        private IRegionManager regionManager;
+
 
         [ImportingConstructor]
-        public MainWindowsViewModel(IEventAggregator aggregator)
+        public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager)
         {
             this.aggregator = aggregator;
-            this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI);
+            this.regionManager = regionManager;
+            this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
+        }
 
+        private void NavigationTo(string to)
+        {
+            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
         }
 
 
         private void OperationUI(string operationType)
         {
-            Title = operationType;
+            if(!string.IsNullOrEmpty(operationType))
+            {
+                switch (operationType)
+                {
+                    case Constant.MessageScreenName:
+                        NavigationTo(Constant.MessageScreenUrl);
+                        break;
+                    case Constant.IncidentScreenName:
+                        NavigationTo(Constant.IncidentScreenUrl);
+                        break;
+                    case Constant.BoloScreenName:
+                        NavigationTo(Constant.BoloScreenUrl);
+                        break;
+                    case Constant.QueryScreenName:
+                        NavigationTo(Constant.QueryScreenUrl);
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+            
         }
 
         public ICommand StartVoiceCommand
