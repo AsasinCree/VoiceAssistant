@@ -52,6 +52,10 @@ namespace ROTK.VoiceAssistant.Model
 
         public const string FocusAddressActivityIntent = "FocusToActivity";
 
+        public const string OpenMessageActivity = "OpenMessageActivity";
+
+        public const string OpenIncidentActivity = "OpenIncidentActivity";
+
         #endregion
 
         #region Entity

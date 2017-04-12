@@ -72,36 +72,33 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             currentView = e.Uri.ToString();
         }
 
-        private void NavigationTo(string to)
+        private void NavigationTo(string to, NavigationParameters parameters= null)
         {
             aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Navigation", Content = string.Format("Enter in {0}", to)});
 
-            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to+parameters.ToString(), UriKind.Relative));
             
         }
 
-
-        private void OperationUI(string operationType)
+        private void NavigationTo(string to)
         {
-            if (!string.IsNullOrEmpty(operationType))
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Navigation", Content = string.Format("Enter in {0}", to) });
+
+            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+
+        }
+
+
+        private void OperationUI(KeyValuePair<string,List<Entity>> keyValue)
+        {
+            if (!string.IsNullOrEmpty(keyValue.Key))
             {
-                switch (operationType)
+                var parameters = new NavigationParameters();
+                foreach(var entity in keyValue.Value)
                 {
-                    case Constant.MessageScreenName:
-                        NavigationTo(Constant.MessageScreenUrl);
-                        break;
-                    case Constant.IncidentScreenName:
-                        NavigationTo(Constant.IncidentScreenUrl);
-                        break;
-                    case Constant.BoloScreenName:
-                        NavigationTo(Constant.BoloScreenUrl);
-                        break;
-                    case Constant.QueryScreenName:
-                        NavigationTo(Constant.QueryScreenUrl);
-                        break;
-                    default:
-                        break;
+                    parameters.Add(entity.Name, entity.Value);
                 }
+                NavigationTo(keyValue.Key, parameters);
             }
 
         }

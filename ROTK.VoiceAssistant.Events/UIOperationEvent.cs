@@ -1,4 +1,5 @@
 ﻿using Prism.Events;
+using ROTK.VoiceAssistant.LUISClientLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace ROTK.VoiceAssistant.Events
 {
-    public class UIOperationEvent: PubSubEvent<string>
+    public class UIOperationEvent: PubSubEvent<KeyValuePair<string, List<Entity>>>
     {
+
     }
 }
