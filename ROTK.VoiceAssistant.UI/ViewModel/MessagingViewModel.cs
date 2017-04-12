@@ -5,6 +5,7 @@ using ROTK.VoiceAssistant.Events;
 using ROTK.VoiceAssistant.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,13 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace ROTK.VoiceAssistant.UI.ViewModel
 {
+    [Export]
     public class MessagingViewModel: BindableBase
     {
+        
         private IEventAggregator ea;
+
+        [ImportingConstructor]
         public MessagingViewModel(IEventAggregator ea)
         {
             this.ea = ea;

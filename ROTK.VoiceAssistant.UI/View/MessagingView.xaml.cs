@@ -2,6 +2,7 @@
 using ROTK.VoiceAssistant.UI.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +25,16 @@ namespace ROTK.VoiceAssistant.UI.View
     {
         public MessagingView()
         {
-            this.DataContext = new MessagingViewModel(Bootstrapper.EventAggregatorInstant);
             InitializeComponent();
+        }
+
+        [Import]
+        MessagingViewModel ViewModel
+        {
+            set
+            {
+                this.DataContext = value;
+            }
         }
     }
 }
