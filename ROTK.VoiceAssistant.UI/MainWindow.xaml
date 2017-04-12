@@ -7,10 +7,10 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:View="clr-namespace:ROTK.VoiceAssistant.UI.View" x:Class="ROTK.VoiceAssistant.UI.MainWindow"
         mc:Ignorable="d"
-        Title="Voice Assistant" Height="600" Width="960"
+        Title="Voice Assistant" Height="500" Width="1020"
                         BorderThickness="0" 
                       GlowBrush="Black"
-                      ResizeMode="CanResizeWithGrip"
+                      ResizeMode="CanMinimize"
                       WindowTransitionsEnabled="False"
                       WindowStartupLocation="CenterScreen">
     <Controls:MetroWindow.Resources>
@@ -43,8 +43,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="83*" />
-                <RowDefinition Height="259*" />
+                <RowDefinition Height="80*" />
+                <RowDefinition Height="260*" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" 
                        VerticalAlignment="Center"
@@ -66,24 +66,23 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid Name="SpecificWorkArea"></Grid>
-            <ScrollViewer Name="TileArea" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+            <ScrollViewer Name="TileArea" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="60" />
-                        <ColumnDefinition Width="430*" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40*" />
-                        <RowDefinition Height="259*" />
+                        <RowDefinition Height="260*" />
                     </Grid.RowDefinitions>
                     <WrapPanel Grid.Row="1"
                        Grid.Column="1"
-                       Width="940"
-                       Height="382"
+                       Width="900"
+                       Height="250"
                        HorizontalAlignment="Left"
-                       VerticalAlignment="Top">
+                       VerticalAlignment="Top" Margin="0,0,0,0">
                         <Controls:Tile Title="Message"
-                               Margin="3"
                                Style="{StaticResource LargeTileStyle}"
                                Background="Teal"
                                Count="6"
@@ -92,7 +91,6 @@
                                Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
                                HorizontalTitleAlignment="Right"/>
                         <Controls:Tile Title="Query"
-                               Margin="3"
                                Click="QueryTileClick"
                                Style="{StaticResource LargeTileStyle}"
                                Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"/>
@@ -113,7 +111,7 @@
                                Background="#FF842D"
                                IsEnabled="False" />
                         <Controls:Tile Title="Weather"
-                                        TitleFontSize="16"
+                               TitleFontSize="16"
                                HorizontalTitleAlignment="Center"
                                VerticalTitleAlignment="Top"
                                Style="{StaticResource SmallTileStyle}"
