@@ -18,15 +18,22 @@ namespace ROTK.VoiceAssistant.IntentHandler
             Aggregator.GetEvent<MessageSentEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.FillMessageFieldActivityIntent)]
-        public static void FillMessageFieldActivity(LuisResult result, object context)
+        [IntentHandler(0.65, Name = Constant.FocusContentActivityIntent)]
+        public static void FocusContentActivity(LuisResult result, object context)
         {
-            List<Entity> entitis = result.GetAllEntities();
-            if (entitis != null && entitis.Count > 0)
-            {
-                Entity entity = entitis[0];
-                Aggregator.GetEvent<FillMessageFieldEvent>().Publish(entity.Value);
-            }       
+            Aggregator.GetEvent<FillMessageFieldEvent>().Publish(Constant.ContentField);
+        }
+
+        [IntentHandler(0.65, Name = Constant.FocusSubjectActivityIntent)]
+        public static void FocusSubjectActivity(LuisResult result, object context)
+        {
+            Aggregator.GetEvent<FillMessageFieldEvent>().Publish(Constant.SubjectField);
+        }
+
+        [IntentHandler(0.65, Name = Constant.FocusAddressActivityIntent)]
+        public static void FocusToActivity(LuisResult result, object context)
+        {
+            Aggregator.GetEvent<FillMessageFieldEvent>().Publish(Constant.AddressField);
         }
 
         [IntentHandler(0.7, Name = Constant.NoneIntent)]

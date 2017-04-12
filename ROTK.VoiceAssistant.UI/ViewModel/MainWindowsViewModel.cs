@@ -3,6 +3,7 @@ using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions;
 using ROTK.VoiceAssistant.Events;
@@ -22,14 +23,16 @@ using System.Windows.Input;
 namespace ROTK.VoiceAssistant.UI.ViewModel
 {
     [Export]
-    public class MainWindowsViewModel : BindableBase
+    public class MainWindowsViewModel : BindableBase, IPartImportsSatisfiedNotification
     {
+    
         IEventAggregator aggregator;
 
         IVoiceServiceFactory voiceServiceFactory;
         private readonly IRegionManager regionManager;
+        private readonly IModuleManager moduleManager;
         private ICommand backCommand;
-
+        private string currentView = Constant.MainNavigationViewUrl;
 
         [ImportingConstructor]
         public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager, IVoiceServiceFactory voiceServiceFactory)
@@ -41,9 +44,27 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.voiceServiceFactory = voiceServiceFactory;
         }
 
+        public void OnImportsSatisfied()
+        {
+            this.moduleManager.LoadModuleCompleted +=
+               (s, e) =>
+               {
+                   if (e.ModuleInfo.ModuleName == "NavigationModule")
+                   {
+                       this.regionManager.Regions["MainContentRegion"].NavigationService.Navigated += NavigationService_Navigated;
+                   }
+               };
+        }
+
+        private void NavigationService_Navigated(object sender, RegionNavigationEventArgs e)
+        {
+            currentView = e.Uri.ToString();
+        }
+
         private void NavigationTo(string to)
         {
             this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+            
         }
 
 
@@ -55,6 +76,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                 {
                     case Constant.MessageScreenName:
                         NavigationTo(Constant.MessageScreenUrl);
+                        this.aggregator.GetEvent<MessageMisClientEvent>().Publish(messageViewClient);
                         break;
                     case Constant.IncidentScreenName:
                         NavigationTo(Constant.IncidentScreenUrl);
@@ -67,7 +89,6 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                         break;
                     default:
                         break;
-
                 }
             }
 
