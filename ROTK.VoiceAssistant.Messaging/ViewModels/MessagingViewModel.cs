@@ -1,22 +1,17 @@
-﻿using Prism.Commands;
+﻿using Microsoft.CognitiveServices.SpeechRecognition;
+using Newtonsoft.Json.Linq;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using ROTK.VoiceAssistant.Events;
-using ROTK.VoiceAssistant.Model;
-using System;
-using System.Collections.Generic;
+using ROTK.VoiceAssistant.IntentHandler;
+using ROTK.VoiceAssistant.LUISClientLibrary;
+using ROTK.VoiceAssistant.Services;
 using System.ComponentModel.Composition;
 using System.Configuration;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-using Microsoft.CognitiveServices.SpeechRecognition;
-using ROTK.VoiceAssistant.LUISClientLibrary;
-using ROTK.VoiceAssistant.IntentHandler;
-using Newtonsoft.Json.Linq;
 
 namespace ROTK.VoiceAssistant.Messaging.ViewModel
 {
@@ -26,7 +21,9 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
         
         private IEventAggregator aggregator;
 
-        private MicrophoneRecognitionClient micClient;
+        private IVoiceService micClient;
+        private IVoiceServiceFactory voiceServiceFactory;
+        private MicrophoneRecognitionClient voiceClient;
 
         private bool IsRegistered = false;
 
@@ -90,13 +87,19 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
         #endregion
 
         [ImportingConstructor]
-        public MessagingViewModel(IEventAggregator aggregator)
+        public MessagingViewModel(IEventAggregator aggregator, IVoiceServiceFactory voiceServiceFactory)
         {
             this.aggregator = aggregator;
-
+            this.voiceServiceFactory = voiceServiceFactory;
             this.aggregator.GetEvent<MessageSentEvent>().Subscribe(SendMessageOperation, ThreadOption.UIThread);
             this.aggregator.GetEvent<FillMessageFieldEvent>().Subscribe(FillMessageFieldOperation, ThreadOption.UIThread);
             this.aggregator.GetEvent<MessageMisClientEvent>().Subscribe(ReceiveMicClient);
+            micClient = voiceServiceFactory.CreateSevice(ROTK.VoiceAssistant.Model.Constant.MessageScreen);
+            micClient.StartMicAndRecognition();
+            voiceClient = micClient.VoiceClient;
+            // Event handlers for speech recognition results
+            voiceClient.OnMicrophoneStatus += this.OnMicrophoneStatus;
+            voiceClient.OnResponseReceived += this.OnMicShortPhraseResponseReceivedHandler;
         }
 
         #region MocelView
@@ -175,17 +178,7 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
 
         public void ReceiveMicClient(MicrophoneRecognitionClient client)
         {
-            if(!IsRegistered)
-            { 
-                this.micClient = client;
-                this.micClient.OnIntent += this.OnIntentHandler;
-                // Event handlers for speech recognition results
-                this.micClient.OnMicrophoneStatus += this.OnMicrophoneStatus;
-                this.micClient.OnPartialResponseReceived += this.OnPartialResponseReceivedHandler;
-                this.micClient.OnResponseReceived += this.OnMicShortPhraseResponseReceivedHandler;
-                this.micClient.OnConversationError += this.OnConversationErrorHandler;
-                IsRegistered = true;
-            }
+          
             micClient.StartMicAndRecognition();
         }
 
@@ -216,6 +209,10 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
             {
 
             }
+            if(JudgeFocus())
+            {
+                micClient.EnableIntent = false;
+            }
         }
 
         private bool JudgeFocus()
@@ -232,26 +229,6 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
             ToIsFocused = false;
             SubjectIsFocused = false;
             ContentIsFocused = false;
-        }
-
-        private void OnIntentHandler(object sender, SpeechIntentEventArgs e)
-        {
-            if (!JudgeFocus())
-            {
-                MessageIntentHandler.Aggregator = aggregator;
-                using (IntentRouter router = IntentRouter.Setup<MessageIntentHandler>())
-                {
-                    LuisResult result = new LuisResult(JToken.Parse(e.Payload));
-
-                    router.Route(result, this);
-                }
-            }
-            //micClient.StartMicAndRecognition();
-        }
-
-        private void OnConversationErrorHandler(object sender, SpeechErrorEventArgs e)
-        {
-
         }
 
         private void OnMicShortPhraseResponseReceivedHandler(object sender, SpeechResponseEventArgs e)
@@ -293,19 +270,21 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
                 {
 
                 }
-                ClearFocus();
-                //micClient.StartMicAndRecognition();
             }
-        }
-
-        private void OnPartialResponseReceivedHandler(object sender, PartialSpeechResponseEventArgs e)
-        {
-
+            ClearFocus();
+            micClient.EnableIntent = true;
         }
 
         private void OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
         {
-            
+            if(e.Recording)
+            {
+                return;
+            }
+            else
+            {
+                micClient.StartMicAndRecognition();
+            }
         }
     }
 }

@@ -72,7 +72,6 @@ namespace ROTK.VoiceAssistant.Model
 
         #endregion
 
-        #region
         #region FieldType
 
         public const string SubjectField = "subject";
@@ -85,7 +84,6 @@ namespace ROTK.VoiceAssistant.Model
 
         public const string ContentField = "content";
 
-        #endregion
         #endregion
     }
 }
