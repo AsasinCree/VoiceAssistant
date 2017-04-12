@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FillMessageFieldEvent.cs" />
+    <Compile Include="LogSentEvent.cs" />
     <Compile Include="MessageMisClientEvent.cs" />
     <Compile Include="UIOperationEvent.cs" />
     <Compile Include="MessageSentEvent.cs" />

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2EE173F8-B17F-4F9F-9F66-9CD553506C32}</ProjectGuid>
+    <ProjectGuid>{AE90C943-DD2E-4282-82C7-3CDB906804FC}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ROTK.VoiceAssistant.Incident</RootNamespace>
-    <AssemblyName>ROTK.VoiceAssistant.Incident</AssemblyName>
+    <RootNamespace>ROTK.VoiceAssistant.Log</RootNamespace>
+    <AssemblyName>ROTK.VoiceAssistant.Log</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -71,7 +71,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IncidentModule.cs" />
+    <Compile Include="LogModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -85,9 +85,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ViewModels\IncidentViewModel.cs" />
-    <Compile Include="Views\IncidentView.xaml.cs">
-      <DependentUpon>IncidentView.xaml</DependentUpon>
+    <Compile Include="ViewModels\LogViewModel.cs" />
+    <Compile Include="Views\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -100,13 +100,6 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <Page Include="Views\IncidentView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROTK.VoiceAssistant.Events\ROTK.VoiceAssistant.Events.csproj">
       <Project>{27e8d2c2-badf-469d-9f06-5349c4e925c7}</Project>
@@ -116,10 +109,12 @@
       <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>
       <Name>ROTK.VoiceAssistant.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.UI.Behavior\ROTK.VoiceAssistant.UI.Behavior.csproj">
-      <Project>{7d48d31b-4c1d-4318-b0d5-fa7931c6185b}</Project>
-      <Name>ROTK.VoiceAssistant.UI.Behavior</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\LogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

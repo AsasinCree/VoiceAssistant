@@ -137,7 +137,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void OperationUI(string operationType)
         {
-            if(!string.IsNullOrEmpty(operationType))
+            if (!string.IsNullOrEmpty(operationType))
             {
                 switch (operationType)
                 {
@@ -158,7 +158,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                         break;
                 }
             }
-            
+
         }
 
         public ICommand StartVoiceCommand
@@ -286,7 +286,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                 RaisePropertyChanged("SelectedViewModel");
             }
         }
-        
+
         public ICommand BackCommand
         {
             get { return this.backCommand; }
