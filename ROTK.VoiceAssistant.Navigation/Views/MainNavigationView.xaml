@@ -15,19 +15,20 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <ScrollViewer Name="TileArea" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,0">
-        <Grid>
+        <Grid Height="300" Width="1020">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
-                <ColumnDefinition />
+                <ColumnDefinition Width="900"/>
+                <ColumnDefinition Width="60" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40*" />
-                <RowDefinition Height="260*" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="260" />
             </Grid.RowDefinitions>
             <WrapPanel Grid.Row="1"
                        Grid.Column="1"
                        Width="900"
-                       Height="250"
+                       Height="260"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top" Margin="0,0,0,0">
                 <Controls:Tile Title="Message"
@@ -50,7 +51,8 @@
                                Command="{Binding NavigationCommand}"
                                CommandParameter="\QueryView"
                                Style="{StaticResource LargeTileStyle}"
-                               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"/>
+                               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                               Background="Turquoise"/>
                 <Controls:Tile Title="BOLO"
                                Style="{StaticResource LargeTileStyle}"
                                Background="#D2691E"
