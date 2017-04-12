@@ -20,11 +20,15 @@
                 <ResourceDictionary Source="/Resources/Style.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
     </Controls:MetroWindow.Resources>
+
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
-            <Button Name="Back" Width="25" Visibility="Collapsed">
+            <Button Name="Back" 
+                    Width="25" 
+                    Visibility="Visible"
+                    Command="{Binding BackCommand}"
+                    CommandParameter="\MainNavigationView">
                 <Button.Background>
                     <ImageBrush ImageSource="Resources/chevron_left_24px.ico" Stretch="None" Opacity="0.8"/>
                 </Button.Background>

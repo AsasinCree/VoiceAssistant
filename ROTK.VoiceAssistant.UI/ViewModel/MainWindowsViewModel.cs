@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 using ROTK.VoiceAssistant.Events;
 using ROTK.VoiceAssistant.IntentHandler;
 using ROTK.VoiceAssistant.LUISClientLibrary;
@@ -84,13 +85,18 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         #endregion
 
         private MicrophoneRecognitionClient micClient;
+        
+        private readonly IRegionManager regionManager;
+        private ICommand backCommand;
 
         [ImportingConstructor]
-        public MainWindowsViewModel(IEventAggregator aggregator)
+        public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager)
         {
             this.aggregator = aggregator;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI);
 
+            this.regionManager = regionManager;
+            this.backCommand = new DelegateCommand<string>(this.NavigationTo);
         }
 
 
@@ -187,6 +193,15 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                 RaisePropertyChanged("SelectedViewModel");
             }
         }
+        
+        private void NavigationTo(string to)
+        {
+            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+        }
 
+        public ICommand BackCommand
+        {
+            get { return this.backCommand; }
+        }
     }
 }
