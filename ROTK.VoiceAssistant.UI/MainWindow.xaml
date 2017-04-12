@@ -1,86 +1,129 @@
-﻿<Controls:MetroWindow x:Class="ROTK.VoiceAssistant.UI.MainWindow"
+﻿<Controls:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ROTK.VoiceAssistant.UI"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:View="clr-namespace:ROTK.VoiceAssistant.UI.View" x:Class="ROTK.VoiceAssistant.UI.MainWindow"
         mc:Ignorable="d"
-        Title="{Binding Path=Title}" Height="600" Width="960"
+        Title="Voice Assistant" Height="600" Width="960"
                         BorderThickness="0" 
                       GlowBrush="Black"
                       ResizeMode="CanResizeWithGrip"
                       WindowTransitionsEnabled="False"
                       WindowStartupLocation="CenterScreen">
-    <Window.Resources>
+    <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
+                <ResourceDictionary Source="/Resources/Style.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
+    </Controls:MetroWindow.Resources>
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
-            <Button>
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="20"
-                   Height="20"
-                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_magnify_back}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </StackPanel>
+            <Button Name="Back" Click="Back_Click" Width="25" Visibility="Collapsed">
+                <Button.Background>
+                    <ImageBrush ImageSource="Resources/chevron_left_24px.ico" Stretch="None" Opacity="0.8"/>
+                </Button.Background>
             </Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
-    <Grid>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="Setting" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0"
-                Margin="2"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Stretch">
-            <MenuItem Header="Function"/>
-            <MenuItem Header="Setting"/>
-            <MenuItem Header="Help"/>
-            <MenuItem Name="Voice" Click="Voice_Click" Margin="299,0,0,0" Width="30" Command="{Binding Path=StartVoiceCommand}" >
-                <MenuItem.Background>
-                    <ImageBrush ImageSource="Resources/voice_mic_24px.ico" Stretch="None" TileMode="FlipXY"/>
-                </MenuItem.Background>
-            </MenuItem>
-        </Menu>
-
-        <Controls:MetroAnimatedSingleRowTabControl x:Name="MainTabControl" Grid.Row="1">
-            <TabItem Background="CadetBlue" Header="Message"  Height="100" Width="200">
-                <Frame Source="/View/MessagingView.xaml" />
-            </TabItem>
-            <Separator />
-            <TabItem Background="AntiqueWhite" Header="Query" Height="100" Width="200">
-                <Frame Source="/View/QueryView.xaml" />
-            </TabItem>
-            <Separator />
-            <TabItem Background="ForestGreen" Header="Chat" Height="100" Width="200"></TabItem>
-            <Separator />
-            <TabItem Background="Orchid" Header="BOLO" Height="100" Width="200"></TabItem>
-            <Separator />
-        </Controls:MetroAnimatedSingleRowTabControl>
-        <StatusBar Grid.Row="2" Background="White">
-            <Separator Style="{StaticResource MetroStatusBarSeparator}" />
-
-            <StatusBarItem Grid.Column="0" VerticalContentAlignment="Center"  Foreground="Gray">
-                <Label HorizontalContentAlignment="Right" Content="Enabled" ></Label>
-            </StatusBarItem>
-
-            <StatusBarItem Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <!--<Image Source="voice.ico" Height="24" Width="78"/>-->
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="2" Foreground="Gray" Content="Message Screen is displayed" /> -->
-
-        </StatusBar>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="83*" />
+                <RowDefinition Height="259*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" 
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource BlackBrush}"
+                       FontFamily="Segoe UI"
+                       FontSize="30"
+                       FontWeight="Light"
+                       Text="Voice Assistant" 
+                       HorizontalAlignment="Center"/>
+            <Button Grid.Row="1"
+                    Width="70"
+                        Height="70"
+                        HorizontalAlignment="Center"
+                Style="{DynamicResource MetroCircleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="Resources/voice1_48px.ico" Stretch="None"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid Name="SpecificWorkArea"></Grid>
+            <ScrollViewer Name="TileArea" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="430*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40*" />
+                        <RowDefinition Height="259*" />
+                    </Grid.RowDefinitions>
+                    <WrapPanel Grid.Row="1"
+                       Grid.Column="1"
+                       Width="940"
+                       Height="382"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top">
+                        <Controls:Tile Title="Message"
+                               Margin="3"
+                               Style="{StaticResource LargeTileStyle}"
+                               Background="Teal"
+                               Count="6"
+                               CountFontSize="42"
+                               Click="MessageTileClick"
+                               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                               HorizontalTitleAlignment="Right"/>
+                        <Controls:Tile Title="Query"
+                               Margin="3"
+                               Click="QueryTileClick"
+                               Style="{StaticResource LargeTileStyle}"
+                               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"/>
+                        <Controls:Tile Title="Incident"
+                               Style="{StaticResource LargeTileStyle}"
+                               Background="DimGray"/>
+                        <Controls:Tile Title="BOLO"
+                               Style="{StaticResource LargeTileStyle}"
+                               Background="#D2691E"
+                               HorizontalTitleAlignment="Right"/>
+                        <Controls:Tile Title="Chat"
+                               TitleFontSize="16"
+                               HorizontalTitleAlignment="Center"
+                               VerticalTitleAlignment="Top"
+                               Count="28"
+                               CountFontSize="42"
+                               Style="{StaticResource SmallTileStyle}"
+                               Background="#FF842D"
+                               IsEnabled="False" />
+                        <Controls:Tile Title="Weather"
+                                        TitleFontSize="16"
+                               HorizontalTitleAlignment="Center"
+                               VerticalTitleAlignment="Top"
+                               Style="{StaticResource SmallTileStyle}"
+                               Background="#1E90FF"/>
+                        <Controls:Tile Title="Store"
+                               Style="{StaticResource LargeTileStyle}"
+                               Background="Green"/>
+                    </WrapPanel>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Controls:MetroWindow>

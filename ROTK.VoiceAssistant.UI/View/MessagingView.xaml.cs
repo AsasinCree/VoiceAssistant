@@ -19,9 +19,9 @@ using System.Windows.Shapes;
 namespace ROTK.VoiceAssistant.UI.View
 {
     /// <summary>
-    /// MessagingView.xaml 的交互逻辑
+    /// Interaction logic for MessagingView1.xaml
     /// </summary>
-    public partial class MessagingView : Page
+    public partial class MessagingView : UserControl
     {
         public MessagingView()
         {

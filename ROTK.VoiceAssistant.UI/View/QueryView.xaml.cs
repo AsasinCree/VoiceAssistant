@@ -18,7 +18,7 @@ namespace ROTK.VoiceAssistant.UI.View
     /// <summary>
     /// Interaction logic for QueryView.xaml
     /// </summary>
-    public partial class QueryView : Page
+    public partial class QueryView : UserControl
     {
         public QueryView()
         {

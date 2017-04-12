@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behavior\ControlFocusBehaviorBase.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Services\VoiceCommandService.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
@@ -122,6 +123,10 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MessagingView.xaml">
       <SubType>Designer</SubType>
@@ -168,7 +173,16 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\voice_recorder_24px.ico" />
+    <Resource Include="Resources\voice1_32px.ico" />
+    <Resource Include="Resources\voice1_48px.ico" />
+    <Resource Include="Resources\voice1_64px.ico" />
+    <Resource Include="Resources\voice2_48px.ico" />
+    <Resource Include="Resources\voice2_64px.ico" />
+    <Resource Include="Resources\voice2_72px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\chevron_left_16px.ico" />
+    <Resource Include="Resources\chevron_left_24px.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\voice_mic_48px.ico" />
