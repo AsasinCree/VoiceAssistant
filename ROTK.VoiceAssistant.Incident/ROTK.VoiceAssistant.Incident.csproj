@@ -110,8 +110,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROTK.VoiceAssistant.Events\ROTK.VoiceAssistant.Events.csproj">
-      <Project>{27E8D2C2-BADF-469D-9F06-5349C4E925C7}</Project>
+      <Project>{27e8d2c2-badf-469d-9f06-5349c4e925c7}</Project>
       <Name>ROTK.VoiceAssistant.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ROTK.VoiceAssistant.Model\ROTK.VoiceAssistant.Model.csproj">
+      <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>
+      <Name>ROTK.VoiceAssistant.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\ROTK.VoiceAssistant.UI.Behavior\ROTK.VoiceAssistant.UI.Behavior.csproj">
       <Project>{7d48d31b-4c1d-4318-b0d5-fa7931c6185b}</Project>

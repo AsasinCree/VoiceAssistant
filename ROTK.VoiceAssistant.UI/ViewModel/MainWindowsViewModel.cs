@@ -3,12 +3,14 @@ using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions;
 using ROTK.VoiceAssistant.Events;
 using ROTK.VoiceAssistant.IntentHandler;
 using ROTK.VoiceAssistant.LUISClientLibrary;
 using ROTK.VoiceAssistant.Model;
+using ROTK.VoiceAssistant.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -21,100 +23,55 @@ using System.Windows.Input;
 namespace ROTK.VoiceAssistant.UI.ViewModel
 {
     [Export]
-    public class MainWindowsViewModel : BindableBase
+    public class MainWindowsViewModel : BindableBase, IPartImportsSatisfiedNotification
     {
+    
         IEventAggregator aggregator;
 
-        #region Configuration Properties
-
-        /// <summary>
-        /// Gets or sets subscription key
-        /// </summary>
-        public string SpeechKey
-        {
-            get { return ConfigurationManager.AppSettings["SpeechKey"]; }
-        }
-
-        /// <summary>
-        /// Gets the LUIS subscription identifier.
-        /// </summary>
-        /// <value>
-        /// The LUIS subscription identifier.
-        /// </value>
-        private string LuisSubscriptionID
-        {
-            get { return ConfigurationManager.AppSettings["luisSubscriptionID"]; }
-        }
-
-        /// <summary>
-        /// Gets the LUIS application identifier.
-        /// </summary>
-        /// <value>
-        /// The LUIS application identifier.
-        /// </value>
-        private string UIOperationLuisAppId
-        {
-            get { return ConfigurationManager.AppSettings["UIOperationLuisAppID"]; }
-        }
-
-        private string IncidentApplicationLuisAppID
-        {
-            get { return ConfigurationManager.AppSettings["IncidentApplicationLuisAppID"]; }
-        }
-
-        /// <summary>
-        /// Gets the default locale.
-        /// </summary>
-        /// <value>
-        /// The default locale.
-        /// </value>
-        private string DefaultLocale
-        {
-            get { return "en-US"; }
-        }
-
-        /// <summary>
-        /// Gets the Cognitive Service Authentication Uri.
-        /// </summary>
-        /// <value>
-        /// The Cognitive Service Authentication Uri.  Empty if the global default is to be used.
-        /// </value>
-        private string AuthenticationUri
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["AuthenticationUri"];
-            }
-        }
-
-        #endregion
-
-        public MicrophoneRecognitionClient micClient;
-
-        public MicrophoneRecognitionClient micClient_2;
-
+        IVoiceServiceFactory voiceServiceFactory;
         private readonly IRegionManager regionManager;
+        private readonly IModuleManager moduleManager;
         private ICommand backCommand;
-
+        private string currentView = Constant.MainNavigationViewUrl;
 
         [ImportingConstructor]
-        public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager)
+        public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager, IVoiceServiceFactory voiceServiceFactory, IModuleManager moduleManager)
         {
             this.aggregator = aggregator;
             this.regionManager = regionManager;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
             this.backCommand = new DelegateCommand<string>(this.NavigationTo);
+            this.voiceServiceFactory = voiceServiceFactory;
+            this.moduleManager = moduleManager;
+        }
+
+        public void OnImportsSatisfied()
+        {
+            this.moduleManager.LoadModuleCompleted +=
+               (s, e) =>
+               {
+                   if (e.ModuleInfo.ModuleName == "NavigationModule")
+                   {
+                       this.regionManager.Regions["MainContentRegion"].NavigationService.Navigated += NavigationService_Navigated;
+                   }
+               };
+        }
+
+        private void NavigationService_Navigated(object sender, RegionNavigationEventArgs e)
+        {
+            currentView = e.Uri.ToString();
         }
 
         private void NavigationTo(string to)
         {
             this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+            
         }
 
 
         private void OperationUI(string operationType)
         {
-            if(!string.IsNullOrEmpty(operationType))
+            if (!string.IsNullOrEmpty(operationType))
             {
                 switch (operationType)
                 {
@@ -134,7 +91,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                         break;
                 }
             }
-            
+
         }
 
         public ICommand StartVoiceCommand
@@ -149,76 +106,9 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void StartVoice()
         {
-            CreateMicrophoneRecoClientWithIntent();
-
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Info Start listening!" });
+            var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
             micClient.StartMicAndRecognition();
-        }
-
-        public void CreateMicrophoneRecoClient()
-        {
-            this.micClient =
-                SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
-                this.DefaultLocale,
-                this.SpeechKey,
-                this.UIOperationLuisAppId,
-                this.LuisSubscriptionID);
-            this.micClient.AuthenticationUri = this.AuthenticationUri;
-
-            // Event handlers for speech recognition results
-            this.micClient.OnMicrophoneStatus += this.OnMicrophoneStatus;
-            this.micClient.OnPartialResponseReceived += this.OnPartialResponseReceivedHandler;
-            this.micClient.OnResponseReceived += this.OnMicShortPhraseResponseReceivedHandler;
-            this.micClient.OnConversationError += this.OnConversationErrorHandler;
-        }
-
-        public void CreateMicrophoneRecoClientWithIntent()
-        {
-            this.micClient =
-                SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
-                this.DefaultLocale,
-                this.SpeechKey,
-                this.UIOperationLuisAppId,
-                this.LuisSubscriptionID);
-            this.micClient.AuthenticationUri = this.AuthenticationUri;
-            this.micClient.OnIntent += this.OnIntentHandler;
-
-            // Event handlers for speech recognition results
-            this.micClient.OnMicrophoneStatus += this.OnMicrophoneStatus;
-            this.micClient.OnPartialResponseReceived += this.OnPartialResponseReceivedHandler;
-            this.micClient.OnResponseReceived += this.OnMicShortPhraseResponseReceivedHandler;
-            this.micClient.OnConversationError += this.OnConversationErrorHandler;
-        }
-
-
-        private void OnIntentHandler(object sender, SpeechIntentEventArgs e)
-        {
-            UIOperationIntentHandler.Aggregator = this.aggregator;
-            using (IntentRouter router = IntentRouter.Setup<UIOperationIntentHandler>())
-            {
-                LuisResult result = new LuisResult(JToken.Parse(e.Payload));
-
-                router.Route(result, this);
-            }
-        }
-
-        private void OnConversationErrorHandler(object sender, SpeechErrorEventArgs e)
-        {
-
-        }
-
-        private void OnMicShortPhraseResponseReceivedHandler(object sender, SpeechResponseEventArgs e)
-        {
-
-        }
-
-        private void OnPartialResponseReceivedHandler(object sender, PartialSpeechResponseEventArgs e)
-        {
-
-        }
-
-        private void OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
-        {
-
         }
 
         private string title;
@@ -242,7 +132,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                 RaisePropertyChanged("SelectedViewModel");
             }
         }
-        
+
         public ICommand BackCommand
         {
             get { return this.backCommand; }
