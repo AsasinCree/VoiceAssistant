@@ -40,6 +40,10 @@
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -52,10 +56,15 @@
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SpeechClient, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\Microsoft.ProjectOxford.SpeechRecognition-x86.1.0.0.3\lib\SpeechClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.Composition.registration" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -77,7 +86,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constant\Constant.cs" />
+    <Compile Include="Constant\MessageConstant.cs" />
     <Compile Include="MessagingModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -111,6 +120,14 @@
     <ProjectReference Include="..\ROTK.VoiceAssistant.Events\ROTK.VoiceAssistant.Events.csproj">
       <Project>{27e8d2c2-badf-469d-9f06-5349c4e925c7}</Project>
       <Name>ROTK.VoiceAssistant.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ROTK.VoiceAssistant.IntentHandler\ROTK.VoiceAssistant.IntentHandler.csproj">
+      <Project>{57175C87-BEDE-41CF-8145-D02048E657B4}</Project>
+      <Name>ROTK.VoiceAssistant.IntentHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ROTK.VoiceAssistant.LUISClientLibrary\ROTK.VoiceAssistant.LUISClientLibrary.csproj">
+      <Project>{43DAA109-EF1B-4C29-B231-9CFC88142446}</Project>
+      <Name>ROTK.VoiceAssistant.LUISClientLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\ROTK.VoiceAssistant.Model\ROTK.VoiceAssistant.Model.csproj">
       <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>

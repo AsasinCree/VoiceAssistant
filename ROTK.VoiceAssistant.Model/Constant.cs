@@ -18,6 +18,12 @@ namespace ROTK.VoiceAssistant.Model
 
         public const string FillMessageFieldActivityIntent = "FillMessageFieldActivity";
 
+        public const string FocusContentActivityIntent = "FocusContentActivity";
+
+        public const string FocusSubjectActivityIntent = "FocusSubjectActivity";
+
+        public const string FocusAddressActivityIntent = "FocusToActivity";
+
         #endregion
 
         #region Entity
@@ -41,6 +47,7 @@ namespace ROTK.VoiceAssistant.Model
         #endregion
 
         #region Url
+        public const string MainNavigationViewUrl = "\\MainNavigationView";
 
         public const string MessageScreenUrl = "\\MessagingView";
 
@@ -50,6 +57,35 @@ namespace ROTK.VoiceAssistant.Model
 
         public const string BoloScreenUrl = "\\BoloView";
 
+        #endregion
+
+        #region UrlName
+        public const string MainNavigationView = "MainNavigationView";
+
+        public const string MessageScreen = "MessagingView";
+
+        public const string IncidentScreen = "IncidentView";
+
+        public const string QueryScreen = "QueryView";
+
+        public const string BoloScreen = "BoloView";
+
+        #endregion
+
+        #region
+        #region FieldType
+
+        public const string SubjectField = "subject";
+
+        public const string TitleField = "title";
+
+        public const string ToField = "to";
+
+        public const string AddressField = "address";
+
+        public const string ContentField = "content";
+
+        #endregion
         #endregion
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions;
 using ROTK.VoiceAssistant.Events;
@@ -21,8 +22,9 @@ using System.Windows.Input;
 namespace ROTK.VoiceAssistant.UI.ViewModel
 {
     [Export]
-    public class MainWindowsViewModel : BindableBase
+    public class MainWindowsViewModel : BindableBase, IPartImportsSatisfiedNotification
     {
+    
         IEventAggregator aggregator;
 
         #region Configuration Properties
@@ -57,6 +59,11 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             get { return ConfigurationManager.AppSettings["UIOperationLuisAppID"]; }
         }
 
+        private string MessageApplicationLuisAppID
+        {
+            get { return ConfigurationManager.AppSettings["MessageApplicationLuisAppID"]; }
+        }
+
         /// <summary>
         /// Gets the default locale.
         /// </summary>
@@ -84,24 +91,47 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         #endregion
 
-        private MicrophoneRecognitionClient micClient;
-        
-        private readonly IRegionManager regionManager;
-        private ICommand backCommand;
+        private MicrophoneRecognitionClient mainViewClient;
+        private MicrophoneRecognitionClient messageViewClient;
 
+        private readonly IRegionManager regionManager;
+        private readonly IModuleManager moduleManager;
+        private ICommand backCommand;
+        private string currentView = Constant.MainNavigationViewUrl;
 
         [ImportingConstructor]
-        public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager)
+        public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager, IModuleManager moduleManager)
         {
             this.aggregator = aggregator;
             this.regionManager = regionManager;
-            this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
+            this.moduleManager = moduleManager;
+            this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI,ThreadOption.UIThread);
             this.backCommand = new DelegateCommand<string>(this.NavigationTo);
+            CreateMicrophoneRecoClientWithIntent(UIOperationLuisAppId);
+            CreateMicrophoneRecoMessageClientWithIntent(MessageApplicationLuisAppID);
+        }
+
+        public void OnImportsSatisfied()
+        {
+            this.moduleManager.LoadModuleCompleted +=
+               (s, e) =>
+               {
+                   if (e.ModuleInfo.ModuleName == "NavigationModule")
+                   {
+                       this.regionManager.Regions["MainContentRegion"].NavigationService.Navigated += NavigationService_Navigated;
+                   }
+               };
+        }
+
+        private void NavigationService_Navigated(object sender, RegionNavigationEventArgs e)
+        {
+            currentView = e.Uri.ToString();
         }
 
         private void NavigationTo(string to)
         {
             this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+            
         }
 
 
@@ -113,6 +143,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                 {
                     case Constant.MessageScreenName:
                         NavigationTo(Constant.MessageScreenUrl);
+                        this.aggregator.GetEvent<MessageMisClientEvent>().Publish(messageViewClient);
                         break;
                     case Constant.IncidentScreenName:
                         NavigationTo(Constant.IncidentScreenUrl);
@@ -125,7 +156,6 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                         break;
                     default:
                         break;
-
                 }
             }
             
@@ -143,38 +173,75 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void StartVoice()
         {
-            CreateMicrophoneRecoClientWithIntent();
+            switch(currentView.Replace("/","").Replace("\\",""))
+            {
+                case Constant.MainNavigationView:
+                    if(mainViewClient == null)
+                    {
+                        CreateMicrophoneRecoClientWithIntent(UIOperationLuisAppId);
+                    }
+                    mainViewClient.StartMicAndRecognition();
+                    break;
 
-            micClient.StartMicAndRecognition();
-        }
+                case Constant.MessageScreen:
+                    if (messageViewClient == null)
+                    {
+                        CreateMicrophoneRecoMessageClientWithIntent(MessageApplicationLuisAppID);
+                    }
+                    this.aggregator.GetEvent<MessageMisClientEvent>().Publish(messageViewClient);
+                    break;
+            }
+    }
 
-        private void CreateMicrophoneRecoClientWithIntent()
+        private void CreateMicrophoneRecoClientWithIntent(string appId)
         {
-            this.micClient =
+            this.mainViewClient =
                 SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
                 this.DefaultLocale,
                 this.SpeechKey,
-                this.UIOperationLuisAppId,
+                appId,
                 this.LuisSubscriptionID);
-            this.micClient.AuthenticationUri = this.AuthenticationUri;
-            this.micClient.OnIntent += this.OnIntentHandler;
-
+            this.mainViewClient.AuthenticationUri = this.AuthenticationUri;
+            this.mainViewClient.OnIntent += this.OnIntentHandler;
             // Event handlers for speech recognition results
-            this.micClient.OnMicrophoneStatus += this.OnMicrophoneStatus;
-            this.micClient.OnPartialResponseReceived += this.OnPartialResponseReceivedHandler;
-            this.micClient.OnResponseReceived += this.OnMicShortPhraseResponseReceivedHandler;
-            this.micClient.OnConversationError += this.OnConversationErrorHandler;
+            this.mainViewClient.OnMicrophoneStatus += this.OnMicrophoneStatus;
+            this.mainViewClient.OnPartialResponseReceived += this.OnPartialResponseReceivedHandler;
+            this.mainViewClient.OnResponseReceived += this.OnMicShortPhraseResponseReceivedHandler;
+            this.mainViewClient.OnConversationError += this.OnConversationErrorHandler;
+        }
+        private void CreateMicrophoneRecoMessageClientWithIntent(string appId)
+        {
+            this.messageViewClient =
+                SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
+                this.DefaultLocale,
+                this.SpeechKey,
+                appId,
+                this.LuisSubscriptionID);
         }
 
 
         private void OnIntentHandler(object sender, SpeechIntentEventArgs e)
         {
-            UIOperationIntentHandler.Aggregator = this.aggregator;
-            using (IntentRouter router = IntentRouter.Setup<UIOperationIntentHandler>())
+            switch (currentView.Replace("/", ""))
             {
-                LuisResult result = new LuisResult(JToken.Parse(e.Payload));
+                case Constant.MainNavigationView:
+                    UIOperationIntentHandler.Aggregator = this.aggregator;
+                    using (IntentRouter router = IntentRouter.Setup<UIOperationIntentHandler>())
+                    {
+                        LuisResult result = new LuisResult(JToken.Parse(e.Payload));
 
-                router.Route(result, this);
+                        router.Route(result, this);
+                    }
+                    break;
+                case Constant.MessageScreen:
+                    MessageIntentHandler.Aggregator = this.aggregator;
+                    using (IntentRouter router = IntentRouter.Setup<MessageIntentHandler>())
+                    {
+                        LuisResult result = new LuisResult(JToken.Parse(e.Payload));
+
+                        router.Route(result, this);
+                    }
+                    break;
             }
         }
 
