@@ -1,5 +1,5 @@
-﻿using Microsoft.CognitiveServices.SpeechRecognition;
-using Prism.Events;
+﻿using Prism.Events;
+using ROTK.VoiceAssistant.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace ROTK.VoiceAssistant.Events
 {
-   
-    public class MessageSentEvent : PubSubEvent
+    public class MessageUIOperationEvent : PubSubEvent
     {
 
     }
-
 }
