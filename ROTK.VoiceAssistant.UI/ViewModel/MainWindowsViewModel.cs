@@ -43,6 +43,13 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.backCommand = new DelegateCommand<string>(this.NavigationTo);
             this.voiceServiceFactory = voiceServiceFactory;
             this.moduleManager = moduleManager;
+            var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
+            micClient.VoiceClient.OnMicrophoneStatus += VoiceClient_OnMicrophoneStatus;
+        }
+
+        private void VoiceClient_OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
+        {
+            this.IsVoiceButtonEnabled = !e.Recording;
         }
 
         public void OnImportsSatisfied()
@@ -111,25 +118,15 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             micClient.StartMicAndRecognition();
         }
 
-        private string title;
-        public string Title
-        {
-            get { return title; }
-            set
-            {
-                this.title = value;
-                RaisePropertyChanged("Title");
-            }
-        }
 
-        private BindableBase selectedViewModel;
-        public BindableBase SelectedViewModel
+        private bool isVoiceButtonEnabled=true;
+        public bool IsVoiceButtonEnabled
         {
-            get { return selectedViewModel; }
+            get { return isVoiceButtonEnabled; }
             set
             {
-                this.selectedViewModel = value;
-                RaisePropertyChanged("SelectedViewModel");
+                this.isVoiceButtonEnabled = value;
+                RaisePropertyChanged("IsVoiceButtonEnable");
             }
         }
 
