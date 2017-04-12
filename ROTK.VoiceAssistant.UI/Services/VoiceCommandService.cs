@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace ROTK.VoiceAssistant.UI.Services
 {
-    public class VoiceService <T>: IVoiceService
+    public class VoiceService<T> : IVoiceService
     {
         private MicrophoneRecognitionClient micClient;
 
         public VoiceService(string DefaultLocale, string SpeechKey, string UIOperationLuisAppId, string LuisSubscriptionID)
-            {
+        {
             this.micClient =
               SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
               DefaultLocale,
@@ -25,6 +25,12 @@ namespace ROTK.VoiceAssistant.UI.Services
               LuisSubscriptionID);
 
             this.micClient.OnIntent += this.OnIntentHandler;
+            this.micClient.OnResponseReceived += this.OnMicShortPhraseResponseReceivedHandler;
+        }
+
+        private void OnMicShortPhraseResponseReceivedHandler(object sender, SpeechResponseEventArgs e)
+        {
+            micClient.EndMicAndRecognition();
         }
 
         private void OnIntentHandler(object sender, SpeechIntentEventArgs e)

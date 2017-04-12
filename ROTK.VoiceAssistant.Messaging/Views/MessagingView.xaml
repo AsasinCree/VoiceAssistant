@@ -42,7 +42,7 @@
                 <Label Grid.Column="0" Content="Content"/>
                 <TextBox Grid.Column="1" Height="180" x:Name="TxtContent"  Text="{Binding Path=Content}"/>
             </Grid>
-            <Button Margin="{StaticResource ControlMargin}" Width="70" Height="30" Content="Send" Command="{Binding Path=SendMessage}" />
+            <Button Margin="{StaticResource ControlMargin}" Width="70" Height="30" Content="Send" Command="{Binding Path=Send}" />
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="{StaticResource ColumnMargin}">
         </StackPanel>

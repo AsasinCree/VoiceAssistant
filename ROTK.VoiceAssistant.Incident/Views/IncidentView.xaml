@@ -34,12 +34,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="City"/>
-                <ComboBox x:Name="cmbCity" Grid.Column="1" Text="{Binding Path=City}" beh:ComboBoxFocusBehavior.IsFocused="{Binding Path=CityFocused}">
-                    <ComboBoxItem Content="New York"/>
-                    <ComboBoxItem Content="Los Angeles"/>
-                    <ComboBoxItem Content="Washington"/>
-                    <ComboBoxItem Content="Chicago"/>
-                    <ComboBoxItem Content="Boston"/>
+                <ComboBox x:Name="cmbCity" Grid.Column="1" SelectedItem="{Binding Path=City}" ItemsSource="{Binding Path=Cities}" beh:ComboBoxFocusBehavior.IsFocused="{Binding Path=CityFocused}">
                 </ComboBox>
                 <Label Grid.Column="3" Content="Building"/>
                 <TextBox Grid.Column="4" x:Name="txtBuilding" Text="{Binding Path=Building}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=BuildingFocused}" />

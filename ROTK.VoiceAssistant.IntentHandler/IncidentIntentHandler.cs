@@ -9,65 +9,65 @@ namespace ROTK.VoiceAssistant.IntentHandler
 {
     public class IncidentIntentHandler
     {
-        public static EventAggregator Aggregator;
+        public static IEventAggregator Aggregator;
 
-        // 0.65 is the confidence score required by this intent in order to be activated
+        // 0 is the confidence score required by this intent in order to be activated
         // Only picks out a single entity value
-        [IntentHandler(0.65, Name = Constant.FocusOnLocationActivityIntent)]
+        [IntentHandler(0, Name = Constant.FocusOnLocationActivityIntent)]
         public static void FocusOnLocationActivity(LuisResult result, object context)
         {
             Aggregator.GetEvent<FocusOnLocationEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.FocusOnCityActivityIntent)]
+        [IntentHandler(0, Name = Constant.FocusOnCityActivityIntent)]
         public static void FocusOnCityActivity(LuisResult result, object context)
         {
             Aggregator.GetEvent<FocusOnCityEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.FocusOnBuildingActivityIntent)]
+        [IntentHandler(0, Name = Constant.FocusOnBuildingActivityIntent)]
         public static void FocusOnBuildingActivity(LuisResult result, object context)
         {
             Aggregator.GetEvent<FocusOnBuildingEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.FocusOnIncidentTypeActivityIntent)]
+        [IntentHandler(0, Name = Constant.FocusOnIncidentTypeActivityIntent)]
         public static void FocusOnIncidentTypeActivity(LuisResult result, object context)
         {
             Aggregator.GetEvent<FocusOnIncidentTypeEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.FocusOnLicensePlateActivityIntent)]
+        [IntentHandler(0, Name = Constant.FocusOnLicensePlateActivityIntent)]
         public static void FocusOnLicensePlateActivity(LuisResult result, object context)
         {
             Aggregator.GetEvent<FocusOnLicensePlateEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.FocusOnStateActivityIntent)]
+        [IntentHandler(0, Name = Constant.FocusOnStateActivityIntent)]
         public static void FocusOnStateActivity(LuisResult result, object context)
         {
             Aggregator.GetEvent<FocusOnStateEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.FocusOnPlateTypeActivityIntent)]
+        [IntentHandler(0, Name = Constant.FocusOnPlateTypeActivityIntent)]
         public static void FocusOnPlateTypeActivity(LuisResult result, object context)
         {
             Aggregator.GetEvent<FocusOnPlateTypeEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.FocusOnPlateYearActivityIntent)]
+        [IntentHandler(0, Name = Constant.FocusOnPlateYearActivityIntent)]
         public static void FocusOnPlateYearActivity(LuisResult result, object context)
         {
             Aggregator.GetEvent<FocusOnPlateYearEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.CreateIncidentActivityIntent)]
+        [IntentHandler(0, Name = Constant.CreateIncidentActivityIntent)]
         public static void CreateIncidentActivity(LuisResult result, object context)
         {
             Aggregator.GetEvent<CreateIncidentEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.FillCityActivityIntent)]
+        [IntentHandler(0, Name = Constant.FillCityActivityIntent)]
         public static void FillCityActivity(LuisResult result, object context)
         {
             List<Entity> entitis = result.GetAllEntities();
@@ -76,7 +76,7 @@ namespace ROTK.VoiceAssistant.IntentHandler
             {
                 foreach (Entity entity in entitis)
                 {
-                    if (entity.Name.Equals(Constant.Entity, StringComparison.CurrentCultureIgnoreCase))
+                    if (entity.Name.Contains(Constant.GeographyEntity))
                     {
                         Aggregator.GetEvent<FillCityEvent>().Publish(entity.Value);
                     }
@@ -84,7 +84,7 @@ namespace ROTK.VoiceAssistant.IntentHandler
             }
         }
 
-        [IntentHandler(0.65, Name = Constant.FillIncidentTypeActivityIntent)]
+        [IntentHandler(0, Name = Constant.FillIncidentTypeActivityIntent)]
         public static void FillIncidentTypeActivity(LuisResult result, object context)
         {
             List<Entity> entitis = result.GetAllEntities();
@@ -101,7 +101,7 @@ namespace ROTK.VoiceAssistant.IntentHandler
             }
         }
 
-        [IntentHandler(0.65, Name = Constant.FillPlateTypeActivityIntent)]
+        [IntentHandler(0, Name = Constant.FillPlateTypeActivityIntent)]
         public static void FillPlateTypeActivity(LuisResult result, object context)
         {
             List<Entity> entitis = result.GetAllEntities();
@@ -118,7 +118,7 @@ namespace ROTK.VoiceAssistant.IntentHandler
             }
         }
 
-        [IntentHandler(0.65, Name = Constant.FillStateActivityIntent)]
+        [IntentHandler(0, Name = Constant.FillStateActivityIntent)]
         public static void FillStateActivity(LuisResult result, object context)
         {
             List<Entity> entitis = result.GetAllEntities();
@@ -135,7 +135,7 @@ namespace ROTK.VoiceAssistant.IntentHandler
             }
         }
 
-        [IntentHandler(0.7, Name = Constant.NoneIntent)]
+        [IntentHandler(0, Name = Constant.NoneIntent)]
         public static void None(LuisResult result, object context)
         {
             // Nothing to do.

@@ -54,6 +54,11 @@ namespace ROTK.VoiceAssistant.UI.Services
             get { return ConfigurationManager.AppSettings["MessageApplicationLuisAppID"]; }
         }
 
+        private string IncidentApplicationLuisAppID
+        {
+            get { return ConfigurationManager.AppSettings["IncidentApplicationLuisAppID"]; }
+        }
+
         /// <summary>
         /// Gets the default locale.
         /// </summary>
@@ -89,6 +94,7 @@ namespace ROTK.VoiceAssistant.UI.Services
             this.aggregator = aggregator;
             UIOperationIntentHandler.Aggregator = aggregator;
             MessageIntentHandler.Aggregator = aggregator;
+            IncidentIntentHandler.Aggregator = aggregator;
         }
 
         public IVoiceService CreateSevice(string serviceName)
@@ -104,6 +110,9 @@ namespace ROTK.VoiceAssistant.UI.Services
                 {
                     case Constant.MessageScreen:
                      service = new VoiceService<MessageIntentHandler>(this.DefaultLocale, this.SpeechKey, this.MessageApplicationLuisAppID, this.LuisSubscriptionID);
+                        break;
+                    case Constant.IncidentScreen:
+                        service = new VoiceService<IncidentIntentHandler>(this.DefaultLocale, this.SpeechKey, this.IncidentApplicationLuisAppID, this.LuisSubscriptionID);
                         break;
                     case Constant.MainNavigationView:
                     default:

@@ -25,5 +25,6 @@ namespace ROTK.VoiceAssistant.Incident.Constant
         public const string PlateYear = "PlateYear";
 
         public const string Create = "Create";
+
     }
 }

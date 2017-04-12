@@ -16,7 +16,7 @@ namespace ROTK.VoiceAssistant.Model
 
         public const string SendMessageActivityIntent = "SendMessageActivity";
 
-        public const string FillMessageFieldActivityIntent = "FillMessageFieldActivity";
+        public const string FillToActivityActivityIntent = "FillToActivity";
 
         public const string FocusOnLocationActivityIntent = "FocusOnLocationActivity";
 
@@ -57,6 +57,10 @@ namespace ROTK.VoiceAssistant.Model
         #region Entity
 
         public const string Entity = "Entity";
+
+        public const string NameEntity = "Name";
+
+        public const string GeographyEntity = "builtin.geography";
 
         public const string OperationTypeEntity = "OperationType";
 

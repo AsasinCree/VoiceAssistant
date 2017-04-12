@@ -3,6 +3,8 @@ using Prism.Mvvm;
 using ROTK.VoiceAssistant.Events;
 using System.ComponentModel.Composition;
 using System;
+using System.Windows.Controls;
+using System.Collections.ObjectModel;
 
 namespace ROTK.VoiceAssistant.Incident.ViewModels
 {
@@ -11,26 +13,40 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
     { 
         private IEventAggregator aggregator;
 
+        private ObservableCollection<string> cities = new ObservableCollection<string>();
+
         [ImportingConstructor]
         public IncidentViewModel(IEventAggregator aggregator)
         {
             this.aggregator = aggregator;
 
-            this.aggregator.GetEvent<FocusOnLocationEvent>().Subscribe(() => this.LocationFocused = true);
-            this.aggregator.GetEvent<FocusOnCityEvent>().Subscribe(() => this.CityFocused = true);
-            this.aggregator.GetEvent<FocusOnBuildingEvent>().Subscribe(() => this.BuildingFocused = true);
-            this.aggregator.GetEvent<FocusOnIncidentTypeEvent>().Subscribe(() => this.IncidentTypeFocused = true);
-            this.aggregator.GetEvent<FocusOnLicensePlateEvent>().Subscribe(() => this.LicensePlateFocused = true);
-            this.aggregator.GetEvent<FocusOnStateEvent>().Subscribe(() => this.StateFocused = true);
-            this.aggregator.GetEvent<FocusOnPlateTypeEvent>().Subscribe(() => this.PlateTypeFocused = true);
-            this.aggregator.GetEvent<FocusOnPlateYearEvent>().Subscribe(() => this.PlateYearFocused = true);
+            this.aggregator.GetEvent<FocusOnLocationEvent>().Subscribe(() => this.LocationFocused = true, ThreadOption.UIThread);
+            this.aggregator.GetEvent<FocusOnCityEvent>().Subscribe(() => this.CityFocused = true, ThreadOption.UIThread);
+            this.aggregator.GetEvent<FocusOnBuildingEvent>().Subscribe(() => this.BuildingFocused = true, ThreadOption.UIThread);
+            this.aggregator.GetEvent<FocusOnIncidentTypeEvent>().Subscribe(() => this.IncidentTypeFocused = true, ThreadOption.UIThread);
+            this.aggregator.GetEvent<FocusOnLicensePlateEvent>().Subscribe(() => this.LicensePlateFocused = true, ThreadOption.UIThread);
+            this.aggregator.GetEvent<FocusOnStateEvent>().Subscribe(() => this.StateFocused = true, ThreadOption.UIThread);
+            this.aggregator.GetEvent<FocusOnPlateTypeEvent>().Subscribe(() => this.PlateTypeFocused = true, ThreadOption.UIThread);
+            this.aggregator.GetEvent<FocusOnPlateYearEvent>().Subscribe(() => this.PlateYearFocused = true, ThreadOption.UIThread);
 
-            this.aggregator.GetEvent<FillIncidentTypeEvent>().Subscribe(SelectIncidentType);
-            this.aggregator.GetEvent<FillCityEvent>().Subscribe(SelectCity);
-            this.aggregator.GetEvent<FillPlateTypeEvent>().Subscribe(SelectPlateType);
-            this.aggregator.GetEvent<FillStateEvent>().Subscribe(SelectState);
+            this.aggregator.GetEvent<FillIncidentTypeEvent>().Subscribe(SelectIncidentType, ThreadOption.UIThread);
+            this.aggregator.GetEvent<FillCityEvent>().Subscribe(SelectCity, ThreadOption.UIThread);
+            this.aggregator.GetEvent<FillPlateTypeEvent>().Subscribe(SelectPlateType, ThreadOption.UIThread);
+            this.aggregator.GetEvent<FillStateEvent>().Subscribe(SelectState, ThreadOption.UIThread);
 
-            this.aggregator.GetEvent<CreateIncidentEvent>().Subscribe(CreateIncident);
+            this.aggregator.GetEvent<CreateIncidentEvent>().Subscribe(CreateIncident, ThreadOption.UIThread);
+
+            InitalData();
+        }
+
+        private void InitalData()
+        {
+            cities.Add("New York".ToUpper());
+            cities.Add("Los Angeles".ToUpper());
+            cities.Add("Washington".ToUpper());
+            cities.Add("Chicago".ToUpper());
+            cities.Add("Boston".ToUpper());
+            cities.Add("Philadelphia".ToUpper());
         }
 
         private string location;
@@ -52,6 +68,16 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
             {
                 this.city = value;
                 RaisePropertyChanged("City");
+            }
+        }
+
+        public ObservableCollection<string> Cities
+        {
+            get { return cities; }
+            set
+            {
+                this.cities = value;
+                RaisePropertyChanged("Cities");
             }
         }
 
@@ -223,7 +249,7 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
 
         private void SelectCity(string city)
         {
-            this.City = city;
+            this.City = city.ToUpper();
         }
 
         private void SelectIncidentType(string incidentType)

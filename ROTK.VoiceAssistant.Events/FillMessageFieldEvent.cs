@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ROTK.VoiceAssistant.Events
 {
-    public class FillMessageFieldEvent:PubSubEvent<string>
+    public class FillToFieldEvent:PubSubEvent<string>
     {
 
     }

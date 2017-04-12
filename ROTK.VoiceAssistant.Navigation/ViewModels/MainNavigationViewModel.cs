@@ -32,7 +32,7 @@ namespace ROTK.VoiceAssistant.Navigation.ViewModels
 
         private void NavigationTo(string to)
         {
-            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Enter in " + to.Substring(1, to.Length) });
+            //aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Enter in " + to.Substring(1, to.Length) });
             this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
         }
 
