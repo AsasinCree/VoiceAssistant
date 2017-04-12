@@ -9,7 +9,7 @@ namespace ROTK.VoiceAssistant.IntentHandler
 {
     public class UIOperationIntentHandler
     {
-        public static EventAggregator Aggregator;
+        public static IEventAggregator Aggregator;
 
         // 0.65 is the confidence score required by this intent in order to be activated
         // Only picks out a single entity value

@@ -3,6 +3,7 @@ using ROTK.VoiceAssistant.UI.ViewModel;
 using ROTK.VoiceAssistant.UI.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,13 +23,23 @@ namespace ROTK.VoiceAssistant.UI
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
+    [Export]
     public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
-            this.DataContext = new MainWindowsViewModel(Bootstrapper.EventAggregatorInstant);
+            //this.DataContext = new MainWindowsViewModel(Bootstrapper.EventAggregatorInstant);
             InitializeComponent();
 
+        }
+
+        [Import]
+        MainWindowsViewModel ViewModel
+        {
+            set
+            {
+                this.DataContext = value;
+            }
         }
 
         public String SelectedView

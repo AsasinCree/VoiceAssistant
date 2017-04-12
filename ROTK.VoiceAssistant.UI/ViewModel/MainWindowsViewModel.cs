@@ -9,6 +9,7 @@ using ROTK.VoiceAssistant.LUISClientLibrary;
 using ROTK.VoiceAssistant.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Configuration;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ using System.Windows.Input;
 
 namespace ROTK.VoiceAssistant.UI.ViewModel
 {
+    [Export]
     public class MainWindowsViewModel : BindableBase
     {
         IEventAggregator aggregator;
@@ -82,6 +84,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private MicrophoneRecognitionClient micClient;
 
+        [ImportingConstructor]
         public MainWindowsViewModel(IEventAggregator aggregator)
         {
             this.aggregator = aggregator;
@@ -139,6 +142,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void OnIntentHandler(object sender, SpeechIntentEventArgs e)
         {
+            UIOperationIntentHandler.Aggregator = this.aggregator;
             using (IntentRouter router = IntentRouter.Setup<UIOperationIntentHandler>())
             {
                 LuisResult result = new LuisResult(JToken.Parse(e.Payload));
