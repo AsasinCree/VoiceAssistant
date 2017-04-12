@@ -14,39 +14,43 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer Name="TileArea" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+    <ScrollViewer Name="TileArea" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,0">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
-                <ColumnDefinition Width="430*" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40*" />
-                <RowDefinition Height="259*" />
+                <RowDefinition Height="260*" />
             </Grid.RowDefinitions>
             <WrapPanel Grid.Row="1"
                        Grid.Column="1"
-                       Width="940"
-                       Height="382"
+                       Width="900"
+                       Height="250"
                        HorizontalAlignment="Left"
-                       VerticalAlignment="Top">
+                       VerticalAlignment="Top" Margin="0,0,0,0">
                 <Controls:Tile Title="Message"
-                               Command="{Binding NavigationCommand}"
-                               CommandParameter="\MessagingView"
-                               Margin="3"
                                Style="{StaticResource LargeTileStyle}"
                                Background="Teal"
                                Count="6"
                                CountFontSize="42"
+                               Command="{Binding NavigationCommand}"
+                               CommandParameter="\MessagingView"
                                Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
                                HorizontalTitleAlignment="Right"/>
-                <Controls:Tile Title="Query"
-                               Margin="3"
-                               Style="{StaticResource LargeTileStyle}"
-                               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"/>
                 <Controls:Tile Title="Incident"
                                Style="{StaticResource LargeTileStyle}"
-                               Background="DimGray"/>
+                               Command="{Binding NavigationCommand}"
+                               CommandParameter="\IncidentView"
+                               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"        
+                               Background="IndianRed"
+                               HorizontalTitleAlignment="Center"/>
+                <Controls:Tile Title="Query"
+                               Command="{Binding NavigationCommand}"
+                               CommandParameter="\QueryView"
+                               Style="{StaticResource LargeTileStyle}"
+                               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"/>
                 <Controls:Tile Title="BOLO"
                                Style="{StaticResource LargeTileStyle}"
                                Background="#D2691E"
@@ -61,7 +65,7 @@
                                Background="#FF842D"
                                IsEnabled="False" />
                 <Controls:Tile Title="Weather"
-                                        TitleFontSize="16"
+                               TitleFontSize="16"
                                HorizontalTitleAlignment="Center"
                                VerticalTitleAlignment="Top"
                                Style="{StaticResource SmallTileStyle}"
@@ -72,5 +76,4 @@
             </WrapPanel>
         </Grid>
     </ScrollViewer>
-
 </UserControl>

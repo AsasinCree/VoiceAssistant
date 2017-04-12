@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ROTK.VoiceAssistant.Incident.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +15,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ROTK.VoiceAssistant.UI.View
+namespace ROTK.VoiceAssistant.Incident.Views
 {
     /// <summary>
-    /// Interaction logic for QueryView.xaml
+    /// IncidentView.xaml 的交互逻辑
     /// </summary>
-    public partial class QueryView : UserControl
+    [Export]
+    public partial class IncidentView : UserControl
     {
-        public QueryView()
+
+        public IncidentView()
         {
             InitializeComponent();
+        }
+
+        [Import]
+        IncidentViewModel ViewModel
+        {
+            set
+            {
+                this.DataContext = value;
+            }
         }
     }
 }

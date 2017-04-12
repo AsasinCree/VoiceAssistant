@@ -1,21 +1,21 @@
-﻿using Prism.Modularity;
+﻿using Prism.Mef.Modularity;
+using Prism.Modularity;
 using Prism.Regions;
+using ROTK.VoiceAssistant.Incident.Views;
 using System;
+using System.ComponentModel.Composition;
 
 namespace ROTK.VoiceAssistant.Incident
 {
+    [ModuleExport(typeof(IncidentModule))]
     public class IncidentModule : IModule
     {
-        IRegionManager _regionManager;
-
-        public IncidentModule(IRegionManager regionManager)
-        {
-            _regionManager = regionManager;
-        }
+        [Import]
+        public IRegionManager regionManager;
 
         public void Initialize()
         {
-            throw new NotImplementedException();
+            this.regionManager.RegisterViewWithRegion("MainContentRegion", typeof(IncidentView));
         }
     }
 }

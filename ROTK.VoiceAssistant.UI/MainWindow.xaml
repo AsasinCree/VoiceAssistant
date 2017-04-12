@@ -1,12 +1,10 @@
-﻿<Controls:MetroWindow
+﻿<Controls:MetroWindow x:Class="ROTK.VoiceAssistant.UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ROTK.VoiceAssistant.UI"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:View="clr-namespace:ROTK.VoiceAssistant.UI.View" x:Class="ROTK.VoiceAssistant.UI.MainWindow"
-        xmlns:ViewModel="clr-namespace:ROTK.VoiceAssistant.UI.ViewModel" 
         xmlns:prism="http://www.codeplex.com/prism"
         mc:Ignorable="d"
         Title="Voice Assistant" Height="500" Width="1020"
@@ -22,11 +20,11 @@
                 <ResourceDictionary Source="/Resources/Style.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        
+
     </Controls:MetroWindow.Resources>
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
-            <Button Name="Back" Click="Back_Click" Width="25" Visibility="Collapsed">
+            <Button Name="Back" Width="25" Visibility="Collapsed">
                 <Button.Background>
                     <ImageBrush ImageSource="Resources/chevron_left_24px.ico" Stretch="None" Opacity="0.8"/>
                 </Button.Background>
@@ -61,7 +59,7 @@
                     Width="70"
                         Height="70"
                         HorizontalAlignment="Center"
-                Style="{DynamicResource MetroCircleButtonStyle}">
+                Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding StartVoiceCommand}">
                 <Button.Background>
                     <ImageBrush ImageSource="Resources/voice1_48px.ico" Stretch="None"/>
                 </Button.Background>

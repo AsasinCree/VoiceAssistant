@@ -93,8 +93,6 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         }
 
-        [ImportMany(typeof(ViewModelBase))]
-        private IEnumerable<ViewModelBase> maps;
 
         private void OperationUI(string operationType)
         {
