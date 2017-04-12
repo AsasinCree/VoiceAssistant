@@ -71,6 +71,8 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void NavigationTo(string to)
         {
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Navigation", Content = string.Format("Enter in {0}", to)});
+
             this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
             
         }
@@ -113,7 +115,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void StartVoice()
         {
-            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Info Start listening!" });
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "VoiceButton", Content = "Info Start listening!" });
             var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
             micClient.StartMicAndRecognition();
         }
