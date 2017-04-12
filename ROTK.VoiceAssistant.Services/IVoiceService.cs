@@ -10,9 +10,5 @@ namespace ROTK.VoiceAssistant.Services
     public interface IVoiceService
     {
        void StartMicAndRecognition();
-
-        MicrophoneRecognitionClient VoiceClient { get;}
-
-        bool EnableIntent { get; set; }
     }
 }

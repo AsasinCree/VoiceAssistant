@@ -44,15 +44,6 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.voiceServiceFactory = voiceServiceFactory;
             this.moduleManager = moduleManager;
             var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
-            micClient.VoiceClient.OnMicrophoneStatus += VoiceClient_OnMicrophoneStatus;
-
-        }
-
-
-
-        private void VoiceClient_OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
-        {
-            this.IsVoiceButtonEnabled = !e.Recording;
         }
 
         public void OnImportsSatisfied()

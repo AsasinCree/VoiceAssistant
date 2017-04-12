@@ -112,7 +112,7 @@ namespace ROTK.VoiceAssistant.UI.Services
                      service = new VoiceService<MessageIntentHandler>(this.DefaultLocale, this.SpeechKey, this.MessageApplicationLuisAppID, this.LuisSubscriptionID, aggregator);
                         break;
                     case Constant.IncidentScreen:
-                        service = new VoiceService<IncidentIntentHandler>(this.DefaultLocale, this.SpeechKey, this.IncidentApplicationLuisAppID, this.LuisSubscriptionID);
+                        service = new VoiceService<IncidentIntentHandler>(this.DefaultLocale, this.SpeechKey, this.IncidentApplicationLuisAppID, this.LuisSubscriptionID, aggregator);
                         break;
                     case Constant.MainNavigationView:
                     default:

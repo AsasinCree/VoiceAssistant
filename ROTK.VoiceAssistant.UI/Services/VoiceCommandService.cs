@@ -16,9 +16,11 @@ namespace ROTK.VoiceAssistant.UI.Services
 {
     public class VoiceService<T> : IVoiceService
     {
+        private IEventAggregator aggregator;
+
         private MicrophoneRecognitionClient micClient;
 
-        public VoiceService(string DefaultLocale, string SpeechKey, string UIOperationLuisAppId, string LuisSubscriptionID)
+        public VoiceService(string DefaultLocale, string SpeechKey, string UIOperationLuisAppId, string LuisSubscriptionID, IEventAggregator aggregator)
         {
             this.micClient =
               SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
@@ -28,7 +30,6 @@ namespace ROTK.VoiceAssistant.UI.Services
               LuisSubscriptionID);
 
             this.micClient.OnIntent += this.OnIntentHandler;
-            EnableIntent = true;
             this.micClient.OnConversationError += VoiceClient_OnConversationError;
             this.micClient.OnResponseReceived += VoiceClient_OnResponseReceived;
             this.micClient.OnMicrophoneStatus += VoiceClient_OnMicrophoneStatus;
@@ -38,7 +39,6 @@ namespace ROTK.VoiceAssistant.UI.Services
         private void VoiceClient_OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
         {
             aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "VoiceClient", Content = string.Format("Voice Client Recording is {0}", e.Recording) });
-
         }
 
         private void VoiceClient_OnResponseReceived(object sender, SpeechResponseEventArgs e)
@@ -59,14 +59,11 @@ namespace ROTK.VoiceAssistant.UI.Services
 
         private void OnIntentHandler(object sender, SpeechIntentEventArgs e)
         {
-            if (EnableIntent)
+            using (IntentRouter router = IntentRouter.Setup<T>())
             {
-                using (IntentRouter router = IntentRouter.Setup<T>())
-                {
-                    LuisResult result = new LuisResult(JToken.Parse(e.Payload));
+                LuisResult result = new LuisResult(JToken.Parse(e.Payload));
 
-                    router.Route(result, this);
-                }
+                router.Route(result, this);
             }
         }
 
