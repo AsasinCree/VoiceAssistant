@@ -85,7 +85,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         #endregion
 
         private MicrophoneRecognitionClient micClient;
-        
+
         private readonly IRegionManager regionManager;
         private ICommand backCommand;
 
@@ -96,6 +96,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.aggregator = aggregator;
             this.regionManager = regionManager;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
+            //aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Enter in Main View!" });
             this.backCommand = new DelegateCommand<string>(this.NavigationTo);
         }
 
@@ -107,7 +108,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void OperationUI(string operationType)
         {
-            if(!string.IsNullOrEmpty(operationType))
+            if (!string.IsNullOrEmpty(operationType))
             {
                 switch (operationType)
                 {
@@ -128,7 +129,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
                 }
             }
-            
+
         }
 
         public ICommand StartVoiceCommand
@@ -143,6 +144,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void StartVoice()
         {
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Info Start listening!" });
             CreateMicrophoneRecoClientWithIntent();
 
             micClient.StartMicAndRecognition();
@@ -169,6 +171,8 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void OnIntentHandler(object sender, SpeechIntentEventArgs e)
         {
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Voice recognition..." });
+
             UIOperationIntentHandler.Aggregator = this.aggregator;
             using (IntentRouter router = IntentRouter.Setup<UIOperationIntentHandler>())
             {
@@ -219,7 +223,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                 RaisePropertyChanged("SelectedViewModel");
             }
         }
-        
+
         public ICommand BackCommand
         {
             get { return this.backCommand; }

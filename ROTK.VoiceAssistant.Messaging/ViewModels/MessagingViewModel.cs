@@ -27,6 +27,8 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
 
             this.aggregator.GetEvent<MessageSentEvent>().Subscribe(SendMessageOperation);
             this.aggregator.GetEvent<FillMessageFieldEvent>().Subscribe(FillMessageFieldOperation);
+
+            //aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Enter in Messaging View!" });
         }
 
         private string title;
@@ -72,7 +74,7 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
 
         public void SendMessageOperation()
         {
-         
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Sending Message!" });
         }
 
         public void FillMessageFieldOperation(string fieldType)

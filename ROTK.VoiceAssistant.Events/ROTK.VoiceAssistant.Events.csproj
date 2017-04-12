@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FillMessageFieldEvent.cs" />
+    <Compile Include="LogSentEvent.cs" />
     <Compile Include="UIOperationEvent.cs" />
     <Compile Include="MessageSentEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
