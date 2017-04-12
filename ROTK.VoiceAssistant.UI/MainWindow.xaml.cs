@@ -80,8 +80,18 @@ namespace ROTK.VoiceAssistant.UI
             this.TileArea.Visibility = Visibility.Collapsed;
             QueryView queryView = new QueryView();
             DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.5)));
-            queryView.BeginAnimation(MessagingView.OpacityProperty, widthAnimation);
+            queryView.BeginAnimation(QueryView.OpacityProperty, widthAnimation);
             this.SpecificWorkArea.Children.Add(queryView);
+        }
+
+        private void IncidentTileClick(object sender, RoutedEventArgs e)
+        {
+            this.Back.Visibility = Visibility.Visible;
+            this.TileArea.Visibility = Visibility.Collapsed;
+            IncidentView incidentView = new IncidentView();
+            DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.5)));
+            incidentView.BeginAnimation(IncidentView.OpacityProperty, widthAnimation);
+            this.SpecificWorkArea.Children.Add(incidentView);
         }
     }
 }

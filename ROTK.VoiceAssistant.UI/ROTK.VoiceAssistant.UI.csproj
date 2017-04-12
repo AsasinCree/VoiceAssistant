@@ -97,7 +97,11 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Services\VoiceCommandService.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
+    <Compile Include="ViewModel\IncidentViewModel.cs" />
     <Compile Include="ViewModel\MessagingViewModel.cs" />
+    <Compile Include="View\IncidentView.xaml.cs">
+      <DependentUpon>IncidentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MessagingView.xaml.cs">
       <DependentUpon>MessagingView.xaml</DependentUpon>
     </Compile>
@@ -127,6 +131,10 @@
     <Page Include="Resources\Style.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\IncidentView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MessagingView.xaml">
       <SubType>Designer</SubType>
