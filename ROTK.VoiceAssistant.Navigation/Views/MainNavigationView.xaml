@@ -55,6 +55,7 @@
                                Background="Turquoise"/>
                 <Controls:Tile Title="BOLO"
                                Style="{StaticResource LargeTileStyle}"
+                               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
                                Background="#D2691E"
                                HorizontalTitleAlignment="Right"/>
                 <Controls:Tile Title="Chat"
