@@ -133,6 +133,10 @@
       <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>
       <Name>ROTK.VoiceAssistant.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ROTK.VoiceAssistant.Services\ROTK.VoiceAssistant.Services.csproj">
+      <Project>{3e372cc6-761d-4edd-8806-f3a70b1c08c4}</Project>
+      <Name>ROTK.VoiceAssistant.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ROTK.VoiceAssistant.UI.Behavior\ROTK.VoiceAssistant.UI.Behavior.csproj">
       <Project>{7d48d31b-4c1d-4318-b0d5-fa7931c6185b}</Project>
       <Name>ROTK.VoiceAssistant.UI.Behavior</Name>

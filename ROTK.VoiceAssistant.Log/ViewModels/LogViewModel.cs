@@ -22,7 +22,7 @@ namespace ROTK.VoiceAssistant.Log.ViewModels
         {
             logList = new ObservableCollection<LogModel>();
             this.aggregator = aggregator;
-            this.aggregator.GetEvent<LogSentEvent>().Subscribe(BindingLog);
+            this.aggregator.GetEvent<LogSentEvent>().Subscribe(BindingLog,ThreadOption.UIThread);
 
             //aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Enter in Log View!" });
         }

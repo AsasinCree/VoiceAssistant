@@ -109,14 +109,14 @@ namespace ROTK.VoiceAssistant.UI.Services
                 switch (serviceName)
                 {
                     case Constant.MessageScreen:
-                     service = new VoiceService<MessageIntentHandler>(this.DefaultLocale, this.SpeechKey, this.MessageApplicationLuisAppID, this.LuisSubscriptionID);
+                     service = new VoiceService<MessageIntentHandler>(this.DefaultLocale, this.SpeechKey, this.MessageApplicationLuisAppID, this.LuisSubscriptionID, aggregator);
                         break;
                     case Constant.IncidentScreen:
                         service = new VoiceService<IncidentIntentHandler>(this.DefaultLocale, this.SpeechKey, this.IncidentApplicationLuisAppID, this.LuisSubscriptionID);
                         break;
                     case Constant.MainNavigationView:
                     default:
-                     service = new VoiceService<UIOperationIntentHandler>(this.DefaultLocale, this.SpeechKey, this.UIOperationLuisAppId, this.LuisSubscriptionID);
+                     service = new VoiceService<UIOperationIntentHandler>(this.DefaultLocale, this.SpeechKey, this.UIOperationLuisAppId, this.LuisSubscriptionID, aggregator);
                         break;
 
                 }

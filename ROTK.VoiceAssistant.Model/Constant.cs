@@ -52,6 +52,10 @@ namespace ROTK.VoiceAssistant.Model
 
         public const string FocusAddressActivityIntent = "FocusToActivity";
 
+        public const string OpenMessageActivity = "OpenMessageActivity";
+
+        public const string OpenIncidentActivity = "OpenIncidentActivity";
+
         #endregion
 
         #region Entity
@@ -112,7 +116,6 @@ namespace ROTK.VoiceAssistant.Model
 
         #endregion
 
-        #region
         #region FieldType
 
         public const string SubjectField = "subject";
@@ -125,7 +128,6 @@ namespace ROTK.VoiceAssistant.Model
 
         public const string ContentField = "content";
 
-        #endregion
         #endregion
     }
 }

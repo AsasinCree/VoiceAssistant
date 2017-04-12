@@ -13,25 +13,21 @@ namespace ROTK.VoiceAssistant.IntentHandler
 
         // 0.65 is the confidence score required by this intent in order to be activated
         // Only picks out a single entity value
-        [IntentHandler(0.65, Name = Constant.OpenScreenActivityIntent)]
-        public static void OpenScreenActivity(LuisResult result, object context)
+        [IntentHandler(0.65, Name = Constant.OpenMessageActivity)]
+        public static void OpenMessageActivity(LuisResult result, object context)
         {
-            if (result.TopScoringIntent.Name.Equals(Constant.OpenScreenActivityIntent, StringComparison.CurrentCultureIgnoreCase))
-            {
-                List<Entity> entitis = result.GetAllEntities();
+            List<Entity> entitis = result.GetAllEntities();
 
-                if (entitis != null && entitis.Count > 0)
-                {
-                    foreach (Entity entity in entitis)
-                    {
-                        if (entity.Name.Equals(Constant.OperationTypeEntity, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            Aggregator.GetEvent<UIOperationEvent>().Publish(entity.Value);
-                            break;
-                        }
-                    }
-                }
-            }
+            Aggregator.GetEvent<UIOperationEvent>().Publish(new KeyValuePair<string, List<Entity>>(Constant.MessageScreenUrl, entitis));
+
+        }
+
+        [IntentHandler(0.65, Name = Constant.OpenIncidentActivity)]
+        public static void OpenIncidentActivity(LuisResult result, object context)
+        {
+            List<Entity> entitis = result.GetAllEntities();
+
+            Aggregator.GetEvent<UIOperationEvent>().Publish(new KeyValuePair<string, List<Entity>>(Constant.IncidentScreenUrl, entitis));
         }
 
         [IntentHandler(0.7, Name = Constant.NoneIntent)]

@@ -43,6 +43,16 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.backCommand = new DelegateCommand<string>(this.NavigationTo);
             this.voiceServiceFactory = voiceServiceFactory;
             this.moduleManager = moduleManager;
+            var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
+            micClient.VoiceClient.OnMicrophoneStatus += VoiceClient_OnMicrophoneStatus;
+
+        }
+
+
+
+        private void VoiceClient_OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
+        {
+            this.IsVoiceButtonEnabled = !e.Recording;
         }
 
         public void OnImportsSatisfied()
@@ -62,34 +72,33 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             currentView = e.Uri.ToString();
         }
 
-        private void NavigationTo(string to)
+        private void NavigationTo(string to, NavigationParameters parameters= null)
         {
-            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Navigation", Content = string.Format("Enter in {0}", to)});
+
+            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to+parameters.ToString(), UriKind.Relative));
             
         }
 
-
-        private void OperationUI(string operationType)
+        private void NavigationTo(string to)
         {
-            if (!string.IsNullOrEmpty(operationType))
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Navigation", Content = string.Format("Enter in {0}", to) });
+
+            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+
+        }
+
+
+        private void OperationUI(KeyValuePair<string,List<Entity>> keyValue)
+        {
+            if (!string.IsNullOrEmpty(keyValue.Key))
             {
-                switch (operationType)
+                var parameters = new NavigationParameters();
+                foreach(var entity in keyValue.Value)
                 {
-                    case Constant.MessageScreenName:
-                        NavigationTo(Constant.MessageScreenUrl);
-                        break;
-                    case Constant.IncidentScreenName:
-                        NavigationTo(Constant.IncidentScreenUrl);
-                        break;
-                    case Constant.BoloScreenName:
-                        NavigationTo(Constant.BoloScreenUrl);
-                        break;
-                    case Constant.QueryScreenName:
-                        NavigationTo(Constant.QueryScreenUrl);
-                        break;
-                    default:
-                        break;
+                    parameters.Add(entity.Name, entity.Value);
                 }
+                NavigationTo(keyValue.Key, parameters);
             }
 
         }
@@ -106,30 +115,20 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void StartVoice()
         {
-            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Info Start listening!" });
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "VoiceButton", Content = "Voice Button Clicked" });
             var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
             micClient.StartMicAndRecognition();
         }
 
-        private string title;
-        public string Title
-        {
-            get { return title; }
-            set
-            {
-                this.title = value;
-                RaisePropertyChanged("Title");
-            }
-        }
 
-        private BindableBase selectedViewModel;
-        public BindableBase SelectedViewModel
+        private bool isVoiceButtonEnabled=true;
+        public bool IsVoiceButtonEnabled
         {
-            get { return selectedViewModel; }
+            get { return isVoiceButtonEnabled; }
             set
             {
-                this.selectedViewModel = value;
-                RaisePropertyChanged("SelectedViewModel");
+                this.isVoiceButtonEnabled = value;
+                RaisePropertyChanged("IsVoiceButtonEnable");
             }
         }
 

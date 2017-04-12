@@ -1,22 +1,17 @@
-﻿using Prism.Commands;
+﻿using Microsoft.CognitiveServices.SpeechRecognition;
+using Newtonsoft.Json.Linq;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using ROTK.VoiceAssistant.Events;
-using ROTK.VoiceAssistant.Model;
-using System;
-using System.Collections.Generic;
+using ROTK.VoiceAssistant.IntentHandler;
+using ROTK.VoiceAssistant.LUISClientLibrary;
+using ROTK.VoiceAssistant.Services;
 using System.ComponentModel.Composition;
 using System.Configuration;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-using Microsoft.CognitiveServices.SpeechRecognition;
-using ROTK.VoiceAssistant.LUISClientLibrary;
-using ROTK.VoiceAssistant.IntentHandler;
-using Newtonsoft.Json.Linq;
 
 namespace ROTK.VoiceAssistant.Messaging.ViewModel
 {

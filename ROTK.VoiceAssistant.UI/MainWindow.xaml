@@ -63,6 +63,7 @@
                     Width="70"
                         Height="70"
                         HorizontalAlignment="Center"
+                    IsEnabled="{Binding IsVoiceButtonEnabled}"
                 Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding StartVoiceCommand}">
                 <Button.Background>
                     <ImageBrush ImageSource="Resources/voice1_48px.ico" Stretch="None"/>

@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SpeechClient, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\Microsoft.ProjectOxford.SpeechRecognition-x86.1.0.0.3\lib\SpeechClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +48,15 @@
     <Compile Include="IVoiceService.cs" />
     <Compile Include="IVoiceServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ROTK.VoiceAssistant.LUISClientLibrary\ROTK.VoiceAssistant.LUISClientLibrary.csproj">
+      <Project>{43daa109-ef1b-4c29-b231-9cfc88142446}</Project>
+      <Name>ROTK.VoiceAssistant.LUISClientLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

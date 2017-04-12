@@ -62,6 +62,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ROTK.VoiceAssistant.LUISClientLibrary\ROTK.VoiceAssistant.LUISClientLibrary.csproj">
+      <Project>{43DAA109-EF1B-4C29-B231-9CFC88142446}</Project>
+      <Name>ROTK.VoiceAssistant.LUISClientLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ROTK.VoiceAssistant.Model\ROTK.VoiceAssistant.Model.csproj">
       <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>
       <Name>ROTK.VoiceAssistant.Model</Name>
