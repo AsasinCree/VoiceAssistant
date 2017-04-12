@@ -13,6 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.Events"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.Model", "ROTK.VoiceAssistant.Model\ROTK.VoiceAssistant.Model.csproj", "{A8022E1C-51B9-470C-A2E8-B6295AF4366A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.Messaging", "ROTK.VoiceAssistant.Messaging\ROTK.VoiceAssistant.Messaging.csproj", "{AB8B448C-DD74-4D60-A041-3E5D03A32180}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.Navigation", "ROTK.VoiceAssistant.Navigation\ROTK.VoiceAssistant.Navigation.csproj", "{6C1A1D8C-E8C1-4761-B003-ED5E93D4CC62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.UI.Behavior", "ROTK.VoiceAssistant.UI.Behavior\ROTK.VoiceAssistant.UI.Behavior.csproj", "{7D48D31B-4C1D-4318-B0D5-FA7931C6185B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.Incident", "ROTK.VoiceAssistant.Incident\ROTK.VoiceAssistant.Incident.csproj", "{2EE173F8-B17F-4F9F-9F66-9CD553506C32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +47,22 @@ Global
 		{A8022E1C-51B9-470C-A2E8-B6295AF4366A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8022E1C-51B9-470C-A2E8-B6295AF4366A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8022E1C-51B9-470C-A2E8-B6295AF4366A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB8B448C-DD74-4D60-A041-3E5D03A32180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB8B448C-DD74-4D60-A041-3E5D03A32180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB8B448C-DD74-4D60-A041-3E5D03A32180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB8B448C-DD74-4D60-A041-3E5D03A32180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C1A1D8C-E8C1-4761-B003-ED5E93D4CC62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C1A1D8C-E8C1-4761-B003-ED5E93D4CC62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C1A1D8C-E8C1-4761-B003-ED5E93D4CC62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C1A1D8C-E8C1-4761-B003-ED5E93D4CC62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D48D31B-4C1D-4318-B0D5-FA7931C6185B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D48D31B-4C1D-4318-B0D5-FA7931C6185B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D48D31B-4C1D-4318-B0D5-FA7931C6185B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D48D31B-4C1D-4318-B0D5-FA7931C6185B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EE173F8-B17F-4F9F-9F66-9CD553506C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE173F8-B17F-4F9F-9F66-9CD553506C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE173F8-B17F-4F9F-9F66-9CD553506C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE173F8-B17F-4F9F-9F66-9CD553506C32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

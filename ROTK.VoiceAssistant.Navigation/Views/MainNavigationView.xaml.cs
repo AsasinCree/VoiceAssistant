@@ -1,5 +1,4 @@
-﻿using Prism.Events;
-using ROTK.VoiceAssistant.UI.ViewModel;
+﻿using ROTK.VoiceAssistant.Navigation.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -16,20 +15,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ROTK.VoiceAssistant.UI.View
+namespace ROTK.VoiceAssistant.Navigation.Views
 {
     /// <summary>
-    /// Interaction logic for MessagingView1.xaml
+    /// MainNavigationView.xaml 的交互逻辑
     /// </summary>
-    public partial class MessagingView : UserControl
+    /// 
+    [Export]
+    public partial class MainNavigationView : UserControl
     {
-        public MessagingView()
+        public MainNavigationView()
         {
             InitializeComponent();
         }
 
         [Import]
-        MessagingViewModel ViewModel
+        MainNavigationViewModel ViewModel
         {
             set
             {

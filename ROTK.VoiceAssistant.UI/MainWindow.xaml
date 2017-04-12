@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:ROTK.VoiceAssistant.UI"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:View="clr-namespace:ROTK.VoiceAssistant.UI.View" x:Class="ROTK.VoiceAssistant.UI.MainWindow"
+        xmlns:ViewModel="clr-namespace:ROTK.VoiceAssistant.UI.ViewModel" 
+        xmlns:prism="http://www.codeplex.com/prism"
         mc:Ignorable="d"
         Title="Voice Assistant" Height="600" Width="960"
                         BorderThickness="0" 
@@ -20,6 +22,7 @@
                 <ResourceDictionary Source="/Resources/Style.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        
     </Controls:MetroWindow.Resources>
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
@@ -65,65 +68,8 @@
             </Button>
         </Grid>
         <Grid Grid.Row="1">
-            <Grid Name="SpecificWorkArea"></Grid>
-            <ScrollViewer Name="TileArea" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60" />
-                        <ColumnDefinition Width="430*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40*" />
-                        <RowDefinition Height="259*" />
-                    </Grid.RowDefinitions>
-                    <WrapPanel Grid.Row="1"
-                       Grid.Column="1"
-                       Width="940"
-                       Height="382"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top">
-                        <Controls:Tile Title="Message"
-                               Margin="3"
-                               Style="{StaticResource LargeTileStyle}"
-                               Background="Teal"
-                               Count="6"
-                               CountFontSize="42"
-                               Click="MessageTileClick"
-                               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                               HorizontalTitleAlignment="Right"/>
-                        <Controls:Tile Title="Query"
-                               Margin="3"
-                               Click="QueryTileClick"
-                               Style="{StaticResource LargeTileStyle}"
-                               Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"/>
-                        <Controls:Tile Title="Incident"
-                               Style="{StaticResource LargeTileStyle}"
-                               Background="DimGray"/>
-                        <Controls:Tile Title="BOLO"
-                               Style="{StaticResource LargeTileStyle}"
-                               Background="#D2691E"
-                               HorizontalTitleAlignment="Right"/>
-                        <Controls:Tile Title="Chat"
-                               TitleFontSize="16"
-                               HorizontalTitleAlignment="Center"
-                               VerticalTitleAlignment="Top"
-                               Count="28"
-                               CountFontSize="42"
-                               Style="{StaticResource SmallTileStyle}"
-                               Background="#FF842D"
-                               IsEnabled="False" />
-                        <Controls:Tile Title="Weather"
-                                        TitleFontSize="16"
-                               HorizontalTitleAlignment="Center"
-                               VerticalTitleAlignment="Top"
-                               Style="{StaticResource SmallTileStyle}"
-                               Background="#1E90FF"/>
-                        <Controls:Tile Title="Store"
-                               Style="{StaticResource LargeTileStyle}"
-                               Background="Green"/>
-                    </WrapPanel>
-                </Grid>
-            </ScrollViewer>
+            <ContentControl x:Name="NavigationItemsControl" prism:RegionManager.RegionName="MainContentRegion" 
+                        Grid.Column="1" Grid.Row="1" Margin="5,0,5,5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>

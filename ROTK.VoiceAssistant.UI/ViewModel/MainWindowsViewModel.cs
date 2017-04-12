@@ -1,4 +1,5 @@
 ﻿using Microsoft.CognitiveServices.SpeechRecognition;
+using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Events;
@@ -89,15 +90,11 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         {
             this.aggregator = aggregator;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI);
-            //this.micClient =
-            //   SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
-            //   this.DefaultLocale,
-            //   this.SubscriptionKey,
-            //   this.LuisAppId,
-            //   this.LuisSubscriptionID);
-            //this.micClient.AuthenticationUri = this.AuthenticationUri;
+
         }
 
+        [ImportMany(typeof(ViewModelBase))]
+        private IEnumerable<ViewModelBase> maps;
 
         private void OperationUI(string operationType)
         {
@@ -179,6 +176,17 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             {
                 this.title = value;
                 RaisePropertyChanged("Title");
+            }
+        }
+
+        private BindableBase selectedViewModel;
+        public BindableBase SelectedViewModel
+        {
+            get { return selectedViewModel; }
+            set
+            {
+                this.selectedViewModel = value;
+                RaisePropertyChanged("SelectedViewModel");
             }
         }
 

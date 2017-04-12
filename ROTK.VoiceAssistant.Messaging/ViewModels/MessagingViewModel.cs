@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
-namespace ROTK.VoiceAssistant.UI.ViewModel
+namespace ROTK.VoiceAssistant.Messaging.ViewModel
 {
     [Export]
     public class MessagingViewModel: BindableBase

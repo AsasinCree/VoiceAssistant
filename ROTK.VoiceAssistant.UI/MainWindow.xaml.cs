@@ -17,6 +17,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Prism.Regions;
+using Prism.Modularity;
+using Prism.Mvvm;
 
 namespace ROTK.VoiceAssistant.UI
 {
@@ -24,14 +27,20 @@ namespace ROTK.VoiceAssistant.UI
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     [Export]
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow : MetroWindow,IPartImportsSatisfiedNotification
     {
         public MainWindow()
         {
-            //this.DataContext = new MainWindowsViewModel(Bootstrapper.EventAggregatorInstant);
             InitializeComponent();
 
         }
+
+
+        [Import(AllowRecomposition = false)]
+        public IRegionManager RegionManager;
+
+        [Import(AllowRecomposition = false)]
+        public IModuleManager ModuleManager;
 
         [Import]
         MainWindowsViewModel ViewModel
@@ -42,10 +51,6 @@ namespace ROTK.VoiceAssistant.UI
             }
         }
 
-        public String SelectedView
-        {
-            get { return this.SpecificWorkArea.Children.GetType().ToString(); }
-        }
 
         private void Voice_Click(object sender, RoutedEventArgs e)
         {
@@ -54,34 +59,52 @@ namespace ROTK.VoiceAssistant.UI
             image.Stretch = Stretch.None;
             item.Background = image;
         }
-         
+
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            this.Back.Visibility = Visibility.Collapsed;
-            this.SpecificWorkArea.Children.Clear();
-            this.TileArea.Visibility = Visibility.Visible;
-            DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.5)));
-            this.TileArea.BeginAnimation(ScrollViewer.OpacityProperty, widthAnimation);
+            //this.Back.Visibility = Visibility.Collapsed;
+            //this.SpecificWorkArea.Children.Clear();
+            //this.TileArea.Visibility = Visibility.Visible;
+            //DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.5)));
+            //this.TileArea.BeginAnimation(ScrollViewer.OpacityProperty, widthAnimation);
         }
 
-        private void MessageTileClick(object sender, RoutedEventArgs e)
+        private static Uri MainNavigationViewUri = new Uri("/MainNavigationView", UriKind.Relative);
+        public void OnImportsSatisfied()
         {
-            this.Back.Visibility = Visibility.Visible;
-            this.TileArea.Visibility = Visibility.Collapsed;
-            MessagingView messagingView = new MessagingView();
-            DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.5)));
-            messagingView.BeginAnimation(MessagingView.OpacityProperty, widthAnimation);
-            this.SpecificWorkArea.Children.Add(messagingView);
+            this.ModuleManager.LoadModuleCompleted +=
+               (s, e) =>
+               {
+
+                    if (e.ModuleInfo.ModuleName == "NavigationModule")
+                   {
+                       this.RegionManager.RequestNavigate(
+                           RegionNames.MainContentRegion,
+                           MainNavigationViewUri);
+                   }
+               };
         }
 
-        private void QueryTileClick(object sender, RoutedEventArgs e)
-        {
-            this.Back.Visibility = Visibility.Visible;
-            this.TileArea.Visibility = Visibility.Collapsed;
-            QueryView queryView = new QueryView();
-            DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.5)));
-            queryView.BeginAnimation(MessagingView.OpacityProperty, widthAnimation);
-            this.SpecificWorkArea.Children.Add(queryView);
-        }
+        //private void MessageTileClick(object sender, RoutedEventArgs e)
+        //{
+        //    this.Back.Visibility = Visibility.Visible;
+        //    this.TileArea.Visibility = Visibility.Collapsed;
+        //    MessagingView messagingView = new MessagingView();
+        //    DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.5)));
+        //    messagingView.BeginAnimation(MessagingView.OpacityProperty, widthAnimation);
+        //    this.SpecificWorkArea.Children.Add(messagingView);
+        //}
+
+        //private void QueryTileClick(object sender, RoutedEventArgs e)
+        //{
+        //    this.Back.Visibility = Visibility.Visible;
+        //    this.TileArea.Visibility = Visibility.Collapsed;
+        //    QueryView queryView = new QueryView();
+        //    DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.5)));
+        //    queryView.BeginAnimation(MessagingView.OpacityProperty, widthAnimation);
+        //    this.SpecificWorkArea.Children.Add(queryView);
+        //}
+
+
     }
 }

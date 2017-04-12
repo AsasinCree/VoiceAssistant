@@ -1,8 +1,12 @@
 ﻿using Prism.Events;
 using Prism.Mef;
+using Prism.Modularity;
+using Prism.Regions;
 using ROTK.VoiceAssistant.IntentHandler;
+using ROTK.VoiceAssistant.UI.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
@@ -13,12 +17,6 @@ namespace ROTK.VoiceAssistant.UI
 {
     public class Bootstrapper: MefBootstrapper
     {
-        //public static readonly EventAggregator EventAggregatorInstant = new EventAggregator();
-
-        //static Bootstrapper()
-        //{
-        //    UIOperationIntentHandler.Aggregator = EventAggregatorInstant;
-        //}
 
         protected override void ConfigureAggregateCatalog()
         {
@@ -35,11 +33,20 @@ namespace ROTK.VoiceAssistant.UI
 
             Application.Current.MainWindow = (MainWindow)this.Shell;
             Application.Current.MainWindow.Show();
+
         }
+
+        protected override IModuleCatalog CreateModuleCatalog()
+        {
+            return new ConfigurationModuleCatalog();
+        }
+
+
 
         protected override DependencyObject CreateShell()
         {
             return this.Container.GetExportedValue<MainWindow>();
         }
+
     }
 }

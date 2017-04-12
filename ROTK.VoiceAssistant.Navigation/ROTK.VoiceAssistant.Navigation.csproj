@@ -4,29 +4,26 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{64CFFE74-F74F-49BA-9BA3-3710188A43FA}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{6C1A1D8C-E8C1-4761-B003-ED5E93D4CC62}</ProjectGuid>
+    <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ROTK.VoiceAssistant.UI</RootNamespace>
-    <AssemblyName>ROTK.VoiceAssistant.UI</AssemblyName>
+    <RootNamespace>ROTK.VoiceAssistant.Navigation</RootNamespace>
+    <AssemblyName>ROTK.VoiceAssistant.Navigation</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\ROTK.VoiceAssistant.UI\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,10 +40,6 @@
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -59,20 +52,11 @@
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SpeechClient, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Microsoft.ProjectOxford.SpeechRecognition-x86.1.0.0.3\lib\SpeechClient.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.Composition.registration" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.1.4.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -89,48 +73,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Bootstrapper.cs" />
-    <Compile Include="RegionNames.cs" />
-    <Compile Include="Services\VoiceCommandService.cs" />
-    <Compile Include="ViewModel\MainWindowsViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="View\QueryView.xaml.cs">
-      <DependentUpon>QueryView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Resources\Icons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\IconsNonShared.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Style.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\QueryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="NavigationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -143,6 +86,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ViewModels\MainNavigationViewModel.cs" />
+    <Compile Include="Views\MainNavigationView.xaml.cs">
+      <DependentUpon>MainNavigationView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -157,53 +104,61 @@
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Resource Include="Resources\chevron_left_16px.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\WindowsIcons-license.txt" />
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\IconsNonShared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Style.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainNavigationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\chevron_left_24px.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\voice1_32px.ico" />
-    <Resource Include="Resources\voice1_48px.ico" />
-    <Resource Include="Resources\voice1_64px.ico" />
-    <Resource Include="Resources\voice2_48px.ico" />
-    <Resource Include="Resources\voice2_64px.ico" />
-    <Resource Include="Resources\voice2_72px.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\chevron_left_16px.ico" />
-    <Resource Include="Resources\chevron_left_24px.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\voice_mic_48px.ico" />
-    <Resource Include="Resources\voice_mic_64px.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\voice_mic_24px.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.Events\ROTK.VoiceAssistant.Events.csproj">
-      <Project>{27e8d2c2-badf-469d-9f06-5349c4e925c7}</Project>
-      <Name>ROTK.VoiceAssistant.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.IntentHandler\ROTK.VoiceAssistant.IntentHandler.csproj">
-      <Project>{57175c87-bede-41cf-8145-d02048e657b4}</Project>
-      <Name>ROTK.VoiceAssistant.IntentHandler</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.LUISClientLibrary\ROTK.VoiceAssistant.LUISClientLibrary.csproj">
-      <Project>{43DAA109-EF1B-4C29-B231-9CFC88142446}</Project>
-      <Name>ROTK.VoiceAssistant.LUISClientLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.Model\ROTK.VoiceAssistant.Model.csproj">
-      <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>
-      <Name>ROTK.VoiceAssistant.Model</Name>
-    </ProjectReference>
+    <Resource Include="Resources\voice_mic_48px.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Behavior\" />
+    <Resource Include="Resources\voice_mic_64px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\voice1_32px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\voice1_48px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\voice1_64px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\voice2_48px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\voice2_64px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\voice2_72px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
