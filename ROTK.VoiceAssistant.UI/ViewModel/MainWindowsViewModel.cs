@@ -45,7 +45,10 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.moduleManager = moduleManager;
             var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
             micClient.VoiceClient.OnMicrophoneStatus += VoiceClient_OnMicrophoneStatus;
+
         }
+
+
 
         private void VoiceClient_OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
         {
@@ -115,7 +118,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void StartVoice()
         {
-            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "VoiceButton", Content = "Info Start listening!" });
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "VoiceButton", Content = "Voice Button Clicked" });
             var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
             micClient.StartMicAndRecognition();
         }

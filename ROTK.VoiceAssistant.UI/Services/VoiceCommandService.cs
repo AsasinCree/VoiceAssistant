@@ -1,7 +1,10 @@
 ﻿using Microsoft.CognitiveServices.SpeechRecognition;
 using Newtonsoft.Json.Linq;
+using Prism.Events;
+using ROTK.VoiceAssistant.Events;
 using ROTK.VoiceAssistant.IntentHandler;
 using ROTK.VoiceAssistant.LUISClientLibrary;
+using ROTK.VoiceAssistant.Model;
 using ROTK.VoiceAssistant.Services;
 using System;
 using System.Collections.Generic;
@@ -23,12 +26,14 @@ namespace ROTK.VoiceAssistant.UI.Services
             }
         }
 
+        public IEventAggregator aggregator;
+
         public bool EnableIntent
         {
             get;set;
         }
 
-        public VoiceService(string DefaultLocale, string SpeechKey, string UIOperationLuisAppId, string LuisSubscriptionID)
+        public VoiceService(string DefaultLocale, string SpeechKey, string UIOperationLuisAppId, string LuisSubscriptionID, IEventAggregator aggregator)
             {
             this.micClient =
               SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
@@ -39,6 +44,30 @@ namespace ROTK.VoiceAssistant.UI.Services
 
             this.micClient.OnIntent += this.OnIntentHandler;
             EnableIntent = true;
+            this.micClient.OnConversationError += VoiceClient_OnConversationError;
+            this.micClient.OnResponseReceived += VoiceClient_OnResponseReceived;
+            this.micClient.OnMicrophoneStatus += VoiceClient_OnMicrophoneStatus;
+            this.aggregator = aggregator;
+        }
+
+        private void VoiceClient_OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
+        {
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "VoiceClient", Content = string.Format("Voice Client Recording is {0}", e.Recording) });
+
+        }
+
+        private void VoiceClient_OnResponseReceived(object sender, SpeechResponseEventArgs e)
+        {
+            if (e.PhraseResponse.Results.Count() > 0)
+            {
+                aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "VoiceClient", Content = e.PhraseResponse.Results.First().DisplayText });
+            }
+        }
+
+        private void VoiceClient_OnConversationError(object sender, SpeechErrorEventArgs e)
+        {
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "VoiceClient", Content = string.Format("Enter in {0}", e.SpeechErrorText) });
+
         }
 
         private void OnIntentHandler(object sender, SpeechIntentEventArgs e)
