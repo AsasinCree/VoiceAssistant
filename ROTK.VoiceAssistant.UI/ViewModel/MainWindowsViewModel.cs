@@ -35,13 +35,14 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         private string currentView = Constant.MainNavigationViewUrl;
 
         [ImportingConstructor]
-        public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager, IVoiceServiceFactory voiceServiceFactory)
+        public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager, IVoiceServiceFactory voiceServiceFactory, IModuleManager moduleManager)
         {
             this.aggregator = aggregator;
             this.regionManager = regionManager;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
             this.backCommand = new DelegateCommand<string>(this.NavigationTo);
             this.voiceServiceFactory = voiceServiceFactory;
+            this.moduleManager = moduleManager;
         }
 
         public void OnImportsSatisfied()
@@ -76,7 +77,6 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                 {
                     case Constant.MessageScreenName:
                         NavigationTo(Constant.MessageScreenUrl);
-                        this.aggregator.GetEvent<MessageMisClientEvent>().Publish(messageViewClient);
                         break;
                     case Constant.IncidentScreenName:
                         NavigationTo(Constant.IncidentScreenUrl);
@@ -107,7 +107,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         private void StartVoice()
         {
             aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Info Start listening!" });
-            var micClient = voiceServiceFactory.CreateSevice("");
+            var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
             micClient.StartMicAndRecognition();
         }
 

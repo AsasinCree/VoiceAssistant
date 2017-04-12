@@ -1,5 +1,6 @@
 ﻿using Prism.Events;
 using ROTK.VoiceAssistant.IntentHandler;
+using ROTK.VoiceAssistant.Model;
 using ROTK.VoiceAssistant.Services;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,11 @@ namespace ROTK.VoiceAssistant.UI.Services
         private string UIOperationLuisAppId
         {
             get { return ConfigurationManager.AppSettings["UIOperationLuisAppID"]; }
+        }
+
+        private string MessageApplicationLuisAppID
+        {
+            get { return ConfigurationManager.AppSettings["MessageApplicationLuisAppID"]; }
         }
 
         /// <summary>
@@ -96,10 +102,10 @@ namespace ROTK.VoiceAssistant.UI.Services
                 IVoiceService service;
                 switch (serviceName)
                 {
-                    case "1":
-                     service = new VoiceService<UIOperationIntentHandler>(this.DefaultLocale, this.SpeechKey, this.UIOperationLuisAppId, this.LuisSubscriptionID);
+                    case Constant.MessageScreen:
+                     service = new VoiceService<MessageIntentHandler>(this.DefaultLocale, this.SpeechKey, this.MessageApplicationLuisAppID, this.LuisSubscriptionID);
                         break;
-                    case"2":
+                    case Constant.MainNavigationView:
                     default:
                      service = new VoiceService<UIOperationIntentHandler>(this.DefaultLocale, this.SpeechKey, this.UIOperationLuisAppId, this.LuisSubscriptionID);
                         break;
