@@ -9,6 +9,7 @@ using ROTK.VoiceAssistant.Events;
 using ROTK.VoiceAssistant.IntentHandler;
 using ROTK.VoiceAssistant.LUISClientLibrary;
 using ROTK.VoiceAssistant.Model;
+using ROTK.VoiceAssistant.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -25,79 +26,19 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
     {
         IEventAggregator aggregator;
 
-        #region Configuration Properties
-
-        /// <summary>
-        /// Gets or sets subscription key
-        /// </summary>
-        public string SpeechKey
-        {
-            get { return ConfigurationManager.AppSettings["SpeechKey"]; }
-        }
-
-        /// <summary>
-        /// Gets the LUIS subscription identifier.
-        /// </summary>
-        /// <value>
-        /// The LUIS subscription identifier.
-        /// </value>
-        private string LuisSubscriptionID
-        {
-            get { return ConfigurationManager.AppSettings["luisSubscriptionID"]; }
-        }
-
-        /// <summary>
-        /// Gets the LUIS application identifier.
-        /// </summary>
-        /// <value>
-        /// The LUIS application identifier.
-        /// </value>
-        private string UIOperationLuisAppId
-        {
-            get { return ConfigurationManager.AppSettings["UIOperationLuisAppID"]; }
-        }
-
-        /// <summary>
-        /// Gets the default locale.
-        /// </summary>
-        /// <value>
-        /// The default locale.
-        /// </value>
-        private string DefaultLocale
-        {
-            get { return "en-US"; }
-        }
-
-        /// <summary>
-        /// Gets the Cognitive Service Authentication Uri.
-        /// </summary>
-        /// <value>
-        /// The Cognitive Service Authentication Uri.  Empty if the global default is to be used.
-        /// </value>
-        private string AuthenticationUri
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["AuthenticationUri"];
-            }
-        }
-
-        #endregion
-
-        private MicrophoneRecognitionClient micClient;
-
+        IVoiceServiceFactory voiceServiceFactory;
         private readonly IRegionManager regionManager;
         private ICommand backCommand;
 
 
         [ImportingConstructor]
-        public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager)
+        public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager, IVoiceServiceFactory voiceServiceFactory)
         {
             this.aggregator = aggregator;
             this.regionManager = regionManager;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
-            //aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Enter in Main View!" });
             this.backCommand = new DelegateCommand<string>(this.NavigationTo);
+            this.voiceServiceFactory = voiceServiceFactory;
         }
 
         private void NavigationTo(string to)
@@ -145,61 +86,8 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         private void StartVoice()
         {
             aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Info Start listening!" });
-            CreateMicrophoneRecoClientWithIntent();
-
+            var micClient = voiceServiceFactory.CreateSevice("");
             micClient.StartMicAndRecognition();
-        }
-
-        private void CreateMicrophoneRecoClientWithIntent()
-        {
-            this.micClient =
-                SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
-                this.DefaultLocale,
-                this.SpeechKey,
-                this.UIOperationLuisAppId,
-                this.LuisSubscriptionID);
-            this.micClient.AuthenticationUri = this.AuthenticationUri;
-            this.micClient.OnIntent += this.OnIntentHandler;
-
-            // Event handlers for speech recognition results
-            this.micClient.OnMicrophoneStatus += this.OnMicrophoneStatus;
-            this.micClient.OnPartialResponseReceived += this.OnPartialResponseReceivedHandler;
-            this.micClient.OnResponseReceived += this.OnMicShortPhraseResponseReceivedHandler;
-            this.micClient.OnConversationError += this.OnConversationErrorHandler;
-        }
-
-
-        private void OnIntentHandler(object sender, SpeechIntentEventArgs e)
-        {
-            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Info", Content = "Voice recognition..." });
-
-            UIOperationIntentHandler.Aggregator = this.aggregator;
-            using (IntentRouter router = IntentRouter.Setup<UIOperationIntentHandler>())
-            {
-                LuisResult result = new LuisResult(JToken.Parse(e.Payload));
-
-                router.Route(result, this);
-            }
-        }
-
-        private void OnConversationErrorHandler(object sender, SpeechErrorEventArgs e)
-        {
-
-        }
-
-        private void OnMicShortPhraseResponseReceivedHandler(object sender, SpeechResponseEventArgs e)
-        {
-
-        }
-
-        private void OnPartialResponseReceivedHandler(object sender, PartialSpeechResponseEventArgs e)
-        {
-
-        }
-
-        private void OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
-        {
-
         }
 
         private string title;

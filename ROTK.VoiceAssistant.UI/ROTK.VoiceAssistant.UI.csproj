@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="RegionNames.cs" />
     <Compile Include="Services\VoiceCommandService.cs" />
+    <Compile Include="Services\VoiceServiceFactory.cs" />
     <Compile Include="ViewModel\MainWindowsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="App.xaml.cs">
@@ -194,6 +195,10 @@
     <ProjectReference Include="..\ROTK.VoiceAssistant.Model\ROTK.VoiceAssistant.Model.csproj">
       <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>
       <Name>ROTK.VoiceAssistant.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ROTK.VoiceAssistant.Services\ROTK.VoiceAssistant.Services.csproj">
+      <Project>{3e372cc6-761d-4edd-8806-f3a70b1c08c4}</Project>
+      <Name>ROTK.VoiceAssistant.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
