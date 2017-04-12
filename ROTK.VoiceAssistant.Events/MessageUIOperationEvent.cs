@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ROTK.VoiceAssistant.Events
 {
-    public class MessageSentEvent : PubSubEvent
+    public class MessageUIOperationEvent : PubSubEvent
     {
 
     }

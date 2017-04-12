@@ -16,8 +16,7 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
 {
     [Export]
     public class MessagingViewModel: BindableBase
-    {
-        
+    { 
         private IEventAggregator aggregator;
 
         [ImportingConstructor]
@@ -25,8 +24,8 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
         {
             this.aggregator = aggregator;
 
-            this.aggregator.GetEvent<MessageSentEvent>().Subscribe(SendMessageOperation);
-            this.aggregator.GetEvent<FillMessageFieldEvent>().Subscribe(FillMessageFieldOperation);
+            this.aggregator.GetEvent<MessageUIOperationEvent>().Subscribe(OperateMessageView);
+            this.aggregator.GetEvent<FillMessageFieldEvent>().Subscribe(FillMessageField);
         }
 
         private string title;
@@ -70,12 +69,12 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
             get { return new DelegateCommand(() => this.Title = "Test"); }
         }
 
-        public void SendMessageOperation()
+        public void OperateMessageView()
         {
          
         }
 
-        public void FillMessageFieldOperation(string fieldType)
+        public void FillMessageField(string fieldContent)
         {
 
         }

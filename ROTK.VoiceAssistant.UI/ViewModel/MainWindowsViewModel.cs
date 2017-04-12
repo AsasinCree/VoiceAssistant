@@ -57,6 +57,11 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             get { return ConfigurationManager.AppSettings["UIOperationLuisAppID"]; }
         }
 
+        private string IncidentApplicationLuisAppID
+        {
+            get { return ConfigurationManager.AppSettings["IncidentApplicationLuisAppID"]; }
+        }
+
         /// <summary>
         /// Gets the default locale.
         /// </summary>
@@ -84,8 +89,10 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         #endregion
 
-        private MicrophoneRecognitionClient micClient;
-        
+        public MicrophoneRecognitionClient micClient;
+
+        public MicrophoneRecognitionClient micClient_2;
+
         private readonly IRegionManager regionManager;
         private ICommand backCommand;
 
@@ -125,7 +132,6 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                         break;
                     default:
                         break;
-
                 }
             }
             
@@ -148,7 +154,24 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             micClient.StartMicAndRecognition();
         }
 
-        private void CreateMicrophoneRecoClientWithIntent()
+        public void CreateMicrophoneRecoClient()
+        {
+            this.micClient =
+                SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
+                this.DefaultLocale,
+                this.SpeechKey,
+                this.UIOperationLuisAppId,
+                this.LuisSubscriptionID);
+            this.micClient.AuthenticationUri = this.AuthenticationUri;
+
+            // Event handlers for speech recognition results
+            this.micClient.OnMicrophoneStatus += this.OnMicrophoneStatus;
+            this.micClient.OnPartialResponseReceived += this.OnPartialResponseReceivedHandler;
+            this.micClient.OnResponseReceived += this.OnMicShortPhraseResponseReceivedHandler;
+            this.micClient.OnConversationError += this.OnConversationErrorHandler;
+        }
+
+        public void CreateMicrophoneRecoClientWithIntent()
         {
             this.micClient =
                 SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent(
