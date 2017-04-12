@@ -89,20 +89,45 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         private readonly IRegionManager regionManager;
         private ICommand backCommand;
 
+
         [ImportingConstructor]
         public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager)
         {
             this.aggregator = aggregator;
-            this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI);
-
             this.regionManager = regionManager;
-            this.backCommand = new DelegateCommand<string>(this.NavigationTo);
+            this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
+        }
+
+        private void NavigationTo(string to)
+        {
+            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
         }
 
 
         private void OperationUI(string operationType)
         {
-            Title = operationType;
+            if(!string.IsNullOrEmpty(operationType))
+            {
+                switch (operationType)
+                {
+                    case Constant.MessageScreenName:
+                        NavigationTo(Constant.MessageScreenUrl);
+                        break;
+                    case Constant.IncidentScreenName:
+                        NavigationTo(Constant.IncidentScreenUrl);
+                        break;
+                    case Constant.BoloScreenName:
+                        NavigationTo(Constant.BoloScreenUrl);
+                        break;
+                    case Constant.QueryScreenName:
+                        NavigationTo(Constant.QueryScreenUrl);
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+            
         }
 
         public ICommand StartVoiceCommand
