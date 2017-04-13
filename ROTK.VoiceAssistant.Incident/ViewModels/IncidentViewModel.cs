@@ -226,6 +226,14 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
         private void CreateIncident()
         {
             MessageBox.Show("Create incident successful");
+            Location = string.Empty;
+            City = string.Empty;
+            Building = string.Empty;
+            IncidentType = string.Empty;
+            PlateType = string.Empty;
+            State = string.Empty;
+            LicensePlate = string.Empty;
+            PlateYear = string.Empty;
         }
     }
 }

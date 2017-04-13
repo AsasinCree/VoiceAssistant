@@ -45,6 +45,9 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
         private void SendMessage()
         {
             MessageBox.Show("Send message successfully");
+            Title = string.Empty;
+            To = string.Empty;
+            Content = string.Empty;
         }
 
         private void FillToField(string content)
