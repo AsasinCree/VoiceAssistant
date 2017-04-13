@@ -25,8 +25,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 {
     [Export]
     public class MainWindowsViewModel : BindableBase, IPartImportsSatisfiedNotification
-    {
-    
+    {    
         IEventAggregator aggregator;
 
         IVoiceServiceFactory voiceServiceFactory;
@@ -41,10 +40,27 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.aggregator = aggregator;
             this.regionManager = regionManager;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
+            this.aggregator.GetEvent<NoneEvent>().Subscribe(NoneOperation, ThreadOption.UIThread);
             this.backCommand = new DelegateCommand<string>(this.NavigationTo);
             this.voiceServiceFactory = voiceServiceFactory;
             this.moduleManager = moduleManager;
             var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
+        }
+
+        private string messageContent = string.Empty;
+        public string MessageContent
+        {
+            get { return messageContent; }
+            set
+            {
+                this.messageContent = value;
+                RaisePropertyChanged("MessageContent");
+            }
+        }
+
+        private void NoneOperation(string obj)
+        {
+            MessageContent = "I can't understand \"" + obj + "\"";
         }
 
         public void OnImportsSatisfied()
@@ -115,6 +131,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void StartVoice()
         {
+            MessageContent = string.Empty;
             aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "VoiceButton", Content = "Voice Button Clicked" });
             var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
             micClient.StartMicAndRecognition();

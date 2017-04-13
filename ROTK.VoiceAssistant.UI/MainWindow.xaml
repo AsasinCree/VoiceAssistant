@@ -50,7 +50,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="80*" />
                 <RowDefinition Height="260*" />
-            </Grid.RowDefinitions>
+            </Grid.RowDefinitions>            
             <TextBlock Grid.Row="0" 
                        VerticalAlignment="Center"
                        Foreground="{DynamicResource BlackBrush}"
@@ -69,6 +69,9 @@
                     <ImageBrush ImageSource="Resources/voice1_48px.ico" Stretch="None"/>
                 </Button.Background>
             </Button>
+            <Label Name="MessageLabel" Grid.Row="1"
+                        Height="70" FontSize="20" HorizontalAlignment="Right" VerticalContentAlignment="Center" Margin="0"
+                   Content="{Binding MessageContent}"></Label>
         </Grid>
         <Grid Grid.Row="1">
             <ContentControl x:Name="NavigationItemsControl" prism:RegionManager.RegionName="MainContentRegion" 
