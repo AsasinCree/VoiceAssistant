@@ -13,7 +13,7 @@ namespace ROTK.VoiceAssistant.IntentHandler
 
         // 0.65 is the confidence score required by this intent in order to be activated
         // Only picks out a single entity value
-        [IntentHandler(0.65, Name = Constant.OpenMessageActivity)]
+        [IntentHandler(0.3, Name = Constant.OpenMessageActivity)]
         public static void OpenMessageActivity(LuisResult result, object context)
         {
             List<Entity> entitis = result.GetAllEntities();
@@ -22,7 +22,7 @@ namespace ROTK.VoiceAssistant.IntentHandler
 
         }
 
-        [IntentHandler(0.65, Name = Constant.OpenIncidentActivity)]
+        [IntentHandler(0.3, Name = Constant.OpenIncidentActivity)]
         public static void OpenIncidentActivity(LuisResult result, object context)
         {
             List<Entity> entitis = result.GetAllEntities();

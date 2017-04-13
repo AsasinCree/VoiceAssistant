@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 using ROTK.VoiceAssistant.Events;
 using ROTK.VoiceAssistant.IntentHandler;
 using ROTK.VoiceAssistant.LUISClientLibrary;
@@ -12,11 +13,12 @@ using System.Configuration;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using System;
 
 namespace ROTK.VoiceAssistant.Messaging.ViewModel
 {
     [Export]
-    public class MessagingViewModel: BindableBase
+    public class MessagingViewModel: BindableBase, INavigationAware
     {
         
         private IEventAggregator aggregator;
@@ -112,6 +114,25 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
         public ICommand Send
         {
             get { return new DelegateCommand(() => this.Title = "Test"); }
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            var parameter = navigationContext.Parameters["Name"];
+            if (parameter != null)
+            {
+                To = parameter.ToString();
+            }
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
         }
     }
 }
