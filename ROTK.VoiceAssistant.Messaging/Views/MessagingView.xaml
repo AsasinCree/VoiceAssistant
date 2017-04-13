@@ -7,7 +7,7 @@
               xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:beh="clr-namespace:ROTK.VoiceAssistant.UI.Behavior;assembly=ROTK.VoiceAssistant.UI.Behavior"
              mc:Ignorable="d" 
-             d:DesignHeight="300">
+             d:DesignHeight="300" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Thickness x:Key="ColumnMargin">10 5 10 5</Thickness>
         <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>

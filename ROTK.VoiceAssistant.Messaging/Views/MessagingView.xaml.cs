@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -29,6 +30,8 @@ namespace ROTK.VoiceAssistant.Messaging.Views
             InitializeComponent();
         }
 
+
+
         [Import]
         MessagingViewModel ViewModel
         {
@@ -37,5 +40,11 @@ namespace ROTK.VoiceAssistant.Messaging.Views
                 this.DataContext = value;
             }
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.8)));
+            this.BeginAnimation(MessagingView.OpacityProperty, widthAnimation);
+        }        
     }
 }

@@ -77,7 +77,7 @@
                                Command="{Binding NavigationCommand}"
                                CommandParameter="\LogView"
                                Style="{StaticResource LargeTileStyle}"
-                               Background="Green"/>
+                               Background="Green" Loaded="Tile_Loaded"/>
             </WrapPanel>
         </Grid>
     </ScrollViewer>
