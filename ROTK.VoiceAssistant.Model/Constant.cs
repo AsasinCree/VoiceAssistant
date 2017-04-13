@@ -56,6 +56,8 @@ namespace ROTK.VoiceAssistant.Model
 
         public const string OpenIncidentActivity = "OpenIncidentActivity";
 
+        public const string BackToHomeActivity = "BackToHomeActivity";
+
         #endregion
 
         #region Entity

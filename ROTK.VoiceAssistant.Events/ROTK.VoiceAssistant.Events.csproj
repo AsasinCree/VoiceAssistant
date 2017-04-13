@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackToHomeEvent.cs" />
     <Compile Include="FillIncidentFieldEvent.cs" />
     <Compile Include="FillMessageFieldEvent.cs" />
     <Compile Include="LogSentEvent.cs" />

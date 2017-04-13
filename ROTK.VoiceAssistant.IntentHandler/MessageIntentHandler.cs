@@ -18,6 +18,14 @@ namespace ROTK.VoiceAssistant.IntentHandler
             Aggregator.GetEvent<MessageSentEvent>().Publish();
         }
 
+        // 0 is the confidence score required by this intent in order to be activated
+        // Only picks out a single entity value
+        [IntentHandler(0, Name = Constant.BackToHomeActivity)]
+        public static void BackToHomeActivity(LuisResult result, object context)
+        {
+            Aggregator.GetEvent<BackToHomeEvent>().Publish();
+        }
+
         [IntentHandler(0, Name = Constant.FillToActivityActivityIntent)]
         public static void FillToActivity(LuisResult result, object context)
         {

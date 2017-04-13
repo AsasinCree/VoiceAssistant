@@ -14,6 +14,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using System;
+using ROTK.VoiceAssistant.Model;
 
 namespace ROTK.VoiceAssistant.Messaging.ViewModel
 {
@@ -22,19 +23,34 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
     {
         
         private IEventAggregator aggregator;
+        private readonly IRegionManager regionManager;
 
         [ImportingConstructor]
-        public MessagingViewModel(IEventAggregator aggregator)
+        public MessagingViewModel(IEventAggregator aggregator, IRegionManager regionManager)
         {
             this.aggregator = aggregator;
-
+            this.regionManager = regionManager;
             this.aggregator.GetEvent<FillToFieldEvent>().Subscribe(FillToField, ThreadOption.UIThread);
             this.aggregator.GetEvent<MessageSentEvent>().Subscribe(SendMessage, ThreadOption.UIThread);
+            this.aggregator.GetEvent<BackToHomeEvent>().Subscribe(BackToHome, ThreadOption.UIThread);
+        }
+
+        private void NavigationTo(string to)
+        {
+            aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Navigation", Content = string.Format("Enter in {0}", to) });
+
+            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+
         }
 
         private void SendMessage()
         {
-            
+            MessageBox.Show("Send message successfully");
+        }
+
+        private void BackToHome()
+        {
+            NavigationTo(ROTK.VoiceAssistant.Model.Constant.MainNavigationViewUrl);
         }
 
         private void FillToField(string content)
