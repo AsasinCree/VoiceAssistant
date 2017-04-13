@@ -16,6 +16,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ROTK.VoiceAssistant.UI.ViewModel
@@ -86,6 +87,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private MicrophoneRecognitionClient micClient;
         
+
         private readonly IRegionManager regionManager;
         private ICommand backCommand;
 
@@ -101,7 +103,11 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void NavigationTo(string to)
         {
-            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+            if(to.Equals("\\MainNavigationView"))
+                VisibleFlag = Visibility.Collapsed;
+            else
+                VisibleFlag = Visibility.Visible;
+            this.regionManager.RequestNavigate(RegionNames.MainContentRegion, new Uri(to, UriKind.Relative));
         }
 
 
@@ -195,34 +201,35 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
         {
-
-        }
-
-        private string title;
-        public string Title
-        {
-            get { return title; }
-            set
-            {
-                this.title = value;
-                RaisePropertyChanged("Title");
-            }
-        }
-
-        private BindableBase selectedViewModel;
-        public BindableBase SelectedViewModel
-        {
-            get { return selectedViewModel; }
-            set
-            {
-                this.selectedViewModel = value;
-                RaisePropertyChanged("SelectedViewModel");
-            }
+            IsRecordEnabled = !e.Recording;
         }
         
         public ICommand BackCommand
         {
             get { return this.backCommand; }
+        }
+
+
+        private bool isRecordEnabled=true;
+        public bool IsRecordEnabled
+        {
+            get { return isRecordEnabled; }
+            set
+            {
+                this.isRecordEnabled = value;
+                RaisePropertyChanged("IsRecordEnabled");
+            }
+        }
+
+        private Visibility visibleFlag = Visibility.Collapsed;
+        public Visibility VisibleFlag
+        {
+            get { return visibleFlag; }
+            set
+            {
+                this.visibleFlag = value;
+                RaisePropertyChanged("VisibleFlag");
+            }
         }
     }
 }

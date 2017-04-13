@@ -18,4 +18,24 @@
         <Setter Property="Width" Value="144" />
         <Setter Property="Margin" Value="3,3,3,3" />
     </Style>
+
+    <Style x:Key="VoiceButtonStyle" TargetType="Button" BasedOn="{StaticResource MetroCircleButtonStyle}">
+        <Style.Triggers>
+            <!--<Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <ImageBrush ImageSource="../Resources/voice2_48px.png" Stretch="None"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>-->
+            <Trigger Property="IsPressed" Value="true" >
+                <Setter Property = "Foreground">
+                    <Setter.Value>
+                        <ImageBrush ImageSource="../Resources/voice2_48px.png" Stretch="None"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>
