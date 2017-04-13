@@ -55,7 +55,6 @@
     <Compile Include="FillMessageFieldEvent.cs" />
     <Compile Include="LogSentEvent.cs" />
     <Compile Include="MessageSentEvent.cs" />
-    <Compile Include="IncidentUIOperationEvent.cs" />
     <Compile Include="NoneEvent.cs" />
     <Compile Include="UIOperationEvent.cs" />
     <Compile Include="MessageUIOperationEvent.cs" />
