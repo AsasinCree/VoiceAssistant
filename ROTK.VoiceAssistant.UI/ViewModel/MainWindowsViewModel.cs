@@ -41,10 +41,16 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.aggregator = aggregator;
             this.regionManager = regionManager;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
+            this.aggregator.GetEvent<BackToHomeEvent>().Subscribe(BackToHome, ThreadOption.UIThread);
             this.backCommand = new DelegateCommand<string>(this.NavigationTo);
             this.voiceServiceFactory = voiceServiceFactory;
             this.moduleManager = moduleManager;
             var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
+        }
+
+        private void BackToHome()
+        {
+            NavigationTo(Constant.MainNavigationViewUrl);
         }
 
         public void OnImportsSatisfied()

@@ -5,6 +5,7 @@ using System.ComponentModel.Composition;
 using System;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace ROTK.VoiceAssistant.Incident.ViewModels
 {
@@ -224,7 +225,7 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
 
         private void CreateIncident()
         {
-            
+            MessageBox.Show("Create incident successful");
         }
     }
 }
