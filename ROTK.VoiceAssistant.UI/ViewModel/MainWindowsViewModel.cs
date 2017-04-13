@@ -41,6 +41,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.regionManager = regionManager;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
             this.aggregator.GetEvent<NoneEvent>().Subscribe(NoneOperation, ThreadOption.UIThread);
+            this.aggregator.GetEvent<BackToHomeEvent>().Subscribe(BackToHome, ThreadOption.UIThread);
             this.backCommand = new DelegateCommand<string>(this.NavigationTo);
             this.voiceServiceFactory = voiceServiceFactory;
             this.moduleManager = moduleManager;
@@ -61,6 +62,11 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         private void NoneOperation(string obj)
         {
             MessageContent = "I can't understand \"" + obj + "\"";
+        }
+
+        private void BackToHome()
+        {
+            NavigationTo(Constant.MainNavigationViewUrl);
         }
 
         public void OnImportsSatisfied()

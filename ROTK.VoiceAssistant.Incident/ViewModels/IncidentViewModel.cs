@@ -5,6 +5,7 @@ using System.ComponentModel.Composition;
 using System;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace ROTK.VoiceAssistant.Incident.ViewModels
 {
@@ -14,20 +15,14 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
         private IEventAggregator aggregator;
 
         private ObservableCollection<string> cities = new ObservableCollection<string>();
+        private ObservableCollection<string> incidentTypes = new ObservableCollection<string>();
+        private ObservableCollection<string> plateTypes = new ObservableCollection<string>();
+        private ObservableCollection<string> states = new ObservableCollection<string>();
 
         [ImportingConstructor]
         public IncidentViewModel(IEventAggregator aggregator)
         {
             this.aggregator = aggregator;
-
-            this.aggregator.GetEvent<FocusOnLocationEvent>().Subscribe(() => this.LocationFocused = true, ThreadOption.UIThread);
-            this.aggregator.GetEvent<FocusOnCityEvent>().Subscribe(() => this.CityFocused = true, ThreadOption.UIThread);
-            this.aggregator.GetEvent<FocusOnBuildingEvent>().Subscribe(() => this.BuildingFocused = true, ThreadOption.UIThread);
-            this.aggregator.GetEvent<FocusOnIncidentTypeEvent>().Subscribe(() => this.IncidentTypeFocused = true, ThreadOption.UIThread);
-            this.aggregator.GetEvent<FocusOnLicensePlateEvent>().Subscribe(() => this.LicensePlateFocused = true, ThreadOption.UIThread);
-            this.aggregator.GetEvent<FocusOnStateEvent>().Subscribe(() => this.StateFocused = true, ThreadOption.UIThread);
-            this.aggregator.GetEvent<FocusOnPlateTypeEvent>().Subscribe(() => this.PlateTypeFocused = true, ThreadOption.UIThread);
-            this.aggregator.GetEvent<FocusOnPlateYearEvent>().Subscribe(() => this.PlateYearFocused = true, ThreadOption.UIThread);
 
             this.aggregator.GetEvent<FillIncidentTypeEvent>().Subscribe(SelectIncidentType, ThreadOption.UIThread);
             this.aggregator.GetEvent<FillCityEvent>().Subscribe(SelectCity, ThreadOption.UIThread);
@@ -47,6 +42,25 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
             cities.Add("Chicago".ToUpper());
             cities.Add("Boston".ToUpper());
             cities.Add("Philadelphia".ToUpper());
+
+            incidentTypes.Add("Accident");
+            incidentTypes.Add("Alarm");
+            incidentTypes.Add("animal control");
+            incidentTypes.Add("bar check");
+            incidentTypes.Add("first alert");
+
+            plateTypes.Add("AM");
+            plateTypes.Add("AQ");
+            plateTypes.Add("AR");
+            plateTypes.Add("CI");
+            plateTypes.Add("PC");
+
+            states.Add("AK");
+            states.Add("AL");
+            states.Add("AZ");
+            states.Add("CA");
+            states.Add("CO");
+            states.Add("CT");
         }
 
         private string location;
@@ -81,17 +95,6 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
             }
         }
 
-        private string building;
-        public string Building
-        {
-            get { return building; }
-            set
-            {
-                this.building = value;
-                RaisePropertyChanged("Building");
-            }
-        }
-
         private string incidentType;
         public string IncidentType
         {
@@ -103,6 +106,17 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
             }
         }
 
+        public ObservableCollection<string> IncidentTypes
+        {
+            get { return incidentTypes; }
+            set
+            {
+                this.incidentTypes = value;
+                RaisePropertyChanged("IncidentTypes");
+            }
+        }
+
+
         private string licensePlate;
         public string LicensePlate
         {
@@ -111,6 +125,27 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
             {
                 this.licensePlate = value;
                 RaisePropertyChanged("LicensePlate");
+            }
+        }
+
+        private string plateType;
+        public string PlateType
+        {
+            get { return plateType; }
+            set
+            {
+                this.plateType = value;
+                RaisePropertyChanged("PlateType");
+            }
+        }
+
+        public ObservableCollection<string> PlateTypes
+        {
+            get { return plateTypes; }
+            set
+            {
+                this.plateTypes = value;
+                RaisePropertyChanged("PlateTypes");
             }
         }
 
@@ -125,14 +160,24 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
             }
         }
 
-        private string plateType;
-        public string PlateType
+        public ObservableCollection<string> States
         {
-            get { return plateType; }
+            get { return states; }
             set
             {
-                this.plateType = value;
-                RaisePropertyChanged("PlateType");
+                this.states = value;
+                RaisePropertyChanged("States");
+            }
+        }
+
+        private string building;
+        public string Building
+        {
+            get { return building; }
+            set
+            {
+                this.building = value;
+                RaisePropertyChanged("Building");
             }
         }
 
@@ -158,95 +203,6 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
             }
         }
 
-
-        private bool locationFocused;
-        public bool LocationFocused
-        {
-            get { return locationFocused; }
-            set
-            {
-                this.locationFocused = value;
-                RaisePropertyChanged("IsFocused");
-            }
-        }
-
-        private bool cityFocused;
-        public bool CityFocused
-        {
-            get { return cityFocused; }
-            set
-            {
-                this.cityFocused = value;
-                RaisePropertyChanged("IsFocused");
-            }
-        }
-
-        private bool buildingFocused;
-        public bool BuildingFocused
-        {
-            get { return buildingFocused; }
-            set
-            {
-                this.buildingFocused = value;
-                RaisePropertyChanged("IsFocused");
-            }
-        }
-
-        private bool incidentTypeFocused;
-        public bool IncidentTypeFocused
-        {
-            get { return incidentTypeFocused; }
-            set
-            {
-                this.incidentTypeFocused = value;
-                RaisePropertyChanged("IsFocused");
-            }
-        }
-
-        private bool licensePlateFocused;
-        public bool LicensePlateFocused
-        {
-            get { return licensePlateFocused; }
-            set
-            {
-                this.licensePlateFocused = value;
-                RaisePropertyChanged("IsFocused");
-            }
-        }
-
-        private bool stateFocused;
-        public bool StateFocused
-        {
-            get { return stateFocused; }
-            set
-            {
-                this.stateFocused = value;
-                RaisePropertyChanged("IsFocused");
-            }
-        }
-
-        private bool plateTypeFocused;
-        public bool PlateTypeFocused
-        {
-            get { return plateTypeFocused; }
-            set
-            {
-                this.plateTypeFocused = value;
-                RaisePropertyChanged("IsFocused");
-            }
-        }
-
-        private bool plateYearFocused;
-        public bool PlateYearFocused
-        {
-            get { return plateYearFocused; }
-            set
-            {
-                this.plateYearFocused = value;
-                RaisePropertyChanged("IsFocused");
-            }
-        }
-
         private void SelectCity(string city)
         {
             this.City = city.ToUpper();
@@ -254,22 +210,22 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
 
         private void SelectIncidentType(string incidentType)
         {
-
+            this.IncidentType = IncidentType;
         }
 
         private void SelectPlateType(string plateType)
         {
-
+            this.PlateType = plateType;
         }
 
         private void SelectState(string state)
         {
-
+            this.State = state;
         }
 
         private void CreateIncident()
         {
-            
+            MessageBox.Show("Create incident successful");
         }
     }
 }

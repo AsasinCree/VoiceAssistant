@@ -32,7 +32,6 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
             this.regionManager = regionManager;
             this.aggregator.GetEvent<FillToFieldEvent>().Subscribe(FillToField, ThreadOption.UIThread);
             this.aggregator.GetEvent<MessageSentEvent>().Subscribe(SendMessage, ThreadOption.UIThread);
-            this.aggregator.GetEvent<BackToHomeEvent>().Subscribe(BackToHome, ThreadOption.UIThread);
         }
 
         private void NavigationTo(string to)
@@ -46,11 +45,6 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
         private void SendMessage()
         {
             MessageBox.Show("Send message successfully");
-        }
-
-        private void BackToHome()
-        {
-            NavigationTo(ROTK.VoiceAssistant.Model.Constant.MainNavigationViewUrl);
         }
 
         private void FillToField(string content)
