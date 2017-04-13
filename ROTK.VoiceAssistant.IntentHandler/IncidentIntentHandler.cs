@@ -135,6 +135,12 @@ namespace ROTK.VoiceAssistant.IntentHandler
             }
         }
 
+        [IntentHandler(0, Name = Constant.BackToHomeActivity)]
+        public static void BackToHomeActivity(LuisResult result, object context)
+        {
+            Aggregator.GetEvent<BackToHomeEvent>().Publish();
+        }
+
         [IntentHandler(0, Name = Constant.NoneIntent)]
         public static void None(LuisResult result, object context)
         {
