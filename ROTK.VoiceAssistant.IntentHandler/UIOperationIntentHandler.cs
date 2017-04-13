@@ -33,7 +33,7 @@ namespace ROTK.VoiceAssistant.IntentHandler
         [IntentHandler(0.1, Name = Constant.NoneIntent)]
         public static void None(LuisResult result, object context)
         {
-            //Aggregator.GetEvent<UIOperationEvent>().Publish(new KeyValuePair<string, List<Entity>>(Constant.IncidentScreenUrl, result.GetAllEntities()));
+            Aggregator.GetEvent<NoneEvent>().Publish(result.OriginalQuery);
         }
     }
 }
