@@ -8,25 +8,31 @@ namespace ROTK.VoiceAssistant.IntentHandler
 {
     public class MessageIntentHandler
     {
-        public static EventAggregator Aggregator;
+        public static IEventAggregator Aggregator;
 
-        // 0.65 is the confidence score required by this intent in order to be activated
+        // 0 is the confidence score required by this intent in order to be activated
         // Only picks out a single entity value
-        [IntentHandler(0.65, Name = Constant.SendMessageActivityIntent)]
+        [IntentHandler(0, Name = Constant.SendMessageActivityIntent)]
         public static void SendMessageActivity(LuisResult result, object context)
         {
             Aggregator.GetEvent<MessageSentEvent>().Publish();
         }
 
-        [IntentHandler(0.65, Name = Constant.FillMessageFieldActivityIntent)]
-        public static void FillMessageFieldActivity(LuisResult result, object context)
+        [IntentHandler(0, Name = Constant.FillToActivityActivityIntent)]
+        public static void FillToActivity(LuisResult result, object context)
         {
             List<Entity> entitis = result.GetAllEntities();
+
             if (entitis != null && entitis.Count > 0)
             {
-                Entity entity = entitis[0];
-                Aggregator.GetEvent<FillMessageFieldEvent>().Publish(entity.Value);
-            }       
+                foreach (Entity entity in entitis)
+                {
+                    if (entity.Name.Contains(Constant.GeographyEntity) || entity.Name.Equals(Constant.NameEntity, System.StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        Aggregator.GetEvent<FillToFieldEvent>().Publish(entity.Value);
+                    }
+                }
+            }
         }
 
         [IntentHandler(0.7, Name = Constant.NoneIntent)]

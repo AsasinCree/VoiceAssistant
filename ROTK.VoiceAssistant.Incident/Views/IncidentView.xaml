@@ -23,7 +23,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Location"/>
-                <TextBox Grid.Column="1" x:Name="txtLocation" Text="{Binding Path=Location}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=IsFocused}" />
+                <TextBox Grid.Column="1" x:Name="txtLocation" Text="{Binding Path=Location}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=LocationFocused}" />
             </Grid>
             <Grid Margin="{StaticResource ControlMargin}">
                 <Grid.ColumnDefinitions>
@@ -34,11 +34,10 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="City"/>
-                <ComboBox x:Name="cmbCity" Grid.Column="1" >
-                    <ComboBoxItem Content="ACC"/>
+                <ComboBox x:Name="cmbCity" Grid.Column="1" SelectedItem="{Binding Path=City}" ItemsSource="{Binding Path=Cities}" beh:ComboBoxFocusBehavior.IsFocused="{Binding Path=CityFocused}">
                 </ComboBox>
                 <Label Grid.Column="3" Content="Building"/>
-                <TextBox Grid.Column="4" x:Name="txtBuilding" Text="{Binding Path=Building}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=IsFocused}" />
+                <TextBox Grid.Column="4" x:Name="txtBuilding" Text="{Binding Path=Building}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=BuildingFocused}" />
             </Grid>
             <Grid Margin="{StaticResource ControlMargin}">
                 <Grid.ColumnDefinitions>
@@ -46,8 +45,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Incident Type"/>
-                <ComboBox x:Name="cmbIncidentType" Grid.Column="1" >
-                    <ComboBoxItem Content="ACC"/>
+                <ComboBox x:Name="cmbIncidentType" Grid.Column="1" Text="{Binding Path=IncidentType}" beh:ComboBoxFocusBehavior.IsFocused="{Binding Path=IncidentTypeFocused}">
+                    <ComboBoxItem Content="Accident"/>
+                    <ComboBoxItem Content="Alarm"/>
+                    <ComboBoxItem Content="Animal Control"/>
+                    <ComboBoxItem Content="Bar Check"/>
+                    <ComboBoxItem Content="First Alert"/>
                 </ComboBox>
             </Grid>
             <Grid Margin="{StaticResource ControlMargin}">
@@ -56,7 +59,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="License Plate"/>
-                <TextBox Grid.Column="1" x:Name="txtLicensePlate" Text="{Binding Path=LicensePlate}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=IsFocused}"/>
+                <TextBox Grid.Column="1" x:Name="txtLicensePlate" Text="{Binding Path=LicensePlate}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=LicensePlateFocused}"/>
             </Grid>
             <Grid Margin="{StaticResource ControlMargin}">
                 <Grid.ColumnDefinitions>
@@ -64,8 +67,14 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="State"/>
-                <ComboBox x:Name="cmbState" Grid.Column="1" >
-                    <ComboBoxItem Content="ACC"/>
+                <ComboBox x:Name="cmbState" Grid.Column="1" Text="{Binding Path=State}" beh:ComboBoxFocusBehavior.IsFocused="{Binding Path=StateFocused}">
+                    <ComboBoxItem Content="AK"/>
+                    <ComboBoxItem Content="AL"/>
+                    <ComboBoxItem Content="AR"/>
+                    <ComboBoxItem Content="AZ"/>
+                    <ComboBoxItem Content="CA"/>
+                    <ComboBoxItem Content="CO"/>
+                    <ComboBoxItem Content="CT"/>
                 </ComboBox>
             </Grid>
             <Grid Margin="{StaticResource ControlMargin}">
@@ -74,8 +83,13 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Plate Type"/>
-                <ComboBox x:Name="cmbPlateType" Grid.Column="1" >
-                    <ComboBoxItem Content="ACC"/>
+                <ComboBox x:Name="cmbPlateType" Grid.Column="1" Text="{Binding Path=PlateType}" beh:ComboBoxFocusBehavior.IsFocused="{Binding Path=PlateTypeFocused}">
+                    <ComboBoxItem Content="AM"/>
+                    <ComboBoxItem Content="AQ"/>
+                    <ComboBoxItem Content="AR"/>
+                    <ComboBoxItem Content="CI"/>
+                    <ComboBoxItem Content="OR"/>
+                    <ComboBoxItem Content="PC"/>
                 </ComboBox>
             </Grid>
             <Grid Margin="{StaticResource ControlMargin}">
@@ -84,7 +98,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Plate Year"/>
-                <TextBox Grid.Column="1" x:Name="txtPlateYear" Text="{Binding Path=PlateYear}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=IsFocused}"/>
+                <TextBox Grid.Column="1" x:Name="txtPlateYear" Text="{Binding Path=PlateYear}" beh:TextBoxFocusBehavior.IsFocused="{Binding Path=PlateYearFocused}"/>
             </Grid>
             <Button Margin="{StaticResource ControlMargin}" Width="70" Height="30" Content="Create" Command="{Binding Path=CreateIncident}" />
         </StackPanel>

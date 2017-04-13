@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AB8B448C-DD74-4D60-A041-3E5D03A32180}</ProjectGuid>
+    <ProjectGuid>{AE90C943-DD2E-4282-82C7-3CDB906804FC}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ROTK.VoiceAssistant.Messaging</RootNamespace>
-    <AssemblyName>ROTK.VoiceAssistant.Messaging</AssemblyName>
+    <RootNamespace>ROTK.VoiceAssistant.Log</RootNamespace>
+    <AssemblyName>ROTK.VoiceAssistant.Log</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -32,16 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MahApps.Metro, Version=1.4.3.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.4.3\lib\net45\MahApps.Metro.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
@@ -56,20 +48,13 @@
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SpeechClient, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Microsoft.ProjectOxford.SpeechRecognition-x86.1.0.0.3\lib\SpeechClient.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.Composition.registration" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.4.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -86,8 +71,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constant\MessageConstant.cs" />
-    <Compile Include="MessagingModule.cs" />
+    <Compile Include="LogModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -101,9 +85,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ViewModels\MessagingViewModel.cs" />
-    <Compile Include="Views\MessagingView.xaml.cs">
-      <DependentUpon>MessagingView.xaml</DependentUpon>
+    <Compile Include="ViewModels\LogViewModel.cs" />
+    <Compile Include="Views\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -121,31 +105,15 @@
       <Project>{27e8d2c2-badf-469d-9f06-5349c4e925c7}</Project>
       <Name>ROTK.VoiceAssistant.Events</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.IntentHandler\ROTK.VoiceAssistant.IntentHandler.csproj">
-      <Project>{57175C87-BEDE-41CF-8145-D02048E657B4}</Project>
-      <Name>ROTK.VoiceAssistant.IntentHandler</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.LUISClientLibrary\ROTK.VoiceAssistant.LUISClientLibrary.csproj">
-      <Project>{43DAA109-EF1B-4C29-B231-9CFC88142446}</Project>
-      <Name>ROTK.VoiceAssistant.LUISClientLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ROTK.VoiceAssistant.Model\ROTK.VoiceAssistant.Model.csproj">
       <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>
       <Name>ROTK.VoiceAssistant.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.Services\ROTK.VoiceAssistant.Services.csproj">
-      <Project>{3e372cc6-761d-4edd-8806-f3a70b1c08c4}</Project>
-      <Name>ROTK.VoiceAssistant.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.UI.Behavior\ROTK.VoiceAssistant.UI.Behavior.csproj">
-      <Project>{7d48d31b-4c1d-4318-b0d5-fa7931c6185b}</Project>
-      <Name>ROTK.VoiceAssistant.UI.Behavior</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\MessagingView.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\LogView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

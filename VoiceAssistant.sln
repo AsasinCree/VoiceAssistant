@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.UI.Beha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.Incident", "ROTK.VoiceAssistant.Incident\ROTK.VoiceAssistant.Incident.csproj", "{2EE173F8-B17F-4F9F-9F66-9CD553506C32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.Log", "ROTK.VoiceAssistant.Log\ROTK.VoiceAssistant.Log.csproj", "{AE90C943-DD2E-4282-82C7-3CDB906804FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROTK.VoiceAssistant.Services", "ROTK.VoiceAssistant.Services\ROTK.VoiceAssistant.Services.csproj", "{3E372CC6-761D-4EDD-8806-F3A70B1C08C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{2EE173F8-B17F-4F9F-9F66-9CD553506C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EE173F8-B17F-4F9F-9F66-9CD553506C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EE173F8-B17F-4F9F-9F66-9CD553506C32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE90C943-DD2E-4282-82C7-3CDB906804FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE90C943-DD2E-4282-82C7-3CDB906804FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE90C943-DD2E-4282-82C7-3CDB906804FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE90C943-DD2E-4282-82C7-3CDB906804FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E372CC6-761D-4EDD-8806-F3A70B1C08C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E372CC6-761D-4EDD-8806-F3A70B1C08C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E372CC6-761D-4EDD-8806-F3A70B1C08C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E372CC6-761D-4EDD-8806-F3A70B1C08C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

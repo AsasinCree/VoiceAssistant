@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{27E8D2C2-BADF-469D-9F06-5349C4E925C7}</ProjectGuid>
+    <ProjectGuid>{3E372CC6-761D-4EDD-8806-F3A70B1C08C4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ROTK.VoiceAssistant.Events</RootNamespace>
-    <AssemblyName>ROTK.VoiceAssistant.Events</AssemblyName>
+    <RootNamespace>ROTK.VoiceAssistant.Services</RootNamespace>
+    <AssemblyName>ROTK.VoiceAssistant.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SpeechClient, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\Microsoft.ProjectOxford.SpeechRecognition-x86.1.0.0.3\lib\SpeechClient.dll</HintPath>
       <Private>True</Private>
@@ -49,27 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FillIncidentFieldEvent.cs" />
-    <Compile Include="FillMessageFieldEvent.cs" />
-    <Compile Include="LogSentEvent.cs" />
-    <Compile Include="MessageSentEvent.cs" />
-    <Compile Include="IncidentUIOperationEvent.cs" />
-    <Compile Include="UIOperationEvent.cs" />
-    <Compile Include="MessageUIOperationEvent.cs" />
+    <Compile Include="IVoiceService.cs" />
+    <Compile Include="IVoiceServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ROTK.VoiceAssistant.LUISClientLibrary\ROTK.VoiceAssistant.LUISClientLibrary.csproj">
-      <Project>{43DAA109-EF1B-4C29-B231-9CFC88142446}</Project>
+      <Project>{43daa109-ef1b-4c29-b231-9cfc88142446}</Project>
       <Name>ROTK.VoiceAssistant.LUISClientLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ROTK.VoiceAssistant.Model\ROTK.VoiceAssistant.Model.csproj">
-      <Project>{a8022e1c-51b9-470c-a2e8-b6295af4366a}</Project>
-      <Name>ROTK.VoiceAssistant.Model</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

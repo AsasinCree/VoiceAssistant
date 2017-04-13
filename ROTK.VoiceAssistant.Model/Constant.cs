@@ -16,15 +16,65 @@ namespace ROTK.VoiceAssistant.Model
 
         public const string SendMessageActivityIntent = "SendMessageActivity";
 
-        public const string FillMessageFieldActivityIntent = "FillMessageFieldActivity";
+        public const string FillToActivityActivityIntent = "FillToActivity";
+
+        public const string FocusOnLocationActivityIntent = "FocusOnLocationActivity";
+
+        public const string FocusOnCityActivityIntent = "FocusOnCityActivity";
+
+        public const string FocusOnBuildingActivityIntent = "FocusOnBuildingActivity";
+
+        public const string FocusOnIncidentTypeActivityIntent = "FocusOnIncidentTypeActivity";
+
+        public const string FocusOnLicensePlateActivityIntent = "FocusOnLicensePlateActivity";
+
+        public const string FocusOnStateActivityIntent = "FocusOnStateActivity";
+
+        public const string FocusOnPlateTypeActivityIntent = "FocusOnPlateTypeActivity";
+
+        public const string FocusOnPlateYearActivityIntent = "FocusOnPlateYearActivity";
+
+        public const string CreateIncidentActivityIntent = "CreateIncidentActivity";
+
+        public const string FillIncidentFieldActivityIntent = "FillIncidentFieldActivity";
+
+        public const string FillCityActivityIntent = "FillCityActivity";
+
+        public const string FillIncidentTypeActivityIntent = "FillIncidentTypeActivity";
+
+        public const string FillPlateTypeActivityIntent = "FillPlateTypeActivity";
+
+        public const string FillStateActivityIntent = "FillStateActivity";
+
+        public const string FocusContentActivityIntent = "FocusContentActivity";
+
+        public const string FocusSubjectActivityIntent = "FocusSubjectActivity";
+
+        public const string FocusAddressActivityIntent = "FocusToActivity";
+
+        public const string OpenMessageActivity = "OpenMessageActivity";
+
+        public const string OpenIncidentActivity = "OpenIncidentActivity";
 
         #endregion
 
         #region Entity
 
+        public const string Entity = "Entity";
+
+        public const string NameEntity = "Name";
+
+        public const string GeographyEntity = "builtin.geography";
+
         public const string OperationTypeEntity = "OperationType";
 
         public const string FieldTypeEntity = "FieldType";
+
+        public const string IncidentTypeEntity = "IncidentType";
+
+        public const string PlateTypeEntity = "PlateType";
+
+        public const string StateEntity = "State";
 
         #endregion
 
@@ -41,6 +91,7 @@ namespace ROTK.VoiceAssistant.Model
         #endregion
 
         #region Url
+        public const string MainNavigationViewUrl = "\\MainNavigationView";
 
         public const string MessageScreenUrl = "\\MessagingView";
 
@@ -49,6 +100,33 @@ namespace ROTK.VoiceAssistant.Model
         public const string QueryScreenUrl = "\\QueryView";
 
         public const string BoloScreenUrl = "\\BoloView";
+
+        #endregion
+
+        #region UrlName
+        public const string MainNavigationView = "MainNavigationView";
+
+        public const string MessageScreen = "MessagingView";
+
+        public const string IncidentScreen = "IncidentView";
+
+        public const string QueryScreen = "QueryView";
+
+        public const string BoloScreen = "BoloView";
+
+        #endregion
+
+        #region FieldType
+
+        public const string SubjectField = "subject";
+
+        public const string TitleField = "title";
+
+        public const string ToField = "to";
+
+        public const string AddressField = "address";
+
+        public const string ContentField = "content";
 
         #endregion
     }

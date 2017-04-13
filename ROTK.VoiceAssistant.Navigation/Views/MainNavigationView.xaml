@@ -73,7 +73,9 @@
                                VerticalTitleAlignment="Top"
                                Style="{StaticResource SmallTileStyle}"
                                Background="#1E90FF"/>
-                <Controls:Tile Title="Store"
+                <Controls:Tile Title="Log"
+                               Command="{Binding NavigationCommand}"
+                               CommandParameter="\LogView"
                                Style="{StaticResource LargeTileStyle}"
                                Background="Green"/>
             </WrapPanel>

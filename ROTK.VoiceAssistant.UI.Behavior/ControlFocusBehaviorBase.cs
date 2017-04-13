@@ -37,4 +37,6 @@ namespace ROTK.VoiceAssistant.UI.Behavior
     }
 
     public class TextBoxFocusBehavior : ControlFocusBehaviorBase<TextBox> { }
+
+    public class ComboBoxFocusBehavior : ControlFocusBehaviorBase<ComboBox> { }
 }

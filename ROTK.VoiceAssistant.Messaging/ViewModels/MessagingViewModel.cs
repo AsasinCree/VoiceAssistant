@@ -1,21 +1,24 @@
-﻿using Prism.Commands;
+﻿using Microsoft.CognitiveServices.SpeechRecognition;
+using Newtonsoft.Json.Linq;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 using ROTK.VoiceAssistant.Events;
-using ROTK.VoiceAssistant.Model;
-using System;
-using System.Collections.Generic;
+using ROTK.VoiceAssistant.IntentHandler;
+using ROTK.VoiceAssistant.LUISClientLibrary;
+using ROTK.VoiceAssistant.Services;
 using System.ComponentModel.Composition;
-using System.Linq;
+using System.Configuration;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System;
 
 namespace ROTK.VoiceAssistant.Messaging.ViewModel
 {
     [Export]
-    public class MessagingViewModel: BindableBase
+    public class MessagingViewModel: BindableBase, INavigationAware
     {
         
         private IEventAggregator aggregator;
@@ -25,8 +28,31 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
         {
             this.aggregator = aggregator;
 
-            this.aggregator.GetEvent<MessageSentEvent>().Subscribe(SendMessageOperation);
-            this.aggregator.GetEvent<FillMessageFieldEvent>().Subscribe(FillMessageFieldOperation);
+            this.aggregator.GetEvent<FillToFieldEvent>().Subscribe(FillToField, ThreadOption.UIThread);
+            this.aggregator.GetEvent<MessageSentEvent>().Subscribe(SendMessage, ThreadOption.UIThread);
+        }
+
+        private void SendMessage()
+        {
+            
+        }
+
+        private void FillToField(string content)
+        {
+            To = content;
+        }
+
+        #region ModelView
+
+        private string to;
+        public string To
+        {
+            get { return to; }
+            set
+            {
+                this.to = value;
+                RaisePropertyChanged("To");
+            }
         }
 
         private string title;
@@ -40,8 +66,6 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
             }
         }
 
-        public string To { get; set; }
-
         private string content;
         public string Content
         {
@@ -53,31 +77,62 @@ namespace ROTK.VoiceAssistant.Messaging.ViewModel
             }
         }
 
-        private bool isFocused;
-        public bool IsFocused
+        private bool toIsFocused;
+        public bool ToIsFocused
         {
-            get { return isFocused; }
+            get { return toIsFocused; }
             set
             {
-                this.isFocused = value;
+                this.toIsFocused = value;
                 RaisePropertyChanged("IsFocused");
             }
         }
 
+        private bool subjectIsFocused;
+        public bool SubjectIsFocused
+        {
+            get { return subjectIsFocused; }
+            set
+            {
+                this.subjectIsFocused = value;
+                RaisePropertyChanged("IsFocused");
+            }
+        }
 
-        public ICommand SendMessage
+        private bool contentIsFocused;
+        public bool ContentIsFocused
+        {
+            get { return contentIsFocused; }
+            set
+            {
+                this.contentIsFocused = value;
+                RaisePropertyChanged("IsFocused");
+            }
+        }
+        #endregion
+
+        public ICommand Send
         {
             get { return new DelegateCommand(() => this.Title = "Test"); }
         }
 
-        public void SendMessageOperation()
+        public void OnNavigatedTo(NavigationContext navigationContext)
         {
-         
+            var parameter = navigationContext.Parameters["Name"];
+            if (parameter != null)
+            {
+                To = parameter.ToString();
+            }
         }
 
-        public void FillMessageFieldOperation(string fieldType)
+        public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            
+        }
 
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
         }
     }
 }
