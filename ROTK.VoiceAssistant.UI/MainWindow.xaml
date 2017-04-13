@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:prism="http://www.codeplex.com/prism"
         mc:Ignorable="d"
-        Title="Voice Assistant" Height="500" Width="1020"
+        Title="Voice Assistant" Height="600" Width="1020"
                         BorderThickness="0" 
                       GlowBrush="Black"
                       ResizeMode="CanMinimize"
@@ -26,7 +26,7 @@
         <Controls:WindowCommands>
             <Button Name="Back" 
                     Width="25" 
-                    Visibility="Visible"
+                    
                     Command="{Binding BackCommand}"
                     CommandParameter="\MainNavigationView">
                 <Button.Background>

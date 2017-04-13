@@ -18,6 +18,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ROTK.VoiceAssistant.UI.ViewModel
@@ -68,7 +69,11 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Navigation", Content = string.Format("Enter in {0}", to)});
 
             this.regionManager.RequestNavigate("MainContentRegion", new Uri(to+parameters.ToString(), UriKind.Relative));
-            
+
+            if (to.Equals("\\MainNavigationView"))
+                VisibleFlag = Visibility.Collapsed;
+            else
+                VisibleFlag = Visibility.Visible;
         }
 
         private void NavigationTo(string to)
@@ -77,6 +82,10 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
             this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
 
+            if (to.Equals("\\MainNavigationView"))
+                VisibleFlag = Visibility.Collapsed;
+            else
+                VisibleFlag = Visibility.Visible;
         }
 
 
@@ -112,7 +121,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         }
 
 
-        private bool isVoiceButtonEnabled=true;
+        private bool isVoiceButtonEnabled = true;
         public bool IsVoiceButtonEnabled
         {
             get { return isVoiceButtonEnabled; }
@@ -120,6 +129,17 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             {
                 this.isVoiceButtonEnabled = value;
                 RaisePropertyChanged("IsVoiceButtonEnable");
+            }
+        }
+
+        private Visibility visibleFlag = Visibility.Collapsed;
+        public Visibility VisibleFlag
+        {
+            get { return visibleFlag; }
+            set
+            {
+                this.visibleFlag = value;
+                RaisePropertyChanged("VisibleFlag");
             }
         }
 

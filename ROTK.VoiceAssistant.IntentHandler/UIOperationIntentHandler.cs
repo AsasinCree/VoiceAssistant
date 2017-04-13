@@ -30,10 +30,10 @@ namespace ROTK.VoiceAssistant.IntentHandler
             Aggregator.GetEvent<UIOperationEvent>().Publish(new KeyValuePair<string, List<Entity>>(Constant.IncidentScreenUrl, entitis));
         }
 
-        [IntentHandler(0.7, Name = Constant.NoneIntent)]
+        [IntentHandler(0.1, Name = Constant.NoneIntent)]
         public static void None(LuisResult result, object context)
         {
-            // Nothing to do.
+            //Aggregator.GetEvent<UIOperationEvent>().Publish(new KeyValuePair<string, List<Entity>>(Constant.IncidentScreenUrl, result.GetAllEntities()));
         }
     }
 }
