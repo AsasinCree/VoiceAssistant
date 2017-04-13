@@ -19,7 +19,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace ROTK.VoiceAssistant.UI.ViewModel
 {
@@ -37,6 +41,7 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         [ImportingConstructor]
         public MainWindowsViewModel(IEventAggregator aggregator, IRegionManager regionManager, IVoiceServiceFactory voiceServiceFactory, IModuleManager moduleManager)
         {
+            VoiceBackground.Stretch = Stretch.None;
             this.aggregator = aggregator;
             this.regionManager = regionManager;
             this.aggregator.GetEvent<UIOperationEvent>().Subscribe(OperationUI, ThreadOption.UIThread);
@@ -46,6 +51,18 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             this.voiceServiceFactory = voiceServiceFactory;
             this.moduleManager = moduleManager;
             var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
+            micClient.VoiceClient.OnMicrophoneStatus += VoiceClient_OnMicrophoneStatus;
+        }
+
+        private void VoiceClient_OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
+        {
+            this.IsVoiceButtonEnabled = !e.Recording;
+            //if (this.IsVoiceButtonEnabled)
+            //{
+            //    ImageBrush image = new ImageBrush(new BitmapImage(new Uri("../../Resources/voice1_48px.ico", UriKind.Relative)));
+            //    image.Stretch = Stretch.None;
+            //    VoiceBackground = image;
+            //}
         }
 
         private string messageContent = string.Empty;
@@ -62,11 +79,19 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         private void NoneOperation(string obj)
         {
             MessageContent = "I can't understand \"" + obj + "\"";
+
+            ImageBrush image = new ImageBrush(new BitmapImage(new Uri("../../Resources/voice1_48px.ico", UriKind.Relative)));
+            image.Stretch = Stretch.None;
+            VoiceBackground = image;
         }
 
         private void BackToHome()
         {
             NavigationTo(Constant.MainNavigationViewUrl);
+
+            ImageBrush image = new ImageBrush(new BitmapImage(new Uri("../../Resources/voice1_48px.ico", UriKind.Relative)));
+            image.Stretch = Stretch.None;
+            VoiceBackground = image;
         }
 
         public void OnImportsSatisfied()
@@ -121,8 +146,11 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
                     parameters.Add(entity.Name, entity.Value);
                 }
                 NavigationTo(keyValue.Key, parameters);
-            }
 
+                ImageBrush image = new ImageBrush(new BitmapImage(new Uri("../../Resources/voice1_48px.ico", UriKind.Relative)));
+                image.Stretch = Stretch.None;
+                VoiceBackground = image;
+            }
         }
 
         public ICommand StartVoiceCommand
@@ -137,12 +165,26 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
 
         private void StartVoice()
         {
+            ImageBrush image = new ImageBrush(new BitmapImage(new Uri("../../Resources/voice2_48px.ico", UriKind.Relative)));
+            image.Stretch = Stretch.None;
+            VoiceBackground = image;
+
             MessageContent = string.Empty;
             aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "VoiceButton", Content = "Voice Button Clicked" });
             var micClient = voiceServiceFactory.CreateSevice(currentView.Replace("/", "").Replace("\\", ""));
             micClient.StartMicAndRecognition();
         }
-
+        
+        private ImageBrush voiceBackground = new ImageBrush(new BitmapImage(new Uri("../../Resources/voice1_48px.ico", UriKind.Relative)));
+        public ImageBrush VoiceBackground
+        {
+            get { return voiceBackground; }
+            set
+            {
+                this.voiceBackground = value;
+                RaisePropertyChanged("VoiceBackground");
+            }
+        }
 
         private bool isVoiceButtonEnabled = true;
         public bool IsVoiceButtonEnabled

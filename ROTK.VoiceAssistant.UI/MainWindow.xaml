@@ -61,13 +61,12 @@
                        HorizontalAlignment="Center"/>
             <Button Grid.Row="1"
                     Width="70"
-                        Height="70"
-                        HorizontalAlignment="Center"
+                    Height="70"
+                    HorizontalAlignment="Center"
                     IsEnabled="{Binding IsVoiceButtonEnabled}"
-                Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding StartVoiceCommand}">
-                <Button.Background>
-                    <ImageBrush ImageSource="Resources/voice1_48px.ico" Stretch="None"/>
-                </Button.Background>
+                    Style="{DynamicResource MetroCircleButtonStyle}" 
+                    Command="{Binding StartVoiceCommand}" 
+                    Background="{Binding VoiceBackground}">
             </Button>
             <Label Name="MessageLabel" Grid.Row="1"
                         Height="70" FontSize="20" HorizontalAlignment="Right" VerticalContentAlignment="Center" Margin="0"

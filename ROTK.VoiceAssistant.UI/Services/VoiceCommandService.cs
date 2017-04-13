@@ -20,6 +20,14 @@ namespace ROTK.VoiceAssistant.UI.Services
 
         private MicrophoneRecognitionClient micClient;
 
+        public MicrophoneRecognitionClient VoiceClient
+        {
+            get
+            {
+                return micClient;
+            }
+        }
+        
         public VoiceService(string DefaultLocale, string SpeechKey, string UIOperationLuisAppId, string LuisSubscriptionID, IEventAggregator aggregator)
         {
             this.micClient =

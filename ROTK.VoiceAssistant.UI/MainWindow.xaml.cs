@@ -40,8 +40,8 @@ namespace ROTK.VoiceAssistant.UI
 
         private void Voice_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem item = sender as MenuItem;
-            ImageBrush image = new ImageBrush(new BitmapImage(new Uri("../../Resources/voice_recorder_24px.ico", UriKind.Relative)));
+            Button item = sender as Button;
+            ImageBrush image = new ImageBrush(new BitmapImage(new Uri("../../Resources/voice1_48px.ico", UriKind.Relative)));
             image.Stretch = Stretch.None;
             item.Background = image;
         }
