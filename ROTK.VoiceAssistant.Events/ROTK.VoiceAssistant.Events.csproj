@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackToHomeEvent.cs" />
+    <Compile Include="CreateIncidentEvent.cs" />
     <Compile Include="FillIncidentFieldEvent.cs" />
     <Compile Include="FillMessageFieldEvent.cs" />
     <Compile Include="LogSentEvent.cs" />

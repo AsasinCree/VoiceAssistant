@@ -79,6 +79,12 @@ namespace ROTK.VoiceAssistant.IntentHandler
             }
         }
 
+        [IntentHandler(0, Name = Constant.CreateIncidentActivityIntent)]
+        public static void CreateIncidentActivity(LuisResult result, object context)
+        {
+            Aggregator.GetEvent<CreateIncidentEvent>().Publish();
+        }
+
         [IntentHandler(0, Name = Constant.BackToHomeActivity)]
         public static void BackToHomeActivity(LuisResult result, object context)
         {

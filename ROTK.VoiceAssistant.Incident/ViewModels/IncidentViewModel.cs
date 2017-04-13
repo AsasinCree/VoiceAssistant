@@ -43,24 +43,24 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
             cities.Add("Boston".ToUpper());
             cities.Add("Philadelphia".ToUpper());
 
-            incidentTypes.Add("Accident");
-            incidentTypes.Add("Alarm");
-            incidentTypes.Add("animal control");
-            incidentTypes.Add("bar check");
-            incidentTypes.Add("first alert");
+            incidentTypes.Add("Accident".ToUpper());
+            incidentTypes.Add("Alarm".ToUpper());
+            incidentTypes.Add("animal control".ToUpper());
+            incidentTypes.Add("bar check".ToUpper());
+            incidentTypes.Add("first alert".ToUpper());
 
-            plateTypes.Add("AM");
-            plateTypes.Add("AQ");
-            plateTypes.Add("AR");
-            plateTypes.Add("CI");
-            plateTypes.Add("PC");
+            plateTypes.Add("AM".ToUpper());
+            plateTypes.Add("AQ".ToUpper());
+            plateTypes.Add("AR".ToUpper());
+            plateTypes.Add("CI".ToUpper());
+            plateTypes.Add("PC".ToUpper());
 
-            states.Add("AK");
-            states.Add("AL");
-            states.Add("AZ");
-            states.Add("CA");
-            states.Add("CO");
-            states.Add("CT");
+            states.Add("AK".ToUpper());
+            states.Add("AL".ToUpper());
+            states.Add("AZ".ToUpper());
+            states.Add("CA".ToUpper());
+            states.Add("CO".ToUpper());
+            states.Add("CT".ToUpper());
         }
 
         private string location;
@@ -210,17 +210,17 @@ namespace ROTK.VoiceAssistant.Incident.ViewModels
 
         private void SelectIncidentType(string incidentType)
         {
-            this.IncidentType = IncidentType;
+            this.IncidentType = incidentType.ToUpper();
         }
 
         private void SelectPlateType(string plateType)
         {
-            this.PlateType = plateType;
+            this.PlateType = plateType.ToUpper();
         }
 
         private void SelectState(string state)
         {
-            this.State = state;
+            this.State = state.ToUpper();
         }
 
         private void CreateIncident()
