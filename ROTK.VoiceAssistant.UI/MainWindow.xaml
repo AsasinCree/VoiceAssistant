@@ -26,7 +26,7 @@
         <Controls:WindowCommands>
             <Button Name="Back" 
                     Width="25" 
-                    Visibility="{Binding VisibleFlag}"
+                    
                     Command="{Binding BackCommand}"
                     CommandParameter="\MainNavigationView">
                 <Button.Background>

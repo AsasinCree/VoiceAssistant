@@ -69,17 +69,23 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Navigation", Content = string.Format("Enter in {0}", to)});
 
             this.regionManager.RequestNavigate("MainContentRegion", new Uri(to+parameters.ToString(), UriKind.Relative));
-            
+
+            if (to.Equals("\\MainNavigationView"))
+                VisibleFlag = Visibility.Collapsed;
+            else
+                VisibleFlag = Visibility.Visible;
         }
 
         private void NavigationTo(string to)
         {
             aggregator.GetEvent<LogSentEvent>().Publish(new LogModel() { Time = DateTime.Now, Level = "Navigation", Content = string.Format("Enter in {0}", to) });
-            if(to.Equals("\\MainNavigationView"))
+
+            this.regionManager.RequestNavigate("MainContentRegion", new Uri(to, UriKind.Relative));
+
+            if (to.Equals("\\MainNavigationView"))
                 VisibleFlag = Visibility.Collapsed;
             else
                 VisibleFlag = Visibility.Visible;
-            this.regionManager.RequestNavigate(RegionNames.MainContentRegion, new Uri(to, UriKind.Relative));
         }
 
 
@@ -115,13 +121,10 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
         }
 
 
-        private bool isVoiceButtonEnabled=true;
+        private bool isVoiceButtonEnabled = true;
         public bool IsVoiceButtonEnabled
-        private Visibility visibleFlag = Visibility.Collapsed;
-        public Visibility VisibleFlag
         {
             get { return isVoiceButtonEnabled; }
-            get { return visibleFlag; }
             set
             {
                 this.isVoiceButtonEnabled = value;
@@ -129,12 +132,20 @@ namespace ROTK.VoiceAssistant.UI.ViewModel
             }
         }
 
-        public ICommand BackCommand
+        private Visibility visibleFlag = Visibility.Collapsed;
+        public Visibility VisibleFlag
         {
-            get { return this.backCommand; }
+            get { return visibleFlag; }
+            set
+            {
                 this.visibleFlag = value;
                 RaisePropertyChanged("VisibleFlag");
             }
+        }
+
+        public ICommand BackCommand
+        {
+            get { return this.backCommand; }
         }
     }
 }
