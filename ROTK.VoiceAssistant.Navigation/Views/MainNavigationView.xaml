@@ -14,8 +14,36 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    <UserControl.RenderTransform>
+        <ScaleTransform x:Name="zoom" CenterX="500" CenterY="200"  ScaleX="0.8" ScaleY="0.8"/>
+        <!--<ScaleTransform x:Name="zoom" CenterX="1" CenterY="1" />-->
+    </UserControl.RenderTransform>
+
     <ScrollViewer Name="TileArea" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,0">
-        <Grid Height="300" Width="1020">
+        <Grid Height="300" Width="1020" Name="TileGrid" >
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Grid.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+
+                            <DoubleAnimation
+                        Duration="0:0:0.2"
+                        From="0.9"
+                        Storyboard.TargetName="zoom"
+                        Storyboard.TargetProperty="ScaleX"
+                        To="1"/>
+                            <DoubleAnimation
+                        Duration="0:0:0.2"
+                        From="0.9"
+                        Storyboard.TargetName="zoom"
+                        Storyboard.TargetProperty="ScaleY"
+                        To="1"/>
+
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+            </Grid.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition Width="900"/>

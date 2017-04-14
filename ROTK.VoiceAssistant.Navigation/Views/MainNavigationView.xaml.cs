@@ -41,8 +41,8 @@ namespace ROTK.VoiceAssistant.Navigation.Views
 
         private void Tile_Loaded(object sender, RoutedEventArgs e)
         {
-            DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.8)));
-            this.BeginAnimation(MainNavigationView.OpacityProperty, widthAnimation);
+            //DoubleAnimation widthAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.8)));
+            //this.BeginAnimation(MainNavigationView.MarginProperty, widthAnimation);
         }
     }
 }
